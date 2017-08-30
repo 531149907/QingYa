@@ -23,7 +23,7 @@ import com.xuan.qingya.Utils.FragmentManagement;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ForgotPasswordFragment extends BaseFragment implements StartupContract.ForgotPasswordView{
+public class ForgotPasswordFragment extends BaseFragment implements StartupContract.ForgotPasswordView {
     private TextInputLayout input_email;
     private Button next_btn;
 
@@ -51,7 +51,7 @@ public class ForgotPasswordFragment extends BaseFragment implements StartupContr
     @Override
     public void init() {
 
-        ((StartupActivity)getActivity()).setToolbarTitle("忘记密码");
+        ((StartupActivity) getActivity()).setToolbarTitle("忘记密码");
 
         input_email = $(R.id.forgot_password_email_input);
         next_btn = $(R.id.forgot_password_next_btn);
@@ -71,14 +71,14 @@ public class ForgotPasswordFragment extends BaseFragment implements StartupContr
 
             @Override
             public void afterTextChanged(Editable editable) {
-                presenter.checkIfCorrect(Constant.INPUT_EMAIL,editable.toString());
+                presenter.checkIfCorrect(Constant.INPUT_EMAIL, editable.toString());
             }
         });
     }
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.forgot_password_next_btn:
                 presenter.onNext(input_email.getEditText().getText().toString());
         }
@@ -86,7 +86,7 @@ public class ForgotPasswordFragment extends BaseFragment implements StartupContr
 
     @Override
     public void startFragment(Fragment fragment, BasePresenter presenter, @Nullable String extra) {
-        FragmentManagement.switchFragment(getActivity().getSupportFragmentManager(),fragment,R.id.startup_container,true);
+        FragmentManagement.switchFragment(getActivity().getSupportFragmentManager(), fragment, R.id.startup_container, true);
     }
 
     @Override

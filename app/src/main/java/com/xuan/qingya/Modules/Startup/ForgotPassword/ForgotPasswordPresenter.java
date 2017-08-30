@@ -16,7 +16,7 @@ public class ForgotPasswordPresenter implements StartupContract.ForgotPasswordPr
     private static final String EMAIL_PATTERN = "^[a-zA-Z0-9#_~!$&'()*+,;=:.\"(),:;<>@\\[\\]\\\\]+@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*$";
 
 
-    public ForgotPasswordPresenter(StartupContract.ForgotPasswordView view){
+    public ForgotPasswordPresenter(StartupContract.ForgotPasswordView view) {
         this.view = view;
         view.setPresenter(this);
     }
@@ -28,11 +28,11 @@ public class ForgotPasswordPresenter implements StartupContract.ForgotPasswordPr
 
     @Override
     public void onNext(String value) {
-        boolean checkResult = checkIfCorrect(Constant.INPUT_EMAIL,value);
+        boolean checkResult = checkIfCorrect(Constant.INPUT_EMAIL, value);
 
-        if(checkResult){
+        if (checkResult) {
             ForgotPasswordNextFragment fragment = new ForgotPasswordNextFragment();
-            view.startFragment(fragment,new ForgotPasswordNextPresenter(fragment),null);
+            view.startFragment(fragment, new ForgotPasswordNextPresenter(fragment), null);
         }
 
     }

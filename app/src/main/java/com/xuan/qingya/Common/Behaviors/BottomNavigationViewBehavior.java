@@ -7,8 +7,6 @@ import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.xuan.qingya.Utils.LogUtil;
-
 /**
  * Created by zhouzhixuan on 2017/8/25.
  */

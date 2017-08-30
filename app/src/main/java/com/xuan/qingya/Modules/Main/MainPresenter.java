@@ -1,11 +1,5 @@
 package com.xuan.qingya.Modules.Main;
 
-import android.os.Bundle;
-
-import com.xuan.qingya.Models.Entity.ArticleBean;
-
-import java.util.List;
-
 /**
  * Created by zhouzhixuan on 2017/8/26.
  */

@@ -2,8 +2,9 @@ package com.xuan.qingya.Modules.Discover.List;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CoordinatorLayout;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -16,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.xuan.qingya.Common.Constant;
 import com.xuan.qingya.Core.Base.BaseActivity;
 import com.xuan.qingya.R;
 import com.xuan.qingya.Utils.DensityUtil;
@@ -34,6 +36,7 @@ public class DiscoverListActivity extends BaseActivity implements DiscoverListCo
     private DiscoverListRecyclerViewAdapter adapter;
 
     private boolean isAppbarExpanded = false;
+    private int default_id = Constant.SIMPLIFY_CONTENT_TYPE_ARTICLE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,42 +44,40 @@ public class DiscoverListActivity extends BaseActivity implements DiscoverListCo
         setContentView(R.layout.activity_discover_list);
         isNotTransparentStatusBar();
 
+        init();
         initListeners(bookEntry, photoEntry, musicEntry, movieEntry, questionEntry, selector);
 
     }
 
     @Override
     public void onClick(View view) {
-        int clickId = 0;
         switch (view.getId()) {
-            case R.id.discover_list_toolbar_title:
-                AppbarExpandedAnimation();
-                break;
-            case R.id.discover_book:
-                clickId = 0;
-                AppbarExpandedAnimation();
-                break;
-            case R.id.discover_photo:
-                clickId = 1;
-                AppbarExpandedAnimation();
-                break;
-            case R.id.discover_music:
-                clickId = 2;
-                AppbarExpandedAnimation();
-                break;
-            case R.id.discover_movie:
-                clickId = 3;
-                AppbarExpandedAnimation();
-                break;
-            case R.id.discover_question:
-                clickId = 4;
-                AppbarExpandedAnimation();
-                break;
             case R.id.discover_list_toolbar:
                 onBackPressed();
+                return;
+            case R.id.discover_list_toolbar_title:
+                AppbarExpandedAnimation();
+                return;
+            case R.id.discover_book:
+                default_id = Constant.SIMPLIFY_CONTENT_TYPE_ARTICLE;
                 break;
-        }
+            case R.id.discover_photo:
+                default_id = Constant.SIMPLIFY_CONTENT_TYPE_PHOTOGRAPHY;
+                break;
+            case R.id.discover_music:
+                default_id = Constant.SIMPLIFY_CONTENT_TYPE_MUSIC;
+                break;
+            case R.id.discover_movie:
+                default_id = Constant.SIMPLIFY_CONTENT_TYPE_MOVIE;
+                break;
+            case R.id.discover_question:
+                default_id = Constant.SIMPLIFY_CONTENT_TYPE_QUESTION;
+                break;
 
+        }
+        adapter.setData(presenter.getData(default_id, 0));
+        adapter.notifyDataSetChanged();
+        AppbarExpandedAnimation();
     }
 
     @Override
@@ -93,7 +94,7 @@ public class DiscoverListActivity extends BaseActivity implements DiscoverListCo
         if (!isAppbarExpanded) {
             final int newHeight = DensityUtil.dip2px(100);
             final int originalHeight = DensityUtil.dip2px(56);
-            final CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) appBarLayout.getLayoutParams();
+            final ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) appBarLayout.getLayoutParams();
 
             Interpolator interpolator = AnimationUtils.loadInterpolator(getApplicationContext(), R.interpolator.msf_interpolator);
             Animation animation = new Animation() {
@@ -112,7 +113,7 @@ public class DiscoverListActivity extends BaseActivity implements DiscoverListCo
         } else {
             final int newHeight = DensityUtil.dip2px(100);
             final int originalHeight = DensityUtil.dip2px(156);
-            final CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) appBarLayout.getLayoutParams();
+            final ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) appBarLayout.getLayoutParams();
 
             Interpolator interpolator = AnimationUtils.loadInterpolator(getApplicationContext(), R.interpolator.msf_interpolator);
             Animation animation = new Animation() {
@@ -147,6 +148,8 @@ public class DiscoverListActivity extends BaseActivity implements DiscoverListCo
 
     @Override
     public void init() {
+        new DiscoverListPresenter(this);
+
         toolbar = $(R.id.discover_list_toolbar);
         title = $(R.id.discover_list_toolbar_title_text);
         title_arrow = $(R.id.discover_list_toolbar_title_arrow);
@@ -166,11 +169,17 @@ public class DiscoverListActivity extends BaseActivity implements DiscoverListCo
         title_arrow.setPivotX(36);
         title_arrow.setPivotY(36);
 
-        CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) appBarLayout.getLayoutParams();
+        ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) appBarLayout.getLayoutParams();
         params.height = DensityUtil.dip2px(56);
         appBarLayout.setLayoutParams(params);
 
-        adapter = new DiscoverListRecyclerViewAdapter();
+        adapter = new DiscoverListRecyclerViewAdapter(this, presenter, presenter.getData(default_id, 8));
+        recyclerView.setAdapter(adapter);
+        recyclerView.setNestedScrollingEnabled(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.getItemAnimator().setChangeDuration(0);
+
+        //adapter = new DiscoverListRecyclerViewAdapter();
     }
 
     @Override

@@ -35,7 +35,7 @@ public class DiscoverFragment extends BaseFragment implements MainContract.Disco
 
     private MainContract.DiscoverPresenter presenter;
     private BannerViewPager bannerViewPager;
-    private RelativeLayout bookEntry,photoEntry,musicEntry,movieEntry,questionEntry;
+    private RelativeLayout bookEntry, photoEntry, musicEntry, movieEntry, questionEntry;
     private RecyclerView recyclerView;
     private DiscoverRecyclerViewAdapter adapter;
 
@@ -50,7 +50,7 @@ public class DiscoverFragment extends BaseFragment implements MainContract.Disco
         mRootView = inflater.inflate(R.layout.fragment_discover, container, false);
 
         init();
-        initListeners(bookEntry,photoEntry,musicEntry,movieEntry,questionEntry);
+        initListeners(bookEntry, photoEntry, musicEntry, movieEntry, questionEntry);
 
         return mRootView;
     }
@@ -61,7 +61,7 @@ public class DiscoverFragment extends BaseFragment implements MainContract.Disco
         adapter.addOnClickListener(new DiscoverRecyclerViewAdapter.OnItemClickListener() {
             @Override
             public void onClick(View view, TopicBean bean, int position) {
-                presenter.onListItemClick(bean,null);
+                presenter.onListItemClick(bean, null);
             }
         });
         bannerViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -98,7 +98,7 @@ public class DiscoverFragment extends BaseFragment implements MainContract.Disco
         questionEntry = $(R.id.discover_question);
         recyclerView = $(R.id.discover_topic_recyclerview);
 
-        adapter = new DiscoverRecyclerViewAdapter(getActivity(),presenter.getTopicListData(),presenter);
+        adapter = new DiscoverRecyclerViewAdapter(getActivity(), presenter.getTopicListData(), presenter);
 
         recyclerView.setAdapter(adapter);
         recyclerView.setNestedScrollingEnabled(false);
@@ -116,12 +116,12 @@ public class DiscoverFragment extends BaseFragment implements MainContract.Disco
 
             @Override
             public Object instantiateItem(ViewGroup container, final int position) {
-                View view = LayoutInflater.from(getActivity()).inflate(R.layout.layout_item_banner,null);
+                View view = LayoutInflater.from(getActivity()).inflate(R.layout.layout_item_banner, null);
                 Glide.with(container).load(list.get(position).getCover()).into((ImageView) view.findViewById(R.id.item_cover));
                 view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        presenter.onBannerItemClick(position,null);
+                        presenter.onBannerItemClick(position, null);
                     }
                 });
                 container.addView(view);
@@ -139,7 +139,7 @@ public class DiscoverFragment extends BaseFragment implements MainContract.Disco
             }
         });
 
-        ((MainActivity)getActivity()).getViewPager().setObjectForPosition(mRootView,2);
+        ((MainActivity) getActivity()).getViewPager().setObjectForPosition(mRootView, 2);
     }
 
     @Override
@@ -150,7 +150,7 @@ public class DiscoverFragment extends BaseFragment implements MainContract.Disco
     @Override
     public void onClick(View view) {
         int clickId = 0;
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.discover_book:
                 clickId = 0;
                 Intent intent = new Intent(getActivity(), DiscoverListActivity.class);
@@ -169,6 +169,6 @@ public class DiscoverFragment extends BaseFragment implements MainContract.Disco
                 clickId = 4;
                 break;
         }
-        presenter.onEntryItemClick(clickId,null);
+        presenter.onEntryItemClick(clickId, null);
     }
 }

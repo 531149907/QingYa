@@ -6,8 +6,6 @@ import com.xuan.qingya.Modules.Startup.Login.LoginPresenter;
 import com.xuan.qingya.Modules.Startup.StartupContract;
 
 import java.util.HashMap;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class ForgotPasswordNextPresenter implements StartupContract.ForgotPasswordNextPresenter {
 

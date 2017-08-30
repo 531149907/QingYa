@@ -11,7 +11,7 @@ import android.view.View;
  * Created by zhouzhixuan on 2017/8/25.
  */
 
-public class FloatingActionButtonBehavior extends CoordinatorLayout.Behavior<View>{
+public class FloatingActionButtonBehavior extends CoordinatorLayout.Behavior<View> {
 
     public FloatingActionButtonBehavior(Context context, AttributeSet attrs) {
         super(context, attrs);

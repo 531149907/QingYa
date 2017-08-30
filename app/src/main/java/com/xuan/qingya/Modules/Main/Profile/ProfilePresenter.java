@@ -8,11 +8,11 @@ import com.xuan.qingya.Modules.Main.MainContract;
  * Created by zhouzhixuan on 2017/8/28.
  */
 
-public class ProfilePresenter implements MainContract.ProfilePresenter{
+public class ProfilePresenter implements MainContract.ProfilePresenter {
 
     private MainContract.ProfileView view;
 
-    public ProfilePresenter(MainContract.ProfileView view){
+    public ProfilePresenter(MainContract.ProfileView view) {
         this.view = view;
         view.setPresenter(this);
     }

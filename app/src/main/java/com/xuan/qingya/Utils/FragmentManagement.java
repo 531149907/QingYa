@@ -3,7 +3,6 @@ package com.xuan.qingya.Utils;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.transition.Fade;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -35,10 +34,10 @@ public class FragmentManagement {
         transaction.commit();
     }
 
-    public static void switchFragment(FragmentManager fragmentManager, Fragment fragment, int frameId,boolean isAddToBackStack) {
+    public static void switchFragment(FragmentManager fragmentManager, Fragment fragment, int frameId, boolean isAddToBackStack) {
         transaction = fragmentManager.beginTransaction();
-        transaction.replace(frameId,fragment);
-        if(isAddToBackStack){
+        transaction.replace(frameId, fragment);
+        if (isAddToBackStack) {
             transaction.addToBackStack(null);
         }
         transaction.commit();

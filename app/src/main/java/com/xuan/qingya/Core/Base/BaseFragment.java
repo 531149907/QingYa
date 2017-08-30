@@ -1,8 +1,8 @@
 package com.xuan.qingya.Core.Base;
 
-import android.support.v4.app.Fragment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.View;
 
 /**
@@ -26,7 +26,7 @@ public class BaseFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    public View getRootView(){
+    public View getRootView() {
         return this.mRootView;
     }
 

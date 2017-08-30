@@ -50,28 +50,28 @@ public class OptionFragment extends BaseFragment {
 
         mRootView.getViewTreeObserver().
                 addOnDrawListener(new ViewTreeObserver.OnDrawListener() {
-            @Override
-            public void onDraw() {
-                if (divider.getY() != 0.0f) {
-                    YCollection[0] = (int) divider.getY();
-                }
-                if (reg_btn.getY() != 0.0f) {
-                    YCollection[1] = (int) reg_btn.getY();
-                }
-                if (login_btn.getY() != 0.0f) {
-                    YCollection[2] = (int) login_btn.getY();
-                }
+                    @Override
+                    public void onDraw() {
+                        if (divider.getY() != 0.0f) {
+                            YCollection[0] = (int) divider.getY();
+                        }
+                        if (reg_btn.getY() != 0.0f) {
+                            YCollection[1] = (int) reg_btn.getY();
+                        }
+                        if (login_btn.getY() != 0.0f) {
+                            YCollection[2] = (int) login_btn.getY();
+                        }
 
-                for (int e : YCollection) {
-                    if (e == 0) {
-                        return;
+                        for (int e : YCollection) {
+                            if (e == 0) {
+                                return;
+                            }
+                        }
+
+                        mRootView.getViewTreeObserver().removeOnDrawListener(this);
+                        AnimationStart();
                     }
-                }
-
-                mRootView.getViewTreeObserver().removeOnDrawListener(this);
-                AnimationStart();
-            }
-        });
+                });
 
     }
 
@@ -96,13 +96,13 @@ public class OptionFragment extends BaseFragment {
                 getActivity().onBackPressed();
                 break;
             case R.id.reg_btn:
-                Intent intent = new Intent(getActivity(),StartupActivity.class);
-                intent.putExtra("fragmentOperation",0);
+                Intent intent = new Intent(getActivity(), StartupActivity.class);
+                intent.putExtra("fragmentOperation", 0);
                 startActivity(intent);
                 break;
             case R.id.login_btn:
-                Intent intent2 = new Intent(getActivity(),StartupActivity.class);
-                intent2.putExtra("fragmentOperation",1);
+                Intent intent2 = new Intent(getActivity(), StartupActivity.class);
+                intent2.putExtra("fragmentOperation", 1);
                 startActivity(intent2);
                 break;
         }

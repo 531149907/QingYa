@@ -21,7 +21,7 @@
                 android:layout_height="?attr/actionBarSize"
                 android:clickable="true"
                 android:focusable="true"
-                android:foreground="?android:attr/selectableItemBackground"
+                android:background="?android:attr/selectableItemBackground"
                 android:orientation="horizontal">
 
                 <TextView

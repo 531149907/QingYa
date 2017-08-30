@@ -1,8 +1,8 @@
 package com.xuan.qingya.Modules.Startup;
 
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 
 import com.xuan.qingya.Core.Base.BasePresenter;
 import com.xuan.qingya.Core.Base.BaseView;
@@ -73,7 +73,7 @@ public interface StartupContract {
     }
 
     interface ForgotPasswordNextPresenter extends BasePresenter {
-        void onFinish(HashMap<Integer,String> values);
+        void onFinish(HashMap<Integer, String> values);
 
         boolean checkIfCorrect(int type, String... values);
     }

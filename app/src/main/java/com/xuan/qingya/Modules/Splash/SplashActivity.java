@@ -13,6 +13,6 @@ public class SplashActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        FragmentManagement.addFragmentToActivity(getSupportFragmentManager(),new SplashFragment(),R.id.splash_container);
+        FragmentManagement.addFragmentToActivity(getSupportFragmentManager(), new SplashFragment(), R.id.splash_container);
     }
 }

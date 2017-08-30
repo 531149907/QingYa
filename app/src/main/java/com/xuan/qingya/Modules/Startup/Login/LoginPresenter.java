@@ -33,21 +33,21 @@ public class LoginPresenter implements StartupContract.LoginPresenter {
     @Override
     public void onRegister() {
         RegisterFragment fragment = new RegisterFragment();
-        view.startFragment(fragment,new RegisterPresenter(fragment),null);
+        view.startFragment(fragment, new RegisterPresenter(fragment), null);
     }
 
     @Override
     public void onLogin(HashMap<Integer, String> list) {
-        boolean checkResult = checkIfCorrect(Constant.INPUT_EMAIL,list.get(Constant.INPUT_EMAIL)) &&
-                checkIfCorrect(Constant.INPUT_PASSWORD,list.get(Constant.INPUT_PASSWORD),list.get(Constant.INPUT_EMAIL));
+        boolean checkResult = checkIfCorrect(Constant.INPUT_EMAIL, list.get(Constant.INPUT_EMAIL)) &&
+                checkIfCorrect(Constant.INPUT_PASSWORD, list.get(Constant.INPUT_PASSWORD), list.get(Constant.INPUT_EMAIL));
 
-        if(checkResult){
+        if (checkResult) {
             //Activity is not prepared, can't access at this moment
             //view.startActivity(HomeActivity.class,null,null);
 
             //Process along with login cache
             LogUtil.show("register result", "success!");
-        }else{
+        } else {
             LogUtil.show("register result", "failed!");
         }
     }
@@ -55,7 +55,7 @@ public class LoginPresenter implements StartupContract.LoginPresenter {
     @Override
     public void onForgotPassword() {
         ForgotPasswordFragment forgotPasswordFragment = new ForgotPasswordFragment();
-        view.startFragment(forgotPasswordFragment,new ForgotPasswordPresenter(forgotPasswordFragment),null);
+        view.startFragment(forgotPasswordFragment, new ForgotPasswordPresenter(forgotPasswordFragment), null);
     }
 
     @Override
@@ -79,8 +79,8 @@ public class LoginPresenter implements StartupContract.LoginPresenter {
                     }
                     break;
                 case Constant.INPUT_PASSWORD:
-                    if(!checkValidPassword(values[0],values[1])){
-                        view.setErrorMessage(Constant.INPUT_PASSWORD,"密码不正确");
+                    if (!checkValidPassword(values[0], values[1])) {
+                        view.setErrorMessage(Constant.INPUT_PASSWORD, "密码不正确");
                         return false;
                     }
                     break;

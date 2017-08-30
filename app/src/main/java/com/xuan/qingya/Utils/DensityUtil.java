@@ -17,10 +17,8 @@ public class DensityUtil {
     private static float scale = 0.0f;
 
     /**
-     *
      * 根据构造函数获得当前手机的屏幕系数
-     *
-     * */
+     */
     public DensityUtil(Context context) {
         // 获取当前屏幕
         dm = new DisplayMetrics();
@@ -34,9 +32,8 @@ public class DensityUtil {
     /**
      * 当前屏幕的density因子
      *
-     * @param DmDensity
      * @retrun DmDensity Getter
-     * */
+     */
     public static float getDmDensityDpi() {
         return dmDensityDpi;
     }
@@ -44,16 +41,15 @@ public class DensityUtil {
     /**
      * 当前屏幕的density因子
      *
-     * @param DmDensity
-     * @retrun DmDensity Setter
-     * */
+     * @retrun DmDensityDpi Setter
+     */
     public static void setDmDensityDpi(float dmDensityDpi) {
         DensityUtil.dmDensityDpi = dmDensityDpi;
     }
 
     /**
      * 密度转换像素
-     * */
+     */
     public static int dip2px(float dipValue) {
 
         return (int) (dipValue * scale + 0.5f);
@@ -62,7 +58,7 @@ public class DensityUtil {
 
     /**
      * 像素转换密度
-     * */
+     */
     public int px2dip(float pxValue) {
         return (int) (pxValue / scale + 0.5f);
     }

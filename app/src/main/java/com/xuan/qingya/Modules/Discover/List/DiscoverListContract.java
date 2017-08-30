@@ -2,6 +2,7 @@ package com.xuan.qingya.Modules.Discover.List;
 
 import com.xuan.qingya.Core.Base.BasePresenter;
 import com.xuan.qingya.Core.Base.BaseView;
+import com.xuan.qingya.Models.Entity.DiscoverListBean;
 
 import java.util.List;
 
@@ -23,6 +24,14 @@ public interface DiscoverListContract {
 
         void onFabClick();
 
-        <T> List<T> getData(int dataType);
+        /*
+        * @param dataType:  simplify content type ONLY
+        * @param monthDate: integer, from 1 to 12
+        * */
+        List<DiscoverListBean> getData(int dataType, int monthDate);
+
+        int onLoveButtonClick(DiscoverListBean bean, boolean setLove);
+
+        void retainNestedScrollViewPosition();
     }
 }

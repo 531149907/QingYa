@@ -69,15 +69,14 @@ public class InterviewFragment extends BaseFragment implements MainContract.Inte
     @Override
     public void init() {
         data = presenter.getListData();
-        adapter = new InterviewRecyclerViewAdapter(getActivity(),data,presenter);
+        adapter = new InterviewRecyclerViewAdapter(getActivity(), data, presenter);
 
         recyclerView = $(R.id.interview_recyclerview);
         recyclerView.setAdapter(adapter);
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.getItemAnimator().setChangeDuration(0);
-        recyclerView.setHasFixedSize(false);
-        ((MainActivity)getActivity()).getViewPager().setObjectForPosition(mRootView,1);
+        ((MainActivity) getActivity()).getViewPager().setObjectForPosition(mRootView, 1);
     }
 
     @Override

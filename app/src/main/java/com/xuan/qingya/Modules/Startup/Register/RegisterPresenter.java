@@ -52,7 +52,7 @@ public class RegisterPresenter implements StartupContract.RegisterPresenter {
     @Override
     public void onLogin() {
         LoginFragment fragment = new LoginFragment();
-        view.startFragment(fragment,new LoginPresenter(fragment),null);
+        view.startFragment(fragment, new LoginPresenter(fragment), null);
     }
 
     @Override

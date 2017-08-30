@@ -1,7 +1,6 @@
 package com.xuan.qingya.Modules.Main;
 
 import android.os.Bundle;
-import android.support.annotation.CheckResult;
 import android.support.annotation.Nullable;
 
 import com.xuan.qingya.Core.Base.BasePresenter;

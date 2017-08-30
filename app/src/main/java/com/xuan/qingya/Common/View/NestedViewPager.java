@@ -2,20 +2,13 @@ package com.xuan.qingya.Common.View;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Rect;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-
-import com.xuan.qingya.Utils.LogUtil;
 
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 
 /**
  * Created by zhouzhixuan on 2017/8/26.

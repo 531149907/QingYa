@@ -53,15 +53,15 @@ public class LoginFragment extends BaseFragment implements StartupContract.Login
     @Override
     public void init() {
 
-        ((StartupActivity)getActivity()).setToolbarTitle("登录");
+        ((StartupActivity) getActivity()).setToolbarTitle("登录");
 
         input_email = $(R.id.login_email_input);
-        input_password =$(R.id.login_password_input);
+        input_password = $(R.id.login_password_input);
         reg_btn = $(R.id.login_reg_btn);
         login_btn = $(R.id.login_login_btn);
         forgot_password_btn = $(R.id.login_forgot_password);
 
-        initListeners(reg_btn,login_btn,forgot_password_btn);
+        initListeners(reg_btn, login_btn, forgot_password_btn);
 
         input_email.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
@@ -76,7 +76,7 @@ public class LoginFragment extends BaseFragment implements StartupContract.Login
 
             @Override
             public void afterTextChanged(Editable editable) {
-                presenter.checkIfCorrect(Constant.INPUT_EMAIL,editable.toString());
+                presenter.checkIfCorrect(Constant.INPUT_EMAIL, editable.toString());
             }
         });
 
@@ -93,7 +93,7 @@ public class LoginFragment extends BaseFragment implements StartupContract.Login
 
             @Override
             public void afterTextChanged(Editable editable) {
-                presenter.checkIfCorrect(Constant.INPUT_PASSWORD,editable.toString(),
+                presenter.checkIfCorrect(Constant.INPUT_PASSWORD, editable.toString(),
                         input_email.getEditText().getText().toString());
             }
         });
@@ -101,7 +101,7 @@ public class LoginFragment extends BaseFragment implements StartupContract.Login
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.login_reg_btn:
                 presenter.onRegister();
                 break;
@@ -146,6 +146,6 @@ public class LoginFragment extends BaseFragment implements StartupContract.Login
 
     @Override
     public void startFragment(Fragment fragment, BasePresenter presenter, @Nullable String extra) {
-        FragmentManagement.switchFragment(getActivity().getSupportFragmentManager(),fragment,R.id.startup_container,true);
+        FragmentManagement.switchFragment(getActivity().getSupportFragmentManager(), fragment, R.id.startup_container, true);
     }
 }

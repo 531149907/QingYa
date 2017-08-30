@@ -30,8 +30,7 @@
         <FrameLayout
             android:id="@+id/startup_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </FrameLayout>
+            android:layout_height="match_parent"></FrameLayout>
 
     </android.support.v4.widget.NestedScrollView>
 

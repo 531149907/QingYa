@@ -26,22 +26,22 @@ public class StartupActivity extends BaseActivity {
         init();
 
         Intent intent = getIntent();
-        int fragmentOperation = intent.getIntExtra("fragmentOperation",0);
+        int fragmentOperation = intent.getIntExtra("fragmentOperation", 0);
 
-        if(fragmentOperation == 0){
+        if (fragmentOperation == 0) {
             RegisterFragment registerFragment = new RegisterFragment();
-            FragmentManagement.switchFragment(getSupportFragmentManager(),registerFragment,R.id.startup_container,false);
+            FragmentManagement.switchFragment(getSupportFragmentManager(), registerFragment, R.id.startup_container, false);
             new RegisterPresenter(registerFragment);
         }
 
-        if(fragmentOperation == 1){
+        if (fragmentOperation == 1) {
             LoginFragment loginFragment = new LoginFragment();
-            FragmentManagement.switchFragment(getSupportFragmentManager(),loginFragment,R.id.startup_container,false);
+            FragmentManagement.switchFragment(getSupportFragmentManager(), loginFragment, R.id.startup_container, false);
             new LoginPresenter(loginFragment);
         }
     }
 
-    private void init(){
+    private void init() {
         toolbar = $(R.id.startup_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -53,7 +53,7 @@ public class StartupActivity extends BaseActivity {
         });
     }
 
-    public void setToolbarTitle(String title){
+    public void setToolbarTitle(String title) {
         toolbar.setTitle(title);
     }
 }

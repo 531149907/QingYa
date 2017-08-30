@@ -62,7 +62,7 @@ public class RegisterFragment extends BaseFragment implements StartupContract.Re
     @Override
     public void init() {
 
-        ((StartupActivity)getActivity()).setToolbarTitle("注册");
+        ((StartupActivity) getActivity()).setToolbarTitle("注册");
 
         input_email = $(R.id.register_email_input);
         input_username = $(R.id.register_username_input);
@@ -74,7 +74,7 @@ public class RegisterFragment extends BaseFragment implements StartupContract.Re
         login_btn = $(R.id.register_login_btn);
         agreement_btn = $(R.id.register_agreement);
 
-        initListeners(reg_btn,login_btn,agreement_btn);
+        initListeners(reg_btn, login_btn, agreement_btn);
 
         input_email.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
@@ -153,7 +153,7 @@ public class RegisterFragment extends BaseFragment implements StartupContract.Re
 
     @Override
     public void startFragment(Fragment fragment, BasePresenter presenter, @Nullable String extra) {
-        FragmentManagement.switchFragment(getActivity().getSupportFragmentManager(),fragment,R.id.startup_container,true);
+        FragmentManagement.switchFragment(getActivity().getSupportFragmentManager(), fragment, R.id.startup_container, true);
     }
 
     @Override

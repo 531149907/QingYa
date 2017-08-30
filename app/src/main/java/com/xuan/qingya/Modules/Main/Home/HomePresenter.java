@@ -90,11 +90,11 @@ public class HomePresenter implements MainContract.HomePresenter {
 
     @Override
     public int onLoveButtonClick(ArticleBean bean, boolean setLove) {
-        if(setLove){
-            bean.setLove(bean.getLove()+1);
+        if (setLove) {
+            bean.setLove(bean.getLove() + 1);
 
-        }else{
-            bean.setLove(bean.getLove()-1);
+        } else {
+            bean.setLove(bean.getLove() - 1);
         }
         bean.setLoved(setLove);
         return bean.getLove();
@@ -102,6 +102,6 @@ public class HomePresenter implements MainContract.HomePresenter {
 
     @Override
     public void retainNestedScrollViewPosition() {
-        ((MainActivity)((HomeFragment)view).getActivity()).setScrollViewPosition(0,0);
+        ((MainActivity) ((HomeFragment) view).getActivity()).setScrollViewPosition(0, 0);
     }
 }
