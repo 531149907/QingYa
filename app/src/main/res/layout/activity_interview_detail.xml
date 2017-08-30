@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundLight"
+    android:fitsSystemWindows="true"
+    tools:context="com.xuan.qingya.Modules.Interview.InterviewDetailActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/interview_detail_appbar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/interview_detail_collapsing_toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="240dp"
+            android:fitsSystemWindows="true"
+            app:contentScrim="@color/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:scrimAnimationDuration="300"
+            app:statusBarScrim="@android:color/transparent">
+
+            <ImageView
+                android:id="@+id/interview_detail_cover"
+                android:layout_width="match_parent"
+                android:layout_height="240dp"
+                android:fitsSystemWindows="true"
+                android:scaleType="centerCrop"
+                app:layout_collapseMode="parallax"
+                app:layout_collapseParallaxMultiplier="0.5" />
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/interview_detail_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:elevation="0dp"
+                app:layout_collapseMode="pin">
+
+            </android.support.v7.widget.Toolbar>
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/interview_detail_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="10sp"
+                android:padding="@dimen/default_margin"
+                android:text="通过观察别人的眼神来判断其精神状态靠谱吗？"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/interview_detail_author"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:maxLines="1"
+                android:paddingLeft="@dimen/default_margin"
+                android:paddingRight="@dimen/default_margin"
+                android:text="文 / 别人的佩佩"
+                android:textColor="@color/grey"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/interview_detail_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="10sp"
+                android:padding="@dimen/default_margin"
+                android:text="周染捏着手中的飞机票仍有些惴惴不安。
+
+一周前，周染收到旅行公司发来的短信，抱着试试看的心态前往，面前站着公司里唯一的员工董阿。但董阿的身份很高，名片上印着“旅行公司中国区驻上海总干事”。
+
+旅行公司并不是旅行社，它是一家专门让员工四处旅行的公司。
+
+
+\n董阿告知周染旅行公司的招聘要求：吃苦耐劳，因为公司会派你到各种各样的城市去生活；每日都有食宿跟车马费补贴，待遇优厚；工资分为底薪加提成，根据每个人当月的业绩而定。但在此之前，需要缴纳一笔押金。
+
+周染第一反应旅行公司是不是传销组织。缴纳一笔费用入会，发展下线，只要最后不是自己接盘，那么一切问题便不是问题。雪崩时，没有一片雪花是无辜的。周染咬了咬嘴唇，打算放弃这个机会。
+周染捏着手中的飞机票仍有些惴惴不安。
+
+
+\n一周前，周染收到旅行公司发来的短信，抱着试试看的心态前往，面前站着公司里唯一的员工董阿。但董阿的身份很高，名片上印着“旅行公司中国区驻上海总干事”。
+
+旅行公司并不是旅行社，它是一家专门让员工四处旅行的公司。
+
+
+\n董阿告知周染旅行公司的招聘要求：吃苦耐劳，因为公司会派你到各种各样的城市去生活；每日都有食宿跟车马费补贴，待遇优厚；工资分为底薪加提成，根据每个人当月的业绩而定。但在此之前，需要缴纳一笔押金。
+
+周染第一反应旅行公司是不是传销组织。缴纳一笔费用入会，发展下线，只要最后不是自己接盘，那么一切问题便不是问题。雪崩时，没有一片雪花是无辜的。周染咬了咬嘴唇，打算放弃这个机会。"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+</android.support.design.widget.CoordinatorLayout>

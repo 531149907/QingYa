@@ -1,0 +1,49 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@null"
+    android:orientation="vertical"
+    tools:context="com.xuan.qingya.Modules.Splash.SplashFragment">
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:src="@drawable/logo"
+        android:transitionName="trans_logo" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="160dp" />
+
+    <TextView
+        android:id="@+id/app_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="青芽"
+        android:textColor="#cc000000"
+        android:textSize="24sp"
+        android:transitionName="trans_app_name" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp" />
+
+    <TextView
+        android:id="@+id/app_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="远离喧嚣，静心享受最平凡的感受"
+        android:textColor="@color/grey"
+        android:textSize="14sp"
+        android:transitionName="trans_app_description" />
+
+</LinearLayout>
