@@ -1,5 +1,6 @@
 package com.xuan.qingya.Modules.Discover.List;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
@@ -19,6 +20,8 @@ import android.widget.TextView;
 
 import com.xuan.qingya.Common.Constant;
 import com.xuan.qingya.Core.Base.BaseActivity;
+import com.xuan.qingya.Models.Entity.DiscoverListBean;
+import com.xuan.qingya.Modules.Discover.Detail.DiscoverDetailActivity;
 import com.xuan.qingya.R;
 import com.xuan.qingya.Utils.DensityUtil;
 
@@ -186,5 +189,13 @@ public class DiscoverListActivity extends BaseActivity implements DiscoverListCo
     protected void initListeners(@Nullable View... views) {
         super.initListeners(views);
         toolbar.setNavigationOnClickListener(this);
+        adapter.addOnClickListener(new DiscoverListRecyclerViewAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(View view, DiscoverListBean bean, int position) {
+                Intent intent = new Intent(getApplicationContext(), DiscoverDetailActivity.class);
+                intent.putExtra("beanType", bean.getType());
+                startActivity(intent);
+            }
+        });
     }
 }

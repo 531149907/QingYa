@@ -44,6 +44,7 @@ public class DiscoverListPresenter implements DiscoverListContract.DiscoverListP
             case Constant.SIMPLIFY_CONTENT_TYPE_ARTICLE:
                 bean = new DiscoverListBean();
                 bean.setId(0);
+                bean.setType(Constant.CONTENT_DISCOVER_ARTICLE_IMAGE);
                 bean.setCover_img(R.drawable.a24);
                 bean.setTitle("陌生女人的来信1");
                 bean.setAuthor("文章 / 大斯");
@@ -52,6 +53,7 @@ public class DiscoverListPresenter implements DiscoverListContract.DiscoverListP
 
                 bean = new DiscoverListBean();
                 bean.setId(1);
+                bean.setType(Constant.CONTENT_DISCOVER_ARTICLE_POEM);
                 bean.setCover_img(R.drawable.a25);
                 bean.setTitle("陌生女人的来信2");
                 bean.setAuthor("文章 / 大斯");
@@ -60,6 +62,7 @@ public class DiscoverListPresenter implements DiscoverListContract.DiscoverListP
 
                 bean = new DiscoverListBean();
                 bean.setId(2);
+                bean.setType(Constant.CONTENT_DISCOVER_ARTICLE_READ);
                 bean.setCover_img(R.drawable.a26);
                 bean.setTitle("陌生女人的来信3");
                 bean.setAuthor("文章 / 大斯");
@@ -69,6 +72,7 @@ public class DiscoverListPresenter implements DiscoverListContract.DiscoverListP
             case Constant.SIMPLIFY_CONTENT_TYPE_PHOTOGRAPHY:
                 bean = new DiscoverListBean();
                 bean.setId(0);
+                bean.setType(Constant.CONTENT_DISCOVER_PHOTOGRAPHY);
                 bean.setPhoto_id(R.drawable.a19);
                 bean.setLove(132);
                 bean.setType_main(dataType);
@@ -76,6 +80,7 @@ public class DiscoverListPresenter implements DiscoverListContract.DiscoverListP
 
                 bean = new DiscoverListBean();
                 bean.setId(1);
+                bean.setType(Constant.CONTENT_DISCOVER_PHOTOGRAPHY);
                 bean.setPhoto_id(R.drawable.a22);
                 bean.setLove(132);
                 bean.setType_main(dataType);
@@ -83,6 +88,7 @@ public class DiscoverListPresenter implements DiscoverListContract.DiscoverListP
 
                 bean = new DiscoverListBean();
                 bean.setId(2);
+                bean.setType(Constant.CONTENT_DISCOVER_PHOTOGRAPHY);
                 bean.setPhoto_id(R.drawable.a23);
                 bean.setLove(132);
                 bean.setType_main(dataType);
@@ -91,6 +97,7 @@ public class DiscoverListPresenter implements DiscoverListContract.DiscoverListP
             case Constant.SIMPLIFY_CONTENT_TYPE_MUSIC:
                 bean = new DiscoverListBean();
                 bean.setId(0);
+                bean.setType(Constant.CONTENT_DISCOVER_MUSIC);
                 bean.setCover_img(R.drawable.a24);
                 bean.setTitle("陌生女人的来信");
                 bean.setAuthor("文章 / 大斯");
@@ -99,6 +106,7 @@ public class DiscoverListPresenter implements DiscoverListContract.DiscoverListP
 
                 bean = new DiscoverListBean();
                 bean.setId(1);
+                bean.setType(Constant.CONTENT_DISCOVER_MUSIC);
                 bean.setCover_img(R.drawable.a25);
                 bean.setTitle("陌生女人的来信");
                 bean.setAuthor("文章 / 大斯");
@@ -107,6 +115,7 @@ public class DiscoverListPresenter implements DiscoverListContract.DiscoverListP
 
                 bean = new DiscoverListBean();
                 bean.setId(2);
+                bean.setType(Constant.CONTENT_DISCOVER_MUSIC);
                 bean.setCover_img(R.drawable.a26);
                 bean.setTitle("陌生女人的来信");
                 bean.setAuthor("文章 / 大斯");
@@ -116,6 +125,7 @@ public class DiscoverListPresenter implements DiscoverListContract.DiscoverListP
             case Constant.SIMPLIFY_CONTENT_TYPE_MOVIE:
                 bean = new DiscoverListBean();
                 bean.setId(0);
+                bean.setType(Constant.CONTENT_DISCOVER_MOVIE);
                 bean.setCover_img(R.drawable.a24);
                 bean.setTitle("陌生女人的来信");
                 bean.setAuthor("文章 / 大斯");
@@ -124,6 +134,7 @@ public class DiscoverListPresenter implements DiscoverListContract.DiscoverListP
 
                 bean = new DiscoverListBean();
                 bean.setId(1);
+                bean.setType(Constant.CONTENT_DISCOVER_MOVIE);
                 bean.setCover_img(R.drawable.a25);
                 bean.setTitle("陌生女人的来信");
                 bean.setType_main(dataType);
@@ -132,6 +143,7 @@ public class DiscoverListPresenter implements DiscoverListContract.DiscoverListP
 
                 bean = new DiscoverListBean();
                 bean.setId(2);
+                bean.setType(Constant.CONTENT_DISCOVER_MOVIE);
                 bean.setCover_img(R.drawable.a26);
                 bean.setTitle("陌生女人的来信");
                 bean.setType_main(dataType);
@@ -141,6 +153,7 @@ public class DiscoverListPresenter implements DiscoverListContract.DiscoverListP
             case Constant.SIMPLIFY_CONTENT_TYPE_QUESTION:
                 bean = new DiscoverListBean();
                 bean.setId(0);
+                bean.setType(Constant.CONTENT_DISCOVER_QUESTION);
                 bean.setCover_img(R.drawable.a24);
                 bean.setTitle("陌生女人的来信");
                 bean.setType_main(dataType);
@@ -149,6 +162,7 @@ public class DiscoverListPresenter implements DiscoverListContract.DiscoverListP
 
                 bean = new DiscoverListBean();
                 bean.setId(1);
+                bean.setType(Constant.CONTENT_DISCOVER_QUESTION);
                 bean.setCover_img(R.drawable.a25);
                 bean.setTitle("陌生女人的来信");
                 bean.setType_main(dataType);
@@ -157,6 +171,7 @@ public class DiscoverListPresenter implements DiscoverListContract.DiscoverListP
 
                 bean = new DiscoverListBean();
                 bean.setId(2);
+                bean.setType(Constant.CONTENT_DISCOVER_QUESTION);
                 bean.setCover_img(R.drawable.a26);
                 bean.setTitle("陌生女人的来信");
                 bean.setType_main(dataType);

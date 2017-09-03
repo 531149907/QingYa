@@ -1,10 +1,13 @@
 package com.xuan.qingya.Models.Entity;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by zhouzhixuan on 2017/8/30.
  */
 
-public class DiscoverListBean {
+public class DiscoverListBean implements Parcelable {
     //Use to get detailed bean
     private int id = 0;
 
@@ -108,4 +111,46 @@ public class DiscoverListBean {
     public void setTitle(String title) {
         this.title = title;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(id);
+        parcel.writeInt(type);
+        parcel.writeInt(type_main);
+        parcel.writeString(author);
+        parcel.writeInt(cover_img);
+        parcel.writeInt(photo_id);
+        parcel.writeInt(love);
+        parcel.writeByte((byte) (isLoved ? 1 : 0));
+        parcel.writeString(ask_content);
+        parcel.writeString(title);
+    }
+
+    public static final Parcelable.Creator<DiscoverListBean> CREATOR = new Creator<DiscoverListBean>() {
+        @Override
+        public DiscoverListBean createFromParcel(Parcel parcel) {
+            DiscoverListBean bean = new DiscoverListBean();
+            bean.setId(parcel.readInt());
+            bean.setType(parcel.readInt());
+            bean.setType_main(parcel.readInt());
+            bean.setAuthor(parcel.readString());
+            bean.setCover_img(parcel.readInt());
+            bean.setPhoto_id(parcel.readInt());
+            bean.setLove(parcel.readInt());
+            bean.setLoved(parcel.readByte() == 1);
+            bean.setAsk_content(parcel.readString());
+            bean.setTitle(parcel.readString());
+            return bean;
+        }
+
+        @Override
+        public DiscoverListBean[] newArray(int i) {
+            return new DiscoverListBean[i];
+        }
+    };
 }
