@@ -28,4 +28,10 @@ public final class Constant {
     public static final int SIMPLIFY_CONTENT_TYPE_MUSIC = 2;
     public static final int SIMPLIFY_CONTENT_TYPE_MOVIE = 3;
     public static final int SIMPLIFY_CONTENT_TYPE_QUESTION = 4;
+
+    //Entry type code
+    public static final int FRAGMENT_NOTIFICATION_LIST = 0;
+    public static final int FRAGMENT_NOTIFICATION_DETAIL = 1;
+    public static final int FRAGMENT_COLLECTION = 2;
+    public static final int FRAGMENT_PLAYHISTORY = 3;
 }

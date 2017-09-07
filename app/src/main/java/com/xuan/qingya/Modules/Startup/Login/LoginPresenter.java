@@ -1,5 +1,6 @@
 package com.xuan.qingya.Modules.Startup.Login;
 
+import com.xuan.qingya.Modules.Main.MainActivity;
 import com.xuan.qingya.Modules.Startup.Constant;
 import com.xuan.qingya.Modules.Startup.ForgotPassword.ForgotPasswordFragment;
 import com.xuan.qingya.Modules.Startup.ForgotPassword.ForgotPasswordPresenter;
@@ -42,8 +43,7 @@ public class LoginPresenter implements StartupContract.LoginPresenter {
                 checkIfCorrect(Constant.INPUT_PASSWORD, list.get(Constant.INPUT_PASSWORD), list.get(Constant.INPUT_EMAIL));
 
         if (checkResult) {
-            //Activity is not prepared, can't access at this moment
-            //view.startActivity(HomeActivity.class,null,null);
+            view.startActivity(MainActivity.class, null, null, null);
 
             //Process along with login cache
             LogUtil.show("register result", "success!");

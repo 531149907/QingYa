@@ -1,7 +1,6 @@
 package com.xuan.qingya.Modules.Startup.Login;
 
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -17,13 +16,12 @@ import android.widget.TextView;
 
 import com.xuan.qingya.Core.Base.BaseFragment;
 import com.xuan.qingya.Core.Base.BasePresenter;
+import com.xuan.qingya.Modules.Main.MainActivity;
 import com.xuan.qingya.Modules.Startup.Constant;
 import com.xuan.qingya.Modules.Startup.StartupActivity;
 import com.xuan.qingya.Modules.Startup.StartupContract;
 import com.xuan.qingya.R;
 import com.xuan.qingya.Utils.FragmentManagement;
-
-import java.util.HashMap;
 
 
 public class LoginFragment extends BaseFragment implements StartupContract.LoginView {
@@ -46,13 +44,13 @@ public class LoginFragment extends BaseFragment implements StartupContract.Login
         mRootView = inflater.inflate(R.layout.fragment_login, container, false);
 
         init();
+        initListeners(reg_btn, login_btn, forgot_password_btn);
 
         return mRootView;
     }
 
     @Override
     public void init() {
-
         ((StartupActivity) getActivity()).setToolbarTitle("登录");
 
         input_email = $(R.id.login_email_input);
@@ -106,11 +104,15 @@ public class LoginFragment extends BaseFragment implements StartupContract.Login
                 presenter.onRegister();
                 break;
             case R.id.login_login_btn:
-                @SuppressLint("UseSparseArrays")
+
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                startActivity(intent);
+                getActivity().finish();
+                /*@SuppressLint("UseSparseArrays")
                 HashMap<Integer, String> values = new HashMap<>();
                 values.put(Constant.INPUT_EMAIL, input_email.getEditText().getText().toString());
                 values.put(Constant.INPUT_PASSWORD, input_password.getEditText().getText().toString());
-                presenter.onLogin(values);
+                presenter.onLogin(values);*/
                 break;
             case R.id.login_forgot_password:
                 presenter.onForgotPassword();

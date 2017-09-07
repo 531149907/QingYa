@@ -3,7 +3,6 @@ package com.xuan.qingya.Modules.Main;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.CoordinatorLayout;
@@ -25,7 +24,6 @@ import com.bumptech.glide.request.RequestOptions;
 import com.xuan.qingya.Common.View.CustomBottomNavigationView;
 import com.xuan.qingya.Common.View.NestedViewPager;
 import com.xuan.qingya.Core.Base.BaseActivity;
-import com.xuan.qingya.Core.Base.BasePresenter;
 import com.xuan.qingya.Modules.Main.Discover.DiscoverFragment;
 import com.xuan.qingya.Modules.Main.Discover.DiscoverPresenter;
 import com.xuan.qingya.Modules.Main.Home.HomeFragment;
@@ -39,9 +37,9 @@ import com.xuan.qingya.Utils.DensityUtil;
 
 import java.util.HashMap;
 
-public class MainActivity extends BaseActivity implements MainContract.HomeView {
+public class MainActivity extends BaseActivity implements MainContract.MainView {
 
-    private MainContract.HomePresenter presenter;
+    private MainContract.MainPresenter presenter;
 
     private AppBarLayout appBarLayout;
     private NestedViewPager viewPager;
@@ -136,12 +134,13 @@ public class MainActivity extends BaseActivity implements MainContract.HomeView 
     }
 
     @Override
-    public void setPresenter(MainContract.HomePresenter presenter) {
+    public void setPresenter(MainContract.MainPresenter presenter) {
         this.presenter = presenter;
     }
 
     @Override
     public void init() {
+        new MainPresenter(this);
         toolbarTitles = new String[]{"青芽", "采访", "发现", "个人"};
 
         fragments = new Fragment[4];
@@ -190,11 +189,6 @@ public class MainActivity extends BaseActivity implements MainContract.HomeView 
         });
     }
 
-    @Override
-    public void startActivity(Class<?> target, BasePresenter presenter, @Nullable Bundle bundle, @Nullable String extra) {
-
-    }
-
     private void setToolbarTitle(String toolbarTitle) {
         getSupportActionBar().setTitle(toolbarTitle);
     }
@@ -211,5 +205,10 @@ public class MainActivity extends BaseActivity implements MainContract.HomeView 
                 scrollView.scrollTo(0, scrollViewPosition.get(newFragmentID));
             }
         });
+    }
+
+    @Override
+    public void showFabList() {
+
     }
 }
