@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.xuan.qingya.Models.Entity.MusicBean;
 import com.xuan.qingya.R;
 
 import java.util.List;
@@ -20,15 +21,15 @@ public class PlayHistoryRecyclerViewAdapter extends RecyclerView.Adapter<Recycle
     private final int FOOTER_VIEW = -1;
     private final int ITEM_VIEW = 0;
     private Context context;
-    private List<NotificationBean> data;
-    private NotificationRecyclerViewAdapter.OnItemClickListener onItemClickListener;
+    private List<MusicBean> data;
+    private PlayHistoryRecyclerViewAdapter.OnItemClickListener onItemClickListener;
 
-    public NotificationRecyclerViewAdapter(Context context, List<NotificationBean> data) {
+    public PlayHistoryRecyclerViewAdapter(Context context, List<MusicBean> data) {
         this.context = context;
         this.data = data;
     }
 
-    public void setData(List<NotificationBean> data) {
+    public void setData(List<MusicBean> data) {
         this.data = data;
     }
 
@@ -39,21 +40,21 @@ public class PlayHistoryRecyclerViewAdapter extends RecyclerView.Adapter<Recycle
         switch (viewType) {
             case FOOTER_VIEW:
                 view = layoutInflater.inflate(R.layout.layout_item_footer, parent, false);
-                return new NotificationRecyclerViewAdapter.FooterViewHolder(view);
+                return new FooterViewHolder(view);
             case ITEM_VIEW:
-                view = layoutInflater.inflate(R.layout.layout_item_notification, parent, false);
-                return new NotificationRecyclerViewAdapter.NotificationViewHolder(view);
+                view = layoutInflater.inflate(R.layout.layout_item_play_list, parent, false);
+                return new ItemViewHolder(view);
         }
         return null;
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
-        if (holder instanceof NotificationRecyclerViewAdapter.FooterViewHolder) {
+        if (holder instanceof FooterViewHolder) {
             return;
         }
 
-        final NotificationBean bean = data.get(position);
+        final MusicBean bean = data.get(position);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,14 +64,15 @@ public class PlayHistoryRecyclerViewAdapter extends RecyclerView.Adapter<Recycle
             }
         });
 
-        final NotificationRecyclerViewAdapter.NotificationViewHolder viewHolder = (NotificationRecyclerViewAdapter.NotificationViewHolder) holder;
+        final ItemViewHolder viewHolder = (ItemViewHolder) holder;
 
-        viewHolder.title.setText(bean.getTitle());
-        viewHolder.date.setText(bean.getDate());
         if (position == data.size() - 1) {
             viewHolder.divider.setVisibility(View.INVISIBLE);
         }
-        viewHolder.content.setText(bean.getContent());
+
+        viewHolder.author.setText(bean.getAuthor());
+        viewHolder.time.setText(bean.getTime());
+        viewHolder.title.setText(bean.getTitle());
 
     }
 
@@ -87,20 +89,21 @@ public class PlayHistoryRecyclerViewAdapter extends RecyclerView.Adapter<Recycle
         return data.size() + 1;
     }
 
-    class NotificationViewHolder extends RecyclerView.ViewHolder {
+    class ItemViewHolder extends RecyclerView.ViewHolder {
 
         TextView title;
-        TextView date;
-        TextView content;
+        TextView author;
+        TextView time;
+        ImageView status;
         ImageView divider;
 
-        public NotificationViewHolder(View itemView) {
+        public ItemViewHolder(View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.title);
-            date = itemView.findViewById(R.id.time);
-            content = itemView.findViewById(R.id.content);
+            author = itemView.findViewById(R.id.author);
+            time = itemView.findViewById(R.id.length);
+            status = itemView.findViewById(R.id.music_status);
             divider = itemView.findViewById(R.id.divider);
-
         }
     }
 
@@ -110,11 +113,11 @@ public class PlayHistoryRecyclerViewAdapter extends RecyclerView.Adapter<Recycle
         }
     }
 
-    public void addOnClickListener(NotificationRecyclerViewAdapter.OnItemClickListener onItemClickListener) {
+    public void addOnClickListener(PlayHistoryRecyclerViewAdapter.OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
     }
 
     interface OnItemClickListener {
-        void onClick(View view, NotificationBean bean, int position);
+        void onClick(View view, MusicBean bean, int position);
     }
 }

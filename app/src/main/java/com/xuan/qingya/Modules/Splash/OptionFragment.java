@@ -28,8 +28,6 @@ public class OptionFragment extends BaseFragment {
 
     private int[] YCollection = new int[3];
 
-    private ViewTreeObserver viewTreeObserver;
-
     public OptionFragment() {
         // Required empty public constructor
     }

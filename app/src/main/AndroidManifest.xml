@@ -16,7 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Modules.Splash.SplashActivity"></activity>
+        <activity android:name=".Modules.Splash.SplashActivity" />
         <activity
             android:name=".Modules.Startup.StartupActivity"
             android:windowSoftInputMode="adjustResize" />
@@ -30,9 +30,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".Modules.Interview.InterviewDetailActivity" />
-        <activity android:name=".Modules.Discover.List.DiscoverListActivity"></activity>
+        <activity android:name=".Modules.Discover.List.DiscoverListActivity" />
         <activity android:name=".Modules.Discover.Detail.DiscoverDetailActivity" />
-        <activity android:name=".Modules.Profile.ProfileActivity"></activity>
+        <activity android:name=".Modules.Profile.ProfileActivity" />
+        <activity android:name=".Modules.Settings.Account.AccountSettingsActivity"></activity>
     </application>
 
 </manifest>

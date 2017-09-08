@@ -23,10 +23,12 @@
         </android.support.v7.widget.Toolbar>
 
         <RelativeLayout
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?android:selectableItemBackground"
             android:id="@+id/profile_section"
             android:layout_width="match_parent"
-            android:layout_height="88dp"
-            android:background="@null">
+            android:layout_height="88dp">
 
             <ImageView
                 android:id="@+id/profile_avatar"

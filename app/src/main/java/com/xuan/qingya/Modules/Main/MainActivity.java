@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.widget.NestedScrollView;
@@ -46,6 +47,7 @@ public class MainActivity extends BaseActivity implements MainContract.MainView 
     private NestedScrollView scrollView;
     private CustomBottomNavigationView bottomNavigationView;
     private Fragment[] fragments;
+    private FloatingActionButton fab;
 
     private String[] toolbarTitles;
     private int currentFragmentID = 0;
@@ -88,6 +90,7 @@ public class MainActivity extends BaseActivity implements MainContract.MainView 
                         viewPager.setCurrentItem(currentFragmentID, false);
 
                         if (currentFragmentID == 3) {
+                            fab.hide();
                             final int newHeight = DensityUtil.dip2px(88);
                             final int originalHeight = DensityUtil.dip2px(56);
                             final CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) appBarLayout.getLayoutParams();
@@ -105,6 +108,7 @@ public class MainActivity extends BaseActivity implements MainContract.MainView 
                             appBarLayout.startAnimation(animation);
                         }
                         if (beforeClickItem == 3 && currentFragmentID != 3) {
+                            fab.show();
                             final int newHeight = DensityUtil.dip2px(88);
                             final int originalHeight = DensityUtil.dip2px(56 + 88);
                             final CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) appBarLayout.getLayoutParams();
@@ -161,6 +165,7 @@ public class MainActivity extends BaseActivity implements MainContract.MainView 
         bottomNavigationView = $(R.id.bottom_navigation_bar);
         viewPager = $(R.id.main_viewpager);
         appBarLayout = $(R.id.main_appbar_layout);
+        fab = $(R.id.main_fab);
 
         setSupportActionBar((Toolbar) $(R.id.main_toolbar));
         setToolbarTitle(toolbarTitles[0]);

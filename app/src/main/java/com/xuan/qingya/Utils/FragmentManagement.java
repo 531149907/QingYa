@@ -43,4 +43,15 @@ public class FragmentManagement {
         transaction.commit();
     }
 
+    public static void switchFragment(FragmentManager fragmentManager, Fragment fragment, int frameId, boolean isAddToBackStack, boolean isAnimated) {
+        transaction = fragmentManager.beginTransaction();
+        if (isAnimated) {
+            transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
+        }
+        transaction.replace(frameId, fragment);
+        if (isAddToBackStack) {
+            transaction.addToBackStack(null);
+        }
+        transaction.commit();
+    }
 }

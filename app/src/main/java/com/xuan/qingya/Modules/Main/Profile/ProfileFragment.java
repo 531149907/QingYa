@@ -16,6 +16,7 @@ import com.xuan.qingya.Core.Base.BasePresenter;
 import com.xuan.qingya.Modules.Main.MainActivity;
 import com.xuan.qingya.Modules.Main.MainContract;
 import com.xuan.qingya.Modules.Profile.ProfileActivity;
+import com.xuan.qingya.Modules.Settings.Account.AccountSettingsActivity;
 import com.xuan.qingya.R;
 
 /**
@@ -66,6 +67,9 @@ public class ProfileFragment extends BaseFragment implements MainContract.Profil
         switch (view.getId()) {
             case R.id.profile_section:
                 presenter.onListItemClicked(Constant.PROFILE_ACCOUNT_SETTINGS, null);
+                intent = new Intent(getActivity(), AccountSettingsActivity.class);
+                intent.putExtra(com.xuan.qingya.Common.Constant.ENTRY_TYPE, com.xuan.qingya.Common.Constant.FRAGMENT_ACCOUNT_SETTINGS_MAIN_ENTRY);
+                startActivity(intent);
                 break;
             case R.id.profile_notification_item:
                 presenter.onListItemClicked(Constant.PROFILE_NOTIFICATION, null);

@@ -30,8 +30,15 @@ public final class Constant {
     public static final int SIMPLIFY_CONTENT_TYPE_QUESTION = 4;
 
     //Entry type code
+    public static final String ENTRY_TYPE = "entryFragmentType";
+
     public static final int FRAGMENT_NOTIFICATION_LIST = 0;
     public static final int FRAGMENT_NOTIFICATION_DETAIL = 1;
     public static final int FRAGMENT_COLLECTION = 2;
     public static final int FRAGMENT_PLAYHISTORY = 3;
+    public static final int FRAGMENT_ACCOUNT_SETTINGS_MAIN_ENTRY = 4;
+    public static final int FRAGMENT_ACCOUNT_SETTINGS_AVATAR = 5;
+    public static final int FRAGMENT_ACCOUNT_SETTINGS_USERNAME = 6;
+    public static final int FRAGMENT_ACCOUNT_SETTINGS_SIGNATURE = 7;
+    public static final int FRAGMENT_ACCOUNT_SETTINGS_PASSWORD = 8;
 }
