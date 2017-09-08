@@ -1,0 +1,83 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top" />
+
+    <RelativeLayout
+        android:id="@+id/playerFrame"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="-64dp"
+        android:background="@color/colorAccent"
+        android:elevation="6dp">
+
+        <ImageButton
+            android:id="@+id/play_btn"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="?android:selectableItemBackground"
+            android:src="@drawable/ic_play_button_24dp" />
+
+        <ImageButton
+            android:id="@+id/play_mode_btn"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/play_btn"
+            android:background="?android:selectableItemBackground"
+            android:src="@drawable/ic_shuffle_order_24dp" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/default_margin"
+            android:text="春的临终"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/connector"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/title"
+            android:text=" - "
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/default_margin"
+            android:layout_toLeftOf="@id/play_mode_btn"
+            android:layout_toRightOf="@id/connector"
+            android:text="碧澄"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:background="#A8D7D7"
+            android:layout_width="match_parent"
+            android:layout_height="4dp" />
+
+        <ImageView
+            android:id="@+id/progressBar"
+            android:background="@color/white"
+            android:layout_width="30dp"
+            android:layout_height="4dp" />
+
+    </RelativeLayout>
+
+</FrameLayout>
