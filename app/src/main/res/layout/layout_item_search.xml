@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="64dp"
+    android:orientation="horizontal">
+
+    <ImageButton
+        android:id="@+id/history_icon"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:background="@null"
+        android:clickable="false"
+        android:src="@drawable/ic_history_24dp" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:text="文化先生"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+
+    <ImageButton
+        android:id="@+id/fill_icon"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:background="?android:selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:src="@drawable/ic_arrow_top_left_24dp" />
+</LinearLayout>

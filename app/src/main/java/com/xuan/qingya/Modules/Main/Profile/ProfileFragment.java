@@ -17,6 +17,7 @@ import com.xuan.qingya.Modules.Main.MainActivity;
 import com.xuan.qingya.Modules.Main.MainContract;
 import com.xuan.qingya.Modules.Profile.ProfileActivity;
 import com.xuan.qingya.Modules.Settings.Account.AccountSettingsActivity;
+import com.xuan.qingya.Modules.Settings.General.SettingsActivity;
 import com.xuan.qingya.R;
 
 /**
@@ -79,6 +80,9 @@ public class ProfileFragment extends BaseFragment implements MainContract.Profil
                 break;
             case R.id.profile_settings_item:
                 presenter.onListItemClicked(Constant.PROFILE_SETTINGS, null);
+                intent = new Intent(getActivity(), SettingsActivity.class);
+                intent.putExtra(com.xuan.qingya.Common.Constant.ENTRY_TYPE, com.xuan.qingya.Common.Constant.FRAGEMNT_SETTINGS_MAIN_ENTRY);
+                startActivity(intent);
                 break;
             case R.id.profile_love_item:
                 presenter.onListItemClicked(Constant.PROFILE_LOVE, null);

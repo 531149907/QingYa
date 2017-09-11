@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_history"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/fab_history"
+        android:layout_marginRight="@dimen/default_margin"
+        android:layout_marginTop="2dp"
+        android:layout_toLeftOf="@id/fab_history"
+        android:alpha="0">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="选择日期"
+            android:textColor="@color/black" />
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_playing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/fab_playing"
+        android:layout_marginRight="@dimen/default_margin"
+        android:layout_marginTop="2dp"
+        android:layout_toLeftOf="@id/fab_playing"
+        android:alpha="0">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="正在播放"
+            android:textColor="@color/black" />
+    </android.support.v7.widget.CardView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_history"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/fab_playing"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="24dp"
+        android:layout_marginEnd="24dp"
+        android:alpha="0"
+        android:clickable="true"
+        android:focusable="true"
+        app:borderWidth="0dp"
+        app:fabSize="mini"
+        app:srcCompat="@drawable/ic_history_white_24dp" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_playing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/main_fab"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="24dp"
+        android:layout_marginEnd="24dp"
+        android:alpha="0"
+        android:clickable="true"
+        android:focusable="true"
+        android:transformPivotX="20dp"
+        android:transformPivotY="40dp"
+        app:borderWidth="0dp"
+        app:fabSize="mini"
+        app:layout_anchorGravity="bottom|center_horizontal"
+        app:srcCompat="@drawable/ic_music_white_24dp" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/main_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="72dp"
+        android:layout_marginEnd="@dimen/default_margin"
+        android:clickable="true"
+        android:focusable="true"
+        app:borderWidth="0dp"
+        app:fabSize="normal"
+        app:srcCompat="@drawable/ic_add_24dp" />
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/history_panel"
+        android:layout_width="match_parent"
+        android:layout_height="230dp"
+        android:visibility="invisible"
+        app:cardBackgroundColor="@color/colorAccent"
+        app:cardCornerRadius="0dp">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="24dp">
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="1dp"
+                android:layout_height="36dp"
+                android:layout_marginTop="20dp"
+                android:background="@color/backgroundTransparent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/date_title"
+                app:layout_constraintTop_toBottomOf="@+id/date_title" />
+
+            <TextView
+                android:id="@+id/date_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="20dp"
+                android:padding="@dimen/default_margin"
+                android:text="往期内容"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/year_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:clickable="false"
+                android:text="2017年"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+                app:layout_constraintEnd_toStartOf="@+id/imageView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/imageView2" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:clickable="false"
+                android:src="@drawable/ic_arrow_drop_down_24dp"
+                android:tint="@color/white"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+                app:layout_constraintEnd_toStartOf="@+id/imageView2"
+                app:layout_constraintStart_toEndOf="@+id/year_text"
+                app:layout_constraintTop_toTopOf="@+id/imageView2"
+                app:layout_constraintVertical_bias="0.5" />
+
+            <TextView
+                android:id="@+id/month_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:clickable="false"
+                android:text="8月"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+                app:layout_constraintEnd_toStartOf="@+id/imageView3"
+                app:layout_constraintStart_toEndOf="@+id/imageView2"
+                app:layout_constraintTop_toTopOf="@+id/imageView2" />
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="24dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:clickable="false"
+                android:src="@drawable/ic_arrow_drop_down_24dp"
+                android:tint="@color/white"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/month_text"
+                app:layout_constraintTop_toTopOf="@+id/imageView2" />
+
+            <ImageButton
+                android:id="@+id/imageView4"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:clickable="false"
+                android:background="@null"
+                android:src="@drawable/ic_today_24dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/today_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="2017年8月16日 星期三"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+                app:layout_constraintStart_toEndOf="@+id/imageView4"
+                app:layout_constraintTop_toTopOf="@+id/imageView4" />
+
+            <ImageButton
+                android:id="@+id/select_check"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="?selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_check_24dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <ImageButton
+                android:id="@+id/select_year"
+                android:layout_width="0dp"
+                android:layout_height="64dp"
+                android:background="?android:selectableItemBackground"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+                app:layout_constraintEnd_toStartOf="@+id/imageView2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/imageView2" />
+
+            <ImageButton
+                android:id="@+id/select_month"
+                android:layout_width="0dp"
+                android:layout_height="64dp"
+                android:background="?android:selectableItemBackground"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageView2"
+                app:layout_constraintTop_toTopOf="@+id/imageView2" />
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/play_panel"
+        android:layout_width="match_parent"
+        android:layout_height="230dp"
+        android:visibility="gone"
+        app:cardBackgroundColor="@color/colorAccent"
+        app:cardCornerRadius="0dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="24dp">
+
+            <TextView
+                android:id="@+id/song_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:padding="@dimen/default_margin"
+                android:text="春的临终 - 碧澄"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:layout_below="@id/song_title"
+                android:background="#A8D7D7" />
+
+            <ImageView
+                android:id="@+id/progressBar"
+                android:layout_width="30dp"
+                android:layout_height="4dp"
+                android:layout_below="@id/song_title"
+                android:background="@color/white" />
+
+            <TextView
+                android:id="@+id/played_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/progressBar"
+                android:paddingLeft="@dimen/default_margin"
+                android:paddingTop="8dp"
+                android:text="00:30"
+                android:textColor="#66ffffff"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/total_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/progressBar"
+                android:paddingRight="@dimen/default_margin"
+                android:paddingTop="8dp"
+                android:text="04:36"
+                android:textColor="#66ffffff"
+                android:textSize="12sp" />
+
+            <ImageButton
+                android:id="@+id/play_btn"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_below="@id/played_time"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/default_margin"
+                android:background="?selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_play_button_24dp" />
+
+            <ImageButton
+                android:id="@+id/previous_btn"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_below="@id/played_time"
+                android:layout_centerHorizontal="true"
+                android:layout_marginRight="36dp"
+                android:layout_marginTop="@dimen/default_margin"
+                android:layout_toLeftOf="@id/play_btn"
+                android:background="?selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_skip_previous_24dp" />
+
+            <ImageButton
+                android:id="@+id/next_btn"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_below="@id/played_time"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="36dp"
+                android:layout_marginTop="@dimen/default_margin"
+                android:layout_toRightOf="@id/play_btn"
+                android:background="?selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_skip_next_24dp" />
+
+            <ImageButton
+                android:id="@+id/play_mode_order"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:background="?selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_shuffle_order_24dp" />
+
+            <ImageButton
+                android:id="@+id/play_mode_single"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_alignParentBottom="true"
+                android:layout_toRightOf="@id/play_mode_order"
+                android:background="?selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_shuffle_single_24dp" />
+
+            <ImageButton
+                android:id="@+id/play_list"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:background="?selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_play_list_24dp"
+                android:tint="@color/white" />
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>

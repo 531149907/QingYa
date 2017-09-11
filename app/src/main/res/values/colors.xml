@@ -10,7 +10,7 @@
     <color name="backgroundLight">#fafafa</color>
     <color name="divider">#19000000</color>
     <color name="defaultIconTint">#757575</color>
-
+    <color name="backgroundTransparent">#bbffffff</color>
 
     <color name="white">#ffffff</color>
     <color name="black">#cc000000</color>

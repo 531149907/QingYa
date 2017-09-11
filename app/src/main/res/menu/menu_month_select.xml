@@ -1,0 +1,63 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/month_1"
+        android:orderInCategory="0"
+        android:title="1月"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/month_2"
+        android:orderInCategory="0"
+        android:title="2月"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/month_3"
+        android:orderInCategory="0"
+        android:title="3月"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/month_4"
+        android:orderInCategory="0"
+        android:title="4月"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/month_5"
+        android:orderInCategory="0"
+        android:title="5月"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/month_6"
+        android:orderInCategory="0"
+        android:title="6月"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/month_7"
+        android:orderInCategory="0"
+        android:title="7月"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/month_8"
+        android:orderInCategory="0"
+        android:title="8月"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/month_9"
+        android:orderInCategory="0"
+        android:title="9月"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/month_10"
+        android:orderInCategory="0"
+        android:title="10月"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/month_11"
+        android:orderInCategory="0"
+        android:title="11月"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/month_12"
+        android:orderInCategory="0"
+        android:title="12月"
+        app:showAsAction="never" />
+</menu>

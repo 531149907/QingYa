@@ -23,12 +23,12 @@
         </android.support.v7.widget.Toolbar>
 
         <RelativeLayout
-            android:clickable="true"
-            android:focusable="true"
-            android:background="?android:selectableItemBackground"
             android:id="@+id/profile_section"
             android:layout_width="match_parent"
-            android:layout_height="88dp">
+            android:layout_height="88dp"
+            android:background="?android:selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true">
 
             <ImageView
                 android:id="@+id/profile_avatar"
@@ -61,6 +61,7 @@
                 android:textColor="@color/grey"
                 android:textSize="14sp" />
         </RelativeLayout>
+
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.NestedScrollView
@@ -78,6 +79,15 @@
 
     </android.support.v4.widget.NestedScrollView>
 
+    <com.xuan.qingya.Common.View.CustomBottomNavigationView
+        android:id="@+id/bottom_navigation_bar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_gravity="bottom"
+        android:background="@color/colorPrimary"
+        app:layout_behavior="com.xuan.qingya.Common.Behaviors.BottomNavigationViewBehavior"
+        app:menu="@menu/navigation" />
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/main_fab"
         android:layout_width="wrap_content"
@@ -89,16 +99,7 @@
         android:focusable="true"
         app:borderWidth="0dp"
         app:fabSize="normal"
-        app:layout_behavior="com.xuan.qingya.Common.Behaviors.FloatingActionButtonBehavior"
-        app:srcCompat="@drawable/ic_add_24dp" />
-
-    <com.xuan.qingya.Common.View.CustomBottomNavigationView
-        android:id="@+id/bottom_navigation_bar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:layout_gravity="bottom"
-        android:background="@color/colorPrimary"
         app:layout_behavior="com.xuan.qingya.Common.Behaviors.BottomNavigationViewBehavior"
-        app:menu="@menu/navigation" />
+        app:srcCompat="@drawable/ic_add_24dp" />
 
 </android.support.design.widget.CoordinatorLayout>

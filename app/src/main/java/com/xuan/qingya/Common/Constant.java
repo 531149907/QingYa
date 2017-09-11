@@ -41,4 +41,9 @@ public final class Constant {
     public static final int FRAGMENT_ACCOUNT_SETTINGS_USERNAME = 6;
     public static final int FRAGMENT_ACCOUNT_SETTINGS_SIGNATURE = 7;
     public static final int FRAGMENT_ACCOUNT_SETTINGS_PASSWORD = 8;
+    public static final int FRAGMENT_SETTINGS_ABOUT = 9;
+    public static final int FRAGMENT_SETTINGS_AGREEMENT = 10;
+    public static final int FRAGMENT_SETTINGS_FEEDBACK = 11;
+    public static final int FRAGMENT_SETTINGS_CONTACT = 12;
+    public static final int FRAGEMNT_SETTINGS_MAIN_ENTRY = 13;
 }

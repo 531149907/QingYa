@@ -33,7 +33,15 @@
         <activity android:name=".Modules.Discover.List.DiscoverListActivity" />
         <activity android:name=".Modules.Discover.Detail.DiscoverDetailActivity" />
         <activity android:name=".Modules.Profile.ProfileActivity" />
-        <activity android:name=".Modules.Settings.Account.AccountSettingsActivity"></activity>
+        <activity android:name=".Modules.Settings.Account.AccountSettingsActivity" />
+        <activity android:name=".Modules.Settings.General.SettingsActivity" />
+        <activity
+            android:name=".Modules.Fab.FabActivity"
+            android:theme="@style/Theme.Transparent" />
+        <activity
+            android:name=".Modules.Search.SearchActivity"
+            android:label="@string/title_activity_search"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

@@ -1,6 +1,7 @@
 package com.xuan.qingya.Modules.Main;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
@@ -11,6 +12,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -25,6 +27,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.xuan.qingya.Common.View.CustomBottomNavigationView;
 import com.xuan.qingya.Common.View.NestedViewPager;
 import com.xuan.qingya.Core.Base.BaseActivity;
+import com.xuan.qingya.Modules.Fab.FabActivity;
 import com.xuan.qingya.Modules.Main.Discover.DiscoverFragment;
 import com.xuan.qingya.Modules.Main.Discover.DiscoverPresenter;
 import com.xuan.qingya.Modules.Main.Home.HomeFragment;
@@ -33,6 +36,7 @@ import com.xuan.qingya.Modules.Main.Interview.InterviewFragment;
 import com.xuan.qingya.Modules.Main.Interview.InterviewPresenter;
 import com.xuan.qingya.Modules.Main.Profile.ProfileFragment;
 import com.xuan.qingya.Modules.Main.Profile.ProfilePresenter;
+import com.xuan.qingya.Modules.Search.SearchActivity;
 import com.xuan.qingya.R;
 import com.xuan.qingya.Utils.DensityUtil;
 
@@ -64,12 +68,13 @@ public class MainActivity extends BaseActivity implements MainContract.MainView 
 
         init();
         initAdapters();
-        initListeners();
+        initListeners(fab);
 
     }
 
     @Override
     protected void initListeners(View... views) {
+        super.initListeners(views);
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
                     private int beforeClickItem = 0;
@@ -134,7 +139,13 @@ public class MainActivity extends BaseActivity implements MainContract.MainView 
 
     @Override
     public void onClick(View view) {
-
+        switch (view.getId()) {
+            case R.id.main_fab:
+                Intent intent = new Intent(this, FabActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.activity_alpha_in, R.anim.activity_alpha_out);
+                break;
+        }
     }
 
     @Override
@@ -215,5 +226,22 @@ public class MainActivity extends BaseActivity implements MainContract.MainView 
     @Override
     public void showFabList() {
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main2, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_search:
+                Intent intent = new Intent(this, SearchActivity.class);
+                startActivity(intent);
+        }
+        return true;
     }
 }
