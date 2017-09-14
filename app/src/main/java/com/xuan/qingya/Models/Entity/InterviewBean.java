@@ -7,7 +7,7 @@ import android.os.Parcelable;
  * Created by zhouzhixuan on 2017/8/27.
  */
 
-public class InterviewBean implements Parcelable {
+public class InterviewBean extends BaseBean implements Parcelable {
     public static final Parcelable.Creator<InterviewBean> CREATOR = new Creator<InterviewBean>() {
         @Override
         public InterviewBean createFromParcel(Parcel parcel) {
@@ -30,7 +30,6 @@ public class InterviewBean implements Parcelable {
         }
     };
     private int id = 0;
-    private int type = 0;
     private String title = null;
     private String author = null;
     private String date = null;
@@ -45,14 +44,6 @@ public class InterviewBean implements Parcelable {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
     }
 
     public String getTitle() {
@@ -119,7 +110,7 @@ public class InterviewBean implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeInt(id);
-        parcel.writeInt(type);
+        parcel.writeInt(getType());
         parcel.writeString(title);
         parcel.writeString(author);
         parcel.writeString(date);

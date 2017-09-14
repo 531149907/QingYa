@@ -6,7 +6,7 @@ import com.xuan.qingya.Common.Constant;
  * Created by zhouzhixuan on 2017/8/27.
  */
 
-public class TopicBean {
+public class TopicBean extends BaseBean {
     private int id = Constant.CONTENT_UNDEFINED;
     private int type = Constant.CONTENT_DISCOVER_TOPIC;
     private String title = null;

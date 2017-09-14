@@ -215,10 +215,11 @@ public class MainActivity extends BaseActivity implements MainContract.MainView 
 
     public void setScrollViewPosition(final int currentFragmentID, final int newFragmentID) {
         scrollViewPosition.put(currentFragmentID, scrollView.getScrollY());
-        ViewTreeObserver viewTreeObserver = scrollView.getViewTreeObserver();
+        final ViewTreeObserver viewTreeObserver = scrollView.getViewTreeObserver();
         viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             public void onGlobalLayout() {
                 scrollView.scrollTo(0, scrollViewPosition.get(newFragmentID));
+                viewTreeObserver.removeOnGlobalLayoutListener(this);
             }
         });
     }
@@ -241,6 +242,7 @@ public class MainActivity extends BaseActivity implements MainContract.MainView 
             case R.id.action_search:
                 Intent intent = new Intent(this, SearchActivity.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.activity_alpha_in, R.anim.activity_alpha_out);
         }
         return true;
     }

@@ -4,7 +4,7 @@ package com.xuan.qingya.Models.Entity;
  * Created by zhouzhixuan on 2017/9/7.
  */
 
-public class MusicBean {
+public class MusicBean extends BaseBean {
     private int id = 0;
     private String author = null;
     private String title = null;

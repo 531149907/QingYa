@@ -7,12 +7,11 @@ import android.os.Parcelable;
  * Created by zhouzhixuan on 2017/8/30.
  */
 
-public class DiscoverListBean implements Parcelable {
+public class DiscoverListBean extends BaseBean implements Parcelable {
     //Use to get detailed bean
     private int id = 0;
 
     //Content type
-    private int type = 0;
 
     //Simplify content type, use to get list
     private int type_main = 0;
@@ -23,8 +22,7 @@ public class DiscoverListBean implements Parcelable {
 
     //Used in: "摄影"
     private int photo_id = 0;
-    private int love = 0;
-    private boolean isLoved = false;
+
 
     //Used in: "问答"(in short version)
     private String ask_content = null;
@@ -38,14 +36,6 @@ public class DiscoverListBean implements Parcelable {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
     }
 
     public int getType_main() {
@@ -80,22 +70,6 @@ public class DiscoverListBean implements Parcelable {
         this.photo_id = photo_id;
     }
 
-    public int getLove() {
-        return love;
-    }
-
-    public void setLove(int love) {
-        this.love = love;
-    }
-
-    public boolean isLoved() {
-        return isLoved;
-    }
-
-    public void setLoved(boolean loved) {
-        isLoved = loved;
-    }
-
     public String getAsk_content() {
         return ask_content;
     }
@@ -120,13 +94,13 @@ public class DiscoverListBean implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeInt(id);
-        parcel.writeInt(type);
+        parcel.writeInt(getType());
         parcel.writeInt(type_main);
         parcel.writeString(author);
         parcel.writeInt(cover_img);
         parcel.writeInt(photo_id);
-        parcel.writeInt(love);
-        parcel.writeByte((byte) (isLoved ? 1 : 0));
+        parcel.writeInt(getLove());
+        parcel.writeByte((byte) (isLoved() ? 1 : 0));
         parcel.writeString(ask_content);
         parcel.writeString(title);
     }

@@ -7,7 +7,7 @@ import android.os.Parcelable;
  * Created by zhouzhixuan on 2017/9/4.
  */
 
-public class NotificationBean implements Parcelable {
+public class NotificationBean extends BaseBean implements Parcelable {
     private int id = 0;
     private String title = null;
     private String date = null;

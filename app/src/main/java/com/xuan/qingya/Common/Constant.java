@@ -7,7 +7,7 @@ package com.xuan.qingya.Common;
 public final class Constant {
 
     //Network config
-    public static final String BASE_URL = "http://192.168.0.136:8080/";
+    public static final String BASE_URL = "http://192.168.31.120:8080/";
 
     //Content type
     public static final int CONTENT_UNDEFINED = -1;
@@ -45,5 +45,11 @@ public final class Constant {
     public static final int FRAGMENT_SETTINGS_AGREEMENT = 10;
     public static final int FRAGMENT_SETTINGS_FEEDBACK = 11;
     public static final int FRAGMENT_SETTINGS_CONTACT = 12;
-    public static final int FRAGEMNT_SETTINGS_MAIN_ENTRY = 13;
+    public static final int FRAGMENT_SETTINGS_MAIN_ENTRY = 13;
+
+    //Search list code
+    public static final int SEARCH_HISTORY = 10;
+    public static final int SEARCH_RESULT = 11;
+
 }
+

@@ -4,7 +4,7 @@ package com.xuan.qingya.Models.Entity;
  * Created by zhouzhixuan on 2017/8/27.
  */
 
-public class BannerBean {
+public class BannerBean extends BaseBean {
     private int id;
     //private String cover;
     private int cover;

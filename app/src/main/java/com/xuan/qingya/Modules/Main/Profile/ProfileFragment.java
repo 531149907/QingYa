@@ -81,7 +81,7 @@ public class ProfileFragment extends BaseFragment implements MainContract.Profil
             case R.id.profile_settings_item:
                 presenter.onListItemClicked(Constant.PROFILE_SETTINGS, null);
                 intent = new Intent(getActivity(), SettingsActivity.class);
-                intent.putExtra(com.xuan.qingya.Common.Constant.ENTRY_TYPE, com.xuan.qingya.Common.Constant.FRAGEMNT_SETTINGS_MAIN_ENTRY);
+                intent.putExtra(com.xuan.qingya.Common.Constant.ENTRY_TYPE, com.xuan.qingya.Common.Constant.FRAGMENT_SETTINGS_MAIN_ENTRY);
                 startActivity(intent);
                 break;
             case R.id.profile_love_item:

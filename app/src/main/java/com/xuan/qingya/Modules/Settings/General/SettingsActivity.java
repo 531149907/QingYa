@@ -57,7 +57,7 @@ public class SettingsActivity extends BaseActivity {
                 FeedbackFragment feedbackFragment = new FeedbackFragment();
                 FragmentManagement.addFragmentToActivity(getSupportFragmentManager(), feedbackFragment, R.id.fragment_container);
                 break;
-            case Constant.FRAGEMNT_SETTINGS_MAIN_ENTRY:
+            case Constant.FRAGMENT_SETTINGS_MAIN_ENTRY:
                 setToolbarTitle("设置");
                 EntryFragment entryFragment = new EntryFragment();
                 new EntryPresenter(entryFragment);

@@ -1,8 +1,7 @@
 package com.xuan.qingya.Models.Entity;
 
-public class ArticleBean {
+public class ArticleBean extends BaseBean {
     private int id = 0;
-    private int type = 0;
     private String title = null;
     private String date = null;
     private int love = 0;
@@ -39,14 +38,6 @@ public class ArticleBean {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
     }
 
     public String getTitle() {
