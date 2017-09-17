@@ -62,6 +62,182 @@ public class SearchPresenter implements SearchContract.SearchPresenter {
         bean.setType(Constant.SEARCH_HISTORY);
         list.add(bean);
 
+        bean = new SearchHistoryBean();
+        bean.setContent("Search item test");
+        bean.setHistoryItem(true);
+        bean.setType(Constant.SEARCH_HISTORY);
+        list.add(bean);
+
+        bean = new SearchHistoryBean();
+        bean.setContent("Search item test");
+        bean.setHistoryItem(true);
+        bean.setType(Constant.SEARCH_HISTORY);
+        list.add(bean);
+
+        bean = new SearchHistoryBean();
+        bean.setContent("Search item test");
+        bean.setHistoryItem(true);
+        bean.setType(Constant.SEARCH_HISTORY);
+        list.add(bean);
+
+        bean = new SearchHistoryBean();
+        bean.setContent("Search item test");
+        bean.setHistoryItem(true);
+        bean.setType(Constant.SEARCH_HISTORY);
+        list.add(bean);
+
+        bean = new SearchHistoryBean();
+        bean.setContent("Search item test");
+        bean.setHistoryItem(true);
+        bean.setType(Constant.SEARCH_HISTORY);
+        list.add(bean);
+
+        bean = new SearchHistoryBean();
+        bean.setContent("Search item test");
+        bean.setHistoryItem(true);
+        bean.setType(Constant.SEARCH_HISTORY);
+        list.add(bean);
+
+        bean = new SearchHistoryBean();
+        bean.setContent("Search item test");
+        bean.setHistoryItem(true);
+        bean.setType(Constant.SEARCH_HISTORY);
+        list.add(bean);
+
+        bean = new SearchHistoryBean();
+        bean.setContent("Search item test");
+        bean.setHistoryItem(true);
+        bean.setType(Constant.SEARCH_HISTORY);
+        list.add(bean);
+
+        bean = new SearchHistoryBean();
+        bean.setContent("Search item test");
+        bean.setHistoryItem(true);
+        bean.setType(Constant.SEARCH_HISTORY);
+        list.add(bean);
+
+        bean = new SearchHistoryBean();
+        bean.setContent("Search item test");
+        bean.setHistoryItem(true);
+        bean.setType(Constant.SEARCH_HISTORY);
+        list.add(bean);
+
+        bean = new SearchHistoryBean();
+        bean.setContent("Search item test");
+        bean.setHistoryItem(true);
+        bean.setType(Constant.SEARCH_HISTORY);
+        list.add(bean);
+
+        bean = new SearchHistoryBean();
+        bean.setContent("Search item test");
+        bean.setHistoryItem(true);
+        bean.setType(Constant.SEARCH_HISTORY);
+        list.add(bean);
+
+        bean = new SearchHistoryBean();
+        bean.setContent("Search item test");
+        bean.setHistoryItem(true);
+        bean.setType(Constant.SEARCH_HISTORY);
+        list.add(bean);
+
+        bean = new SearchHistoryBean();
+        bean.setContent("Search item test");
+        bean.setHistoryItem(true);
+        bean.setType(Constant.SEARCH_HISTORY);
+        list.add(bean);
+        bean = new SearchHistoryBean();
+        bean.setContent("Search item test");
+        bean.setHistoryItem(true);
+        bean.setType(Constant.SEARCH_HISTORY);
+        list.add(bean);
+
+        bean = new SearchHistoryBean();
+        bean.setContent("Search item test");
+        bean.setHistoryItem(true);
+        bean.setType(Constant.SEARCH_HISTORY);
+        list.add(bean);
+
+        bean = new SearchHistoryBean();
+        bean.setContent("Search item test");
+        bean.setHistoryItem(true);
+        bean.setType(Constant.SEARCH_HISTORY);
+        list.add(bean);
+        bean = new SearchHistoryBean();
+        bean.setContent("Search item test");
+        bean.setHistoryItem(true);
+        bean.setType(Constant.SEARCH_HISTORY);
+        list.add(bean);
+
+        bean = new SearchHistoryBean();
+        bean.setContent("Search item test");
+        bean.setHistoryItem(true);
+        bean.setType(Constant.SEARCH_HISTORY);
+        list.add(bean);
+
+        bean = new SearchHistoryBean();
+        bean.setContent("Search item test");
+        bean.setHistoryItem(true);
+        bean.setType(Constant.SEARCH_HISTORY);
+        list.add(bean);
+
+        bean = new SearchHistoryBean();
+        bean.setContent("Search item test");
+        bean.setHistoryItem(true);
+        bean.setType(Constant.SEARCH_HISTORY);
+        list.add(bean);
+
+        bean = new SearchHistoryBean();
+        bean.setContent("Search item test");
+        bean.setHistoryItem(true);
+        bean.setType(Constant.SEARCH_HISTORY);
+        list.add(bean);
+
+        bean = new SearchHistoryBean();
+        bean.setContent("Search item test");
+        bean.setHistoryItem(true);
+        bean.setType(Constant.SEARCH_HISTORY);
+        list.add(bean);
+        bean = new SearchHistoryBean();
+        bean.setContent("Search item test");
+        bean.setHistoryItem(true);
+        bean.setType(Constant.SEARCH_HISTORY);
+        list.add(bean);
+
+        bean = new SearchHistoryBean();
+        bean.setContent("Search item test");
+        bean.setHistoryItem(true);
+        bean.setType(Constant.SEARCH_HISTORY);
+        list.add(bean);
+
+        bean = new SearchHistoryBean();
+        bean.setContent("Search item test");
+        bean.setHistoryItem(true);
+        bean.setType(Constant.SEARCH_HISTORY);
+        list.add(bean);
+
+        bean = new SearchHistoryBean();
+        bean.setContent("Search item test");
+        bean.setHistoryItem(true);
+        bean.setType(Constant.SEARCH_HISTORY);
+        list.add(bean);
+
+        bean = new SearchHistoryBean();
+        bean.setContent("Search item test");
+        bean.setHistoryItem(true);
+        bean.setType(Constant.SEARCH_HISTORY);
+        list.add(bean);
+
+        bean = new SearchHistoryBean();
+        bean.setContent("Search item test");
+        bean.setHistoryItem(true);
+        bean.setType(Constant.SEARCH_HISTORY);
+        list.add(bean);
+
+
+
+
+
+
         return list;
     }
 

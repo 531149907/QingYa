@@ -6,7 +6,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.CardView;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -28,6 +27,7 @@ import android.widget.LinearLayout;
 import android.widget.Space;
 import android.widget.TextView;
 
+import com.xuan.qingya.Common.RecyclerConfig.ItemOffsetDecoration;
 import com.xuan.qingya.Core.Base.BaseActivity;
 import com.xuan.qingya.R;
 import com.xuan.qingya.Utils.DensityUtil;
@@ -46,7 +46,6 @@ public class SearchActivity extends BaseActivity implements SearchContract.Searc
     CardView historyCardview;
     LinearLayout resultCardview;
     Space space;
-    int historyListHeight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,12 +132,11 @@ public class SearchActivity extends BaseActivity implements SearchContract.Searc
 
         historyRecyclerView.setAdapter(new SearchHistoryAdapter(this, presenter.getHistoryDataList(), presenter));
         historyRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        historyRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
         resultRecyclerView = $(R.id.resultRecyclerView);
         resultRecyclerView.setAdapter(new SearchResultAdapter(this, presenter.getResultDataList("null"), presenter));
         resultRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        resultRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        resultRecyclerView.addItemDecoration(new ItemOffsetDecoration(16));
     }
 
     @Override
@@ -173,7 +171,7 @@ public class SearchActivity extends BaseActivity implements SearchContract.Searc
                     @Override
                     public void onGlobalLayout() {
                         final LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) historyCardview.getLayoutParams();
-                        final int originalHeight = 2 * DensityUtil.dip2px(64);
+                        final int originalHeight = historyRecyclerView.getChildCount() * DensityUtil.dip2px(64);
                         LogUtil.show("origanialHeight", originalHeight);
                         Animation animation = new Animation() {
                             @Override
@@ -183,7 +181,7 @@ public class SearchActivity extends BaseActivity implements SearchContract.Searc
                             }
                         };
                         animation.setInterpolator(interpolator);
-                        animation.setDuration(600);
+                        animation.setDuration(500);
                         historyCardview.startAnimation(animation);
                         viewTreeObserver.removeOnGlobalLayoutListener(this);
                     }

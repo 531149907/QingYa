@@ -30,7 +30,6 @@ public class FabActivity extends BaseActivity {
         isTransparentStatusBar();
 
         overridePendingTransition(R.anim.activity_alpha_in, R.anim.activity_alpha_out);
-
         init();
         initListeners(mainFab, historyFab, playFab, select_year, select_month);
 

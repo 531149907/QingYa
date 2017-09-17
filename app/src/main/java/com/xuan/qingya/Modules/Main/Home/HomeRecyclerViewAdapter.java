@@ -1,6 +1,7 @@
 package com.xuan.qingya.Modules.Main.Home;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.xuan.qingya.Common.Constant;
 import com.xuan.qingya.Models.Entity.ArticleBean;
+import com.xuan.qingya.Modules.Discover.Detail.DiscoverDetailActivity;
 import com.xuan.qingya.Modules.Main.MainContract;
 import com.xuan.qingya.R;
 
@@ -44,14 +46,14 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
         View view = null;
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         switch (viewType) {
-            case Constant.CONTENT_DISCOVER_ARTICLE_READ:
-                view = layoutInflater.inflate(R.layout.layout_item_article_pure, parent, false);
+            case Constant.CONTENT_DISCOVER_ARTICLE_POEM:
+                view = layoutInflater.inflate(R.layout.layout_item_poem, parent, false);
                 break;
             case Constant.CONTENT_DISCOVER_ARTICLE_IMAGE:
                 view = layoutInflater.inflate(R.layout.layout_item_article_withpic, parent, false);
                 break;
-            case Constant.CONTENT_DISCOVER_ARTICLE_POEM:
-                view = layoutInflater.inflate(R.layout.layout_item_poem, parent, false);
+            case Constant.CONTENT_DISCOVER_ARTICLE_READ:
+                view = layoutInflater.inflate(R.layout.layout_item_article_pure, parent, false);
                 break;
             case Constant.CONTENT_DISCOVER_MUSIC:
                 view = layoutInflater.inflate(R.layout.layout_item_music, parent, false);
@@ -68,7 +70,7 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof FooterViewHolder) {
             return;
         }
@@ -82,11 +84,15 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                 if (onItemClickListener != null) {
                     onItemClickListener.onClick(view, bean, position);
                 }
+                Intent intent = new Intent(context, DiscoverDetailActivity.class);
+                intent.putExtra("beanType", getItemViewType(position));
+                context.startActivity(intent);
+
             }
         });
 
         switch (getItemViewType(position)) {
-            case Constant.CONTENT_DISCOVER_ARTICLE_READ:
+            case Constant.CONTENT_DISCOVER_ARTICLE_POEM:
                 contentViewHolder.title.setText(bean.getTitle());
                 contentViewHolder.author.setText(bean.getAuthor());
                 Glide.with(context).load(R.drawable.a26).into(contentViewHolder.cover);
@@ -97,7 +103,7 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                 contentViewHolder.author.setText(bean.getAuthor());
                 contentViewHolder.content.setText(bean.getContent());
                 break;
-            case Constant.CONTENT_DISCOVER_ARTICLE_POEM:
+            case Constant.CONTENT_DISCOVER_ARTICLE_READ:
                 contentViewHolder.author.setText(bean.getAuthor());
                 contentViewHolder.content.setText(bean.getContent());
                 break;
@@ -120,6 +126,7 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
         } else {
             contentViewHolder.love_btn.setImageDrawable(context
                     .getResources().getDrawable(R.drawable.ic_favorite_border_24dp));
+            contentViewHolder.love_btn.getDrawable().setTint(context.getResources().getColor(R.color.grey));
 
         }
         contentViewHolder.love_btn.setOnClickListener(new View.OnClickListener() {
@@ -129,6 +136,7 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                     //之前赞过，现在取消赞
                     contentViewHolder.love_btn.setImageDrawable(context
                             .getResources().getDrawable(R.drawable.ic_favorite_border_24dp));
+                    contentViewHolder.love_btn.getDrawable().setTint(context.getResources().getColor(R.color.grey));
                 } else {
                     //之前没赞过，现在赞
                     contentViewHolder.love_btn.setImageDrawable(context

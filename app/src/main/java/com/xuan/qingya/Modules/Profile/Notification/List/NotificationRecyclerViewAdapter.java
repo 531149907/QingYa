@@ -49,7 +49,7 @@ public class NotificationRecyclerViewAdapter extends RecyclerView.Adapter<Recycl
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof NotificationRecyclerViewAdapter.FooterViewHolder) {
             return;
         }

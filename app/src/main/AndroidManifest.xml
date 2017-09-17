@@ -22,8 +22,8 @@
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".Modules.Main.MainActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustPan|stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -42,8 +42,10 @@
         <activity
             android:name=".Modules.Search.SearchActivity"
             android:label="@string/title_activity_search"
-            android:windowSoftInputMode="adjustPan|stateHidden"
-            android:theme="@style/Theme.Search"></activity>
+            android:theme="@style/Theme.Search"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity android:name=".Modules.Discover.Banner.BannerActivity" />
+        <activity android:name=".Modules.Discover.Topic.DiscoverTopicActivity"></activity>
     </application>
 
 </manifest>

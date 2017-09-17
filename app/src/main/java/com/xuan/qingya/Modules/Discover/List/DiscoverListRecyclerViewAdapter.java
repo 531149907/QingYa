@@ -1,6 +1,7 @@
 package com.xuan.qingya.Modules.Discover.List;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.xuan.qingya.Common.Constant;
 import com.xuan.qingya.Models.Entity.DiscoverListBean;
+import com.xuan.qingya.Modules.Discover.Detail.DiscoverDetailActivity;
 import com.xuan.qingya.R;
 
 import java.util.List;
@@ -65,7 +67,7 @@ public class DiscoverListRecyclerViewAdapter<T> extends RecyclerView.Adapter<Rec
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof DiscoverListRecyclerViewAdapter.FooterViewHolder) {
             return;
         }
@@ -80,6 +82,9 @@ public class DiscoverListRecyclerViewAdapter<T> extends RecyclerView.Adapter<Rec
                 if (onItemClickListener != null) {
                     onItemClickListener.onClick(view, bean, position);
                 }
+                Intent intent = new Intent(context, DiscoverDetailActivity.class);
+                intent.putExtra("beanType", bean.getType());
+                context.startActivity(intent);
             }
         });
 

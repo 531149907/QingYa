@@ -1,6 +1,7 @@
 package com.xuan.qingya.Modules.Profile.Notification.List;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,14 +10,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.xuan.qingya.Common.Constant;
 import com.xuan.qingya.Core.Base.BaseFragment;
 import com.xuan.qingya.Models.Entity.NotificationBean;
-import com.xuan.qingya.Modules.Profile.Notification.Detail.NotificationDetailFragment;
-import com.xuan.qingya.Modules.Profile.Notification.Detail.NotificationDetailPresenter;
 import com.xuan.qingya.Modules.Profile.ProfileActivity;
 import com.xuan.qingya.Modules.Profile.ProfileContract;
 import com.xuan.qingya.R;
-import com.xuan.qingya.Utils.FragmentManagement;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -61,9 +60,9 @@ public class NotificationFragment extends BaseFragment implements ProfileContrac
         adapter.addOnClickListener(new NotificationRecyclerViewAdapter.OnItemClickListener() {
             @Override
             public void onClick(View view, NotificationBean bean, int position) {
-                NotificationDetailFragment fragment = new NotificationDetailFragment();
-                FragmentManagement.switchFragment(getFragmentManager(), fragment, R.id.fragment_container, true);
-                new NotificationDetailPresenter(fragment);
+                Intent intent = new Intent(getActivity(), ProfileActivity.class);
+                intent.putExtra(Constant.ENTRY_TYPE, Constant.FRAGMENT_NOTIFICATION_DETAIL);
+                startActivity(intent);
             }
         });
     }

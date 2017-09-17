@@ -11,29 +11,30 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="@dimen/default_margin">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/title"
+                android:padding="@dimen/default_margin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:lineSpacingExtra="10sp"
-                android:text="通过观察别人的眼神来判断其精神状态靠谱吗？"
+                android:text="欢迎加入青芽"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/time"
+                android:paddingLeft="@dimen/default_margin"
+                android:paddingRight="@dimen/default_margin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/default_margin"
-                android:layout_marginTop="@dimen/default_margin"
                 android:text="今天 12:30"
                 android:textColor="@color/grey"
                 android:textSize="12sp" />
 
             <TextView
+                android:padding="@dimen/default_margin"
                 android:id="@+id/content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

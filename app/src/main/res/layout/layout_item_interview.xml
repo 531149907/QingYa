@@ -8,6 +8,7 @@
 
     <ImageView
         android:id="@+id/item_cover"
+        android:transitionName="cover"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop" />
@@ -51,7 +52,7 @@
             android:id="@+id/item_love_btn"
             android:layout_width="wrap_content"
             android:layout_height="48sp"
-            android:background="?attr/selectableItemBackground"
+            android:background="?android:selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
             android:focusableInTouchMode="false"

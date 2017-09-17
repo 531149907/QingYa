@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:id="@+id/root_layout"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
-        android:layout_height="?actionBarSize">
+        android:layout_height="?android:actionBarSize">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -25,28 +25,28 @@
 
                 <EditText
                     android:id="@+id/search_input"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
+                    android:layout_toStartOf="@+id/clearInput"
                     android:background="@null"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
                     android:hint="搜索"
                     android:imeOptions="actionSearch"
                     android:singleLine="true"
                     android:textColor="@color/black"
                     android:textColorHint="@color/grey"
-                    android:textSize="20sp"
-                    android:layout_toStartOf="@+id/clearInput"
-                    android:layout_alignParentStart="true" />
+                    android:textSize="20sp" />
 
                 <ImageButton
-                    android:layout_alignParentRight="true"
-                    android:src="@drawable/ic_clear_24dp"
-                    android:background="?android:selectableItemBackgroundBorderless"
-                    android:layout_width="?actionBarSize"
+                    android:id="@+id/clearInput"
+                    android:layout_width="?android:actionBarSize"
                     android:layout_height="match_parent"
-                    android:id="@+id/clearInput" />
+                    android:layout_alignParentRight="true"
+                    android:background="?android:selectableItemBackgroundBorderless"
+                    android:src="@drawable/ic_clear_24dp" />
 
             </RelativeLayout>
 
@@ -56,9 +56,9 @@
 
     <android.support.v7.widget.CardView
         android:id="@+id/history_list_cardview"
-        app:cardCornerRadius="0dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="0dp">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
@@ -74,11 +74,11 @@
 
     <LinearLayout
         android:id="@+id/result_list_cardview"
-        android:visibility="gone"
-        android:orientation="vertical"
-        android:background="@null"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/resultRecyclerView"
@@ -86,4 +86,5 @@
             android:layout_height="wrap_content" />
 
     </LinearLayout>
+
 </LinearLayout>

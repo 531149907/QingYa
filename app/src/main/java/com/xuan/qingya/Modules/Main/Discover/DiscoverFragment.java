@@ -21,6 +21,7 @@ import com.xuan.qingya.Core.Base.BaseFragment;
 import com.xuan.qingya.Core.Base.BasePresenter;
 import com.xuan.qingya.Models.Entity.BannerBean;
 import com.xuan.qingya.Models.Entity.TopicBean;
+import com.xuan.qingya.Modules.Discover.Banner.BannerActivity;
 import com.xuan.qingya.Modules.Discover.List.DiscoverListActivity;
 import com.xuan.qingya.Modules.Main.MainActivity;
 import com.xuan.qingya.Modules.Main.MainContract;
@@ -122,6 +123,10 @@ public class DiscoverFragment extends BaseFragment implements MainContract.Disco
                     @Override
                     public void onClick(View view) {
                         presenter.onBannerItemClick(position, null);
+                        int selectedBanner = bannerViewPager.getCurrentItem();
+                        Intent intent = new Intent(getActivity(), BannerActivity.class);
+                        intent.putExtra("currentBannerID", selectedBanner);
+                        startActivity(intent);
                     }
                 });
                 container.addView(view);
@@ -150,25 +155,30 @@ public class DiscoverFragment extends BaseFragment implements MainContract.Disco
     @Override
     public void onClick(View view) {
         int clickId = 0;
+        Intent intent = new Intent(getActivity(), DiscoverListActivity.class);
         switch (view.getId()) {
             case R.id.discover_book:
                 clickId = 0;
-                Intent intent = new Intent(getActivity(), DiscoverListActivity.class);
-                startActivity(intent);
+                intent.putExtra("discoverID", clickId);
                 break;
             case R.id.discover_photo:
                 clickId = 1;
+                intent.putExtra("discoverID", clickId);
                 break;
             case R.id.discover_music:
                 clickId = 2;
+                intent.putExtra("discoverID", clickId);
                 break;
             case R.id.discover_movie:
                 clickId = 3;
+                intent.putExtra("discoverID", clickId);
                 break;
             case R.id.discover_question:
                 clickId = 4;
+                intent.putExtra("discoverID", clickId);
                 break;
         }
+        startActivity(intent);
         presenter.onEntryItemClick(clickId, null);
     }
 }

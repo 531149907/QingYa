@@ -1,7 +1,6 @@
 package com.xuan.qingya.Modules.Main.Interview;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,7 +13,6 @@ import android.view.ViewGroup;
 import com.xuan.qingya.Core.Base.BaseFragment;
 import com.xuan.qingya.Core.Base.BasePresenter;
 import com.xuan.qingya.Models.Entity.InterviewBean;
-import com.xuan.qingya.Modules.Interview.InterviewDetailActivity;
 import com.xuan.qingya.Modules.Main.MainActivity;
 import com.xuan.qingya.Modules.Main.MainContract;
 import com.xuan.qingya.R;
@@ -54,9 +52,6 @@ public class InterviewFragment extends BaseFragment implements MainContract.Inte
         adapter.addOnClickListener(new InterviewRecyclerViewAdapter.OnItemClickListener() {
             @Override
             public void onClick(View view, InterviewBean bean, int position) {
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("bean", bean);
-                startActivity(InterviewDetailActivity.class, null, bundle, null);
             }
         });
     }
@@ -81,8 +76,6 @@ public class InterviewFragment extends BaseFragment implements MainContract.Inte
 
     @Override
     public void startActivity(Class<?> target, BasePresenter presenter, @Nullable Bundle bundle, @Nullable String extra) {
-        Intent intent = new Intent(getActivity(), target);
-        intent.putExtra("bean_bundle", bundle);
-        startActivity(intent);
+
     }
 }

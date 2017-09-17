@@ -8,6 +8,7 @@ import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -35,6 +36,8 @@ public class DiscoverDetailActivity extends BaseActivity implements DiscoverDeta
     private NestedScrollView photoScrollView;
     private NestedScrollView musicScrollView;
     private NestedScrollView movieScrollView;
+    private ImageButton loveButton;
+    private TextView toolbarTitle;
 
     private boolean isFullScreenType = true;
 
@@ -72,13 +75,17 @@ public class DiscoverDetailActivity extends BaseActivity implements DiscoverDeta
     public void init() {
         appBarLayout = $(R.id.appbar);
         toolbar = $(R.id.toolbar);
+        toolbarTitle = $(R.id.title);
+        loveButton = $(R.id.love);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("");
 
         if (isFullScreenType) {
-            toolbar.getNavigationIcon().setTint(getResources().getColor(R.color.colorPrimary));
+            toolbar.getNavigationIcon().setTint(getResources().getColor(R.color.white));
+            toolbar.setTitleTextColor(getResources().getColor(R.color.white));
+            loveButton.getDrawable().setTint(getResources().getColor(R.color.white));
+            toolbarTitle.setTextColor(getResources().getColor(R.color.white));
         }
 
 
@@ -99,8 +106,12 @@ public class DiscoverDetailActivity extends BaseActivity implements DiscoverDeta
                 public void onStateChanged(AppBarLayout appBarLayout, State state) {
                     if (state == State.COLLAPSED) {
                         toolbar.getNavigationIcon().setTint(getResources().getColor(R.color.defaultIconTint));
+                        toolbarTitle.setTextColor(getResources().getColor(R.color.black));
+                        loveButton.getDrawable().setTint(getResources().getColor(R.color.defaultIconTint));
                     } else {
-                        toolbar.getNavigationIcon().setTint(getResources().getColor(R.color.colorPrimary));
+                        toolbar.getNavigationIcon().setTint(getResources().getColor(R.color.white));
+                        loveButton.getDrawable().setTint(getResources().getColor(R.color.white));
+                        toolbarTitle.setTextColor(getResources().getColor(R.color.white));
                     }
 
                 }

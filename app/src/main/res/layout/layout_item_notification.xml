@@ -46,6 +46,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="top|start"
         android:maxLines="1"
+        android:transitionName="title"
         android:paddingLeft="@dimen/default_margin"
         android:paddingRight="@dimen/default_margin"
         android:paddingTop="12.5dp"

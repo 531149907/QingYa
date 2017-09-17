@@ -16,6 +16,7 @@
             android:id="@+id/collapsing_toolbar_layout"
             android:layout_width="match_parent"
             android:layout_height="376dp"
+            app:titleEnabled="false"
             android:fitsSystemWindows="true"
             app:contentScrim="@color/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
@@ -23,6 +24,7 @@
             app:statusBarScrim="@null">
 
             <ImageView
+                android:transitionName="cover"
                 android:id="@+id/cover"
                 android:layout_width="match_parent"
                 android:layout_height="400dp"
@@ -34,9 +36,32 @@
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
+                android:layout_height="?android:actionBarSize"
                 android:elevation="0dp"
                 app:layout_collapseMode="pin">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="?android:actionBarSize">
+
+                    <TextView
+                        android:id="@+id/title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|left"
+                        android:text="采访详情"
+                        android:textSize="20sp" />
+
+                    <ImageButton
+                        android:id="@+id/love"
+                        android:layout_width="?android:actionBarSize"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="right|center_vertical"
+                        android:background="?android:selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:src="@drawable/ic_favorite_border_24dp" />
+                </FrameLayout>
 
             </android.support.v7.widget.Toolbar>
 

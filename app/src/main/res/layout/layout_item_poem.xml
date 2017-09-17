@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/default_margin"
     android:foreground="?android:attr/selectableItemBackground"
     app:cardCornerRadius="0dp">
 
@@ -13,26 +12,52 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/item_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="4sp"
+            android:maxLines="2"
+            android:padding="@dimen/default_margin"
+            android:text="向着二十亿光年的孤独，我情不自禁打了个喷嚏"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <TextView
             android:id="@+id/item_author"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/default_margin"
+            android:layout_weight="1"
+            android:maxLines="1"
+            android:paddingLeft="@dimen/default_margin"
+            android:paddingRight="@dimen/default_margin"
             android:text="文 / 别人的佩佩"
             android:textColor="@color/grey"
             android:textSize="12sp" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/default_margin" />
+
+        <ImageView
+            android:transitionName="cover"
+            android:id="@+id/item_cover"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:scaleType="centerCrop" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/default_margin" />
 
         <TextView
             android:id="@+id/item_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:lineSpacingExtra="10sp"
+            android:maxLines="2"
             android:paddingLeft="@dimen/default_margin"
             android:paddingRight="@dimen/default_margin"
-            android:text="撕去日历，
-为的是不让时间停止，
-即使她人生里的可能都已失去了，
-但倘若时间不存在，
-那么她的爱情尸骨无存。"
+            android:text="于是我们看完了一部又一部烂剧，就这样过完了前半生。在拥挤的人群中，我不想失去她。"
             android:textColor="@color/black"
             android:textSize="14sp" />
 
@@ -46,7 +71,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:padding="@dimen/default_margin"
-                android:text="诗词"
+                android:text="编辑精选"
                 android:textColor="@color/grey"
                 android:textSize="12sp" />
 
@@ -57,7 +82,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_gravity="right"
                 android:paddingBottom="@dimen/default_margin"
-                android:paddingEnd="@dimen/default_margin"
+                android:paddingRight="@dimen/default_margin"
                 android:paddingTop="@dimen/default_margin"
                 android:text="657"
                 android:textColor="@color/grey"
@@ -67,14 +92,12 @@
                 android:id="@+id/item_love_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="48sp"
-                android:layout_toStartOf="@id/item_love_counter"
-                android:background="?attr/selectableItemBackground"
+                android:layout_toLeftOf="@id/item_love_counter"
+                android:background="?android:selectableItemBackground"
                 android:paddingLeft="@dimen/default_margin"
                 android:paddingRight="@dimen/default_margin"
                 android:src="@drawable/ic_favorite_border_24dp" />
-
         </RelativeLayout>
 
     </LinearLayout>
-
 </android.support.v7.widget.CardView>

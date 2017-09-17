@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/default_margin"
-    android:foreground="?attr/selectableItemBackground"
+    android:foreground="?android:selectableItemBackground"
     app:cardCornerRadius="0dp">
 
     <RelativeLayout
@@ -12,6 +12,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
+            android:transitionName="cover"
             android:id="@+id/item_cover"
             android:layout_width="match_parent"
             android:layout_height="160dp"
@@ -62,7 +63,7 @@
             android:layout_height="48sp"
             android:layout_below="@id/item_title"
             android:layout_toLeftOf="@id/item_love_counter"
-            android:background="?attr/selectableItemBackground"
+            android:background="?android:selectableItemBackground"
             android:paddingLeft="@dimen/default_margin"
             android:paddingRight="@dimen/default_margin"
             android:src="@drawable/ic_favorite_border_24dp" />

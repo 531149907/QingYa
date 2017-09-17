@@ -1,6 +1,8 @@
 package com.xuan.qingya.Modules.Main.Interview;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +14,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.xuan.qingya.Common.Constant;
 import com.xuan.qingya.Models.Entity.InterviewBean;
+import com.xuan.qingya.Modules.Interview.InterviewDetailActivity;
 import com.xuan.qingya.Modules.Main.MainContract;
 import com.xuan.qingya.R;
 
@@ -75,6 +78,11 @@ public class InterviewRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
                 if (onItemClickListener != null) {
                     onItemClickListener.onClick(view, bean, position);
                 }
+                Intent intent = new Intent(context, InterviewDetailActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("bean", bean);
+                intent.putExtra("bean_bundle", bundle);
+                context.startActivity(intent);
             }
         });
 

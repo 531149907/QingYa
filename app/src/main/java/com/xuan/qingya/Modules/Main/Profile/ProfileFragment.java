@@ -75,7 +75,7 @@ public class ProfileFragment extends BaseFragment implements MainContract.Profil
             case R.id.profile_notification_item:
                 presenter.onListItemClicked(Constant.PROFILE_NOTIFICATION, null);
                 intent = new Intent(getActivity(), ProfileActivity.class);
-                intent.putExtra("entryTypeCode", com.xuan.qingya.Common.Constant.FRAGMENT_NOTIFICATION_LIST);
+                intent.putExtra(com.xuan.qingya.Common.Constant.ENTRY_TYPE, com.xuan.qingya.Common.Constant.FRAGMENT_NOTIFICATION_LIST);
                 startActivity(intent);
                 break;
             case R.id.profile_settings_item:
@@ -87,13 +87,13 @@ public class ProfileFragment extends BaseFragment implements MainContract.Profil
             case R.id.profile_love_item:
                 presenter.onListItemClicked(Constant.PROFILE_LOVE, null);
                 intent = new Intent(getActivity(), ProfileActivity.class);
-                intent.putExtra("entryTypeCode", com.xuan.qingya.Common.Constant.FRAGMENT_COLLECTION);
+                intent.putExtra(com.xuan.qingya.Common.Constant.ENTRY_TYPE, com.xuan.qingya.Common.Constant.FRAGMENT_COLLECTION);
                 startActivity(intent);
                 break;
             case R.id.profile_play_history_item:
                 presenter.onListItemClicked(Constant.PROFILE_PLAY_HISTORY, null);
                 intent = new Intent(getActivity(), ProfileActivity.class);
-                intent.putExtra("entryTypeCode", com.xuan.qingya.Common.Constant.FRAGMENT_PLAYHISTORY);
+                intent.putExtra(com.xuan.qingya.Common.Constant.ENTRY_TYPE, com.xuan.qingya.Common.Constant.FRAGMENT_PLAYHISTORY);
                 startActivity(intent);
                 break;
             case R.id.profile_logout_item:

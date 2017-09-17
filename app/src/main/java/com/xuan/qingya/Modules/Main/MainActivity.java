@@ -135,6 +135,17 @@ public class MainActivity extends BaseActivity implements MainContract.MainView 
                     }
                 }
         );
+        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                if (verticalOffset < 0) {
+                    fab.hide();
+                }
+                if (verticalOffset == 0 && currentFragmentID != 3) {
+                    fab.show();
+                }
+            }
+        });
     }
 
     @Override

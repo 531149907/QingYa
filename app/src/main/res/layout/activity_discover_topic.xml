@@ -7,27 +7,29 @@
     android:fitsSystemWindows="true">
 
     <android.support.design.widget.AppBarLayout
-        android:id="@+id/interview_detail_appbar_layout"
+        android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true">
 
         <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/interview_detail_collapsing_toolbar_layout"
+            android:id="@+id/collapsing_toolbar_layout"
             android:layout_width="match_parent"
-            android:layout_height="240dp"
-            android:fitsSystemWindows="true"
+            android:layout_height="220dp"
             android:background="@color/backgroundLight"
+            android:fitsSystemWindows="true"
             app:contentScrim="@color/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:scrimAnimationDuration="300"
-            app:statusBarScrim="@android:color/transparent"
+            app:statusBarScrim="@null"
             app:titleEnabled="false">
 
             <ImageView
-                android:id="@+id/interview_detail_cover"
+                android:id="@+id/cover"
                 android:layout_width="match_parent"
-                android:layout_height="240dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="top"
+                android:layout_marginTop="0dp"
                 android:fitsSystemWindows="true"
                 android:scaleType="centerCrop"
                 android:transitionName="cover"
@@ -35,7 +37,7 @@
                 app:layout_collapseParallaxMultiplier="0.5" />
 
             <android.support.v7.widget.Toolbar
-                android:id="@+id/interview_detail_toolbar"
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?android:actionBarSize"
                 android:alpha="0"
@@ -72,50 +74,59 @@
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.NestedScrollView
+        android:id="@+id/scrollview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/interview_detail_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:alpha="0"
-                android:lineSpacingExtra="10sp"
-                android:padding="@dimen/default_margin"
-                android:text="通过观察别人的眼神来判断其精神状态靠谱吗？"
-                android:textColor="@color/black"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/interview_detail_author"
+                android:id="@+id/contentTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:alpha="0"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 android:maxLines="1"
                 android:paddingLeft="@dimen/default_margin"
                 android:paddingRight="@dimen/default_margin"
+                android:paddingTop="@dimen/default_margin"
                 android:text="文 / 别人的佩佩"
                 android:textColor="@color/grey"
                 android:textSize="12sp" />
 
             <TextView
-                android:id="@+id/interview_detail_content"
+                android:id="@+id/content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:alpha="0"
                 android:lineSpacingExtra="10sp"
                 android:padding="@dimen/default_margin"
-                android:text="@string/test_long_content"
+                android:text="@string/content_test_short"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
+
+            <LinearLayout
+                android:id="@+id/recyclerViewContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusableInTouchMode="false" />
+
+            </LinearLayout>
+
         </LinearLayout>
+
     </android.support.v4.widget.NestedScrollView>
 
 </android.support.design.widget.CoordinatorLayout>

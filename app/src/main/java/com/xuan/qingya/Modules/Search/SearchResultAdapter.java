@@ -1,20 +1,25 @@
 package com.xuan.qingya.Modules.Search;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.xuan.qingya.Common.Constant;
+import com.xuan.qingya.Common.RecyclerConfig.ItemFadeAndUpAnimation;
 import com.xuan.qingya.Models.Entity.ArticleBean;
 import com.xuan.qingya.Models.Entity.BaseBean;
 import com.xuan.qingya.Models.Entity.InterviewBean;
 import com.xuan.qingya.R;
+import com.xuan.qingya.Utils.DensityUtil;
 
 import java.util.List;
 
@@ -22,13 +27,39 @@ import java.util.List;
  * Created by zhouzhixuan on 2017/9/12.
  */
 
-public class SearchResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class SearchResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements ItemFadeAndUpAnimation {
 
     private final int FOOTER_VIEW = -1;
     private SearchContract.SearchPresenter presenter;
     private Context context;
     private List<BaseBean> data;
     private SearchResultAdapter.OnItemClickListener onItemClickListener;
+    private boolean enableAnimation;
+
+    @Override
+    public void itemAnimationStart(final View itemView, final int position) {
+        itemView.post(new Runnable() {
+            @Override
+            public void run() {
+                if (itemView.getHeight() * (position + 1) + DensityUtil.dip2px(80) > DensityUtil.getScreenHeight()) {
+                    enableAnimation = false;
+                } else if (enableAnimation) {
+                    itemView.setAlpha(0);
+                    ObjectAnimator animator = ObjectAnimator.ofFloat(itemView, "translationY", (80 + position * 20), 0);
+                    animator.setDuration(250);
+
+                    ObjectAnimator animator2 = ObjectAnimator.ofFloat(itemView, "alpha", 0, 1);
+                    animator2.setDuration(250);
+
+                    AnimatorSet animatorSet = new AnimatorSet();
+                    animatorSet.playTogether(animator, animator2);
+                    animatorSet.setStartDelay(position * 30);
+                    animatorSet.setInterpolator(new DecelerateInterpolator());
+                    animatorSet.start();
+                }
+            }
+        });
+    }
 
     interface OnItemClickListener {
         void onClick(View view, BaseBean bean, int position);
@@ -42,6 +73,7 @@ public class SearchResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         this.context = context;
         this.data = data;
         this.presenter = presenter;
+        enableAnimation = true;
     }
 
     @Override
@@ -96,7 +128,7 @@ public class SearchResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             });
 
             switch (getItemViewType(position)) {
-                case Constant.CONTENT_DISCOVER_ARTICLE_READ:
+                case Constant.CONTENT_DISCOVER_ARTICLE_POEM:
                 case Constant.CONTENT_DISCOVER_MOVIE:
                     viewHolder.title.setText(bean.getTitle());
                     viewHolder.author.setText(bean.getAuthor());
@@ -108,7 +140,7 @@ public class SearchResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     viewHolder.author.setText(bean.getAuthor());
                     viewHolder.content.setText(bean.getContent());
                     break;
-                case Constant.CONTENT_DISCOVER_ARTICLE_POEM:
+                case Constant.CONTENT_DISCOVER_ARTICLE_READ:
                     viewHolder.author.setText(bean.getAuthor());
                     viewHolder.content.setText(bean.getContent());
                     break;
@@ -195,6 +227,10 @@ public class SearchResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 }
             });
             contentViewHolder.love_counter.setText(String.valueOf(bean.getLove()));
+        }
+
+        if (enableAnimation) {
+            itemAnimationStart(holder.itemView, position);
         }
     }
 

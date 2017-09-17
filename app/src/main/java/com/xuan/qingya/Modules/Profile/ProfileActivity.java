@@ -8,6 +8,8 @@ import com.xuan.qingya.Common.Constant;
 import com.xuan.qingya.Core.Base.BaseActivity;
 import com.xuan.qingya.Modules.Profile.Collection.CollectionFragment;
 import com.xuan.qingya.Modules.Profile.Collection.CollectionPresenter;
+import com.xuan.qingya.Modules.Profile.Notification.Detail.NotificationDetailFragment;
+import com.xuan.qingya.Modules.Profile.Notification.Detail.NotificationDetailPresenter;
 import com.xuan.qingya.Modules.Profile.Notification.List.NotificationFragment;
 import com.xuan.qingya.Modules.Profile.Notification.List.NotificationPresenter;
 import com.xuan.qingya.Modules.Profile.PlayHistory.PlayHistoryFragment;
@@ -45,11 +47,16 @@ public class ProfileActivity extends BaseActivity implements ProfileContract.Pro
         new ProfilePresenter(this);
 
         Intent intent = getIntent();
-        switch (intent.getIntExtra("entryTypeCode", 0)) {
+        switch (intent.getIntExtra(Constant.ENTRY_TYPE, 0)) {
             case Constant.FRAGMENT_NOTIFICATION_LIST:
                 NotificationFragment fragment0 = new NotificationFragment();
                 FragmentManagement.addFragmentToActivity(getSupportFragmentManager(), fragment0, R.id.fragment_container);
                 new NotificationPresenter(fragment0);
+                break;
+            case Constant.FRAGMENT_NOTIFICATION_DETAIL:
+                NotificationDetailFragment fragment3 = new NotificationDetailFragment();
+                FragmentManagement.addFragmentToActivity(getSupportFragmentManager(), fragment3, R.id.fragment_container);
+                new NotificationDetailPresenter(fragment3);
                 break;
             case Constant.FRAGMENT_COLLECTION:
                 CollectionFragment fragment1 = new CollectionFragment();

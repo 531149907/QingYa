@@ -21,7 +21,6 @@ import android.widget.TextView;
 import com.xuan.qingya.Common.Constant;
 import com.xuan.qingya.Core.Base.BaseActivity;
 import com.xuan.qingya.Models.Entity.DiscoverListBean;
-import com.xuan.qingya.Modules.Discover.Detail.DiscoverDetailActivity;
 import com.xuan.qingya.R;
 import com.xuan.qingya.Utils.DensityUtil;
 
@@ -151,6 +150,8 @@ public class DiscoverListActivity extends BaseActivity implements DiscoverListCo
 
     @Override
     public void init() {
+        Intent intent = getIntent();
+
         new DiscoverListPresenter(this);
 
         toolbar = $(R.id.discover_list_toolbar);
@@ -176,13 +177,13 @@ public class DiscoverListActivity extends BaseActivity implements DiscoverListCo
         params.height = DensityUtil.dip2px(56);
         appBarLayout.setLayoutParams(params);
 
-        adapter = new DiscoverListRecyclerViewAdapter(this, presenter, presenter.getData(default_id, 8));
+        int discoverID = intent.getIntExtra("discoverID", 0);
+
+        adapter = new DiscoverListRecyclerViewAdapter(this, presenter, presenter.getData(discoverID, 8));
         recyclerView.setAdapter(adapter);
         recyclerView.setNestedScrollingEnabled(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.getItemAnimator().setChangeDuration(0);
-
-        //adapter = new DiscoverListRecyclerViewAdapter();
     }
 
     @Override
@@ -192,9 +193,7 @@ public class DiscoverListActivity extends BaseActivity implements DiscoverListCo
         adapter.addOnClickListener(new DiscoverListRecyclerViewAdapter.OnItemClickListener() {
             @Override
             public void onClick(View view, DiscoverListBean bean, int position) {
-                Intent intent = new Intent(getApplicationContext(), DiscoverDetailActivity.class);
-                intent.putExtra("beanType", bean.getType());
-                startActivity(intent);
+
             }
         });
     }

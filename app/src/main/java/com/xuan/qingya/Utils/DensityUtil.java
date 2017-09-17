@@ -15,6 +15,12 @@ public class DensityUtil {
     private static float dmDensityDpi = 0.0f;
     private static DisplayMetrics dm;
     private static float scale = 0.0f;
+    private static float screenHeight = 0.0f;
+
+    public static float getScreenHeight() {
+        screenHeight = dm.heightPixels;
+        return screenHeight;
+    }
 
     /**
      * 根据构造函数获得当前手机的屏幕系数
@@ -67,4 +73,5 @@ public class DensityUtil {
     public String toString() {
         return " dmDensityDpi:" + dmDensityDpi;
     }
+
 }

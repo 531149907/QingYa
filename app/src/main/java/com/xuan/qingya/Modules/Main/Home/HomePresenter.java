@@ -40,7 +40,7 @@ public class HomePresenter implements MainContract.HomePresenter {
 
         ArticleBean bean1 = new ArticleBean();
         bean1.setId(1);
-        bean1.setType(Constant.CONTENT_DISCOVER_ARTICLE_READ);
+        bean1.setType(Constant.CONTENT_DISCOVER_ARTICLE_POEM);
         bean1.setTitle("向着二十亿光年的孤独，我情不自禁打了个喷嚏");
         bean1.setAuthor("文 / 别人的佩佩");
         bean1.setCover_img(R.drawable.a1);
@@ -57,7 +57,7 @@ public class HomePresenter implements MainContract.HomePresenter {
 
         ArticleBean bean3 = new ArticleBean();
         bean3.setId(3);
-        bean3.setType(Constant.CONTENT_DISCOVER_ARTICLE_POEM);
+        bean3.setType(Constant.CONTENT_DISCOVER_ARTICLE_READ);
         bean3.setAuthor("文 / 别人的佩佩");
         bean3.setContent("撕去日历，\n" + "为的是不让时间停止，\n" + "即使她人生里的可能都已失去了，\n" + "但倘若时间不存在，\n" + "那么她的爱情尸骨无存。");
         bean3.setLove(27);
