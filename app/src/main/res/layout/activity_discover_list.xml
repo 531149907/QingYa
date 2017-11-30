@@ -1,227 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:layout_height="match_parent">
 
     <android.support.design.widget.AppBarLayout
-        android:id="@+id/discover_list_appbar_layout"
+        android:paddingTop="@dimen/status_bar_height"
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="128dp">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/discover_list_toolbar"
+            android:id="@+id/toolbar"
             android:layout_width="wrap_content"
-            android:layout_height="?attr/actionBarSize">
+            android:layout_height="?attr/actionBarSize"
+            app:title="分类">
 
-            <LinearLayout
-                android:id="@+id/discover_list_toolbar_title"
-                android:layout_width="120dp"
-                android:layout_height="?attr/actionBarSize"
-                android:clickable="true"
-                android:focusable="true"
-                android:background="?android:attr/selectableItemBackground"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/discover_list_toolbar_title_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="?attr/actionBarSize"
-                    android:layout_marginTop="-1sp"
-                    android:gravity="center_vertical"
-                    android:paddingRight="10dp"
-                    android:text="发现"
-                    android:textColor="#000"
-                    android:textSize="20sp" />
-
-                <ImageView
-                    android:id="@+id/discover_list_toolbar_title_arrow"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/ic_arrow_drop_down_24dp"
-                    android:tint="@color/defaultIconTint" />
-
-            </LinearLayout>
         </android.support.v7.widget.Toolbar>
 
-        <LinearLayout
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabLayout"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:baselineAligned="false"
-            android:orientation="horizontal">
-
-            <RelativeLayout
-                android:id="@+id/discover_book"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="?attr/selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true">
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:clickable="false"
-                    android:focusable="false"
-                    android:paddingTop="23dp"
-                    android:scaleType="center"
-                    android:src="@drawable/ic_book_24dp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:clickable="false"
-                    android:focusable="false"
-                    android:paddingBottom="20dp"
-                    android:text="阅读"
-                    android:textAlignment="center"
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/discover_photo"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="?attr/selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true">
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:clickable="false"
-                    android:focusable="false"
-                    android:paddingTop="23dp"
-                    android:scaleType="center"
-                    android:src="@drawable/ic_photo_24dp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:clickable="false"
-                    android:focusable="false"
-                    android:paddingBottom="20dp"
-                    android:text="摄影"
-                    android:textAlignment="center"
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/discover_music"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="?attr/selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true">
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:clickable="false"
-                    android:focusable="false"
-                    android:paddingTop="23dp"
-                    android:scaleType="center"
-                    android:src="@drawable/ic_music_24dp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:clickable="false"
-                    android:focusable="false"
-                    android:paddingBottom="20dp"
-                    android:text="音乐"
-                    android:textAlignment="center"
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/discover_movie"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="?attr/selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true">
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:clickable="false"
-                    android:focusable="false"
-                    android:paddingTop="23dp"
-                    android:scaleType="center"
-                    android:src="@drawable/ic_movie_24dp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:clickable="false"
-                    android:focusable="false"
-                    android:paddingBottom="20dp"
-                    android:text="影视"
-                    android:textAlignment="center"
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/discover_question"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="?attr/selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true">
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:clickable="false"
-                    android:focusable="false"
-                    android:paddingTop="23dp"
-                    android:scaleType="center"
-                    android:src="@drawable/ic_question_24dp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:clickable="false"
-                    android:focusable="false"
-                    android:paddingBottom="20dp"
-                    android:text="问答"
-                    android:textAlignment="center"
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
-            </RelativeLayout>
-
-        </LinearLayout>
+            android:layout_height="wrap_content"
+            app:tabMode="scrollable"
+            android:background="@null"
+            app:tabIndicatorColor="@color/colorAccent"
+            app:tabSelectedTextColor="@color/colorAccent"
+            app:tabTextColor="@color/black" />
 
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/discover_list_recyclerview"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/discover_list_appbar_layout">
+        android:layout_height="wrap_content" />
 
-    </android.support.v7.widget.RecyclerView>
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

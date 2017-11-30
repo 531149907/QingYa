@@ -16,7 +16,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Modules.Splash.SplashActivity" />
+        <activity
+            android:name=".Modules.Splash.SplashActivity"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".Modules.Startup.StartupActivity"
             android:windowSoftInputMode="adjustResize" />
@@ -24,15 +31,14 @@
             android:name=".Modules.Main.MainActivity"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan|stateHidden">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
-        <activity android:name=".Modules.Interview.InterviewDetailActivity" />
+        <activity
+            android:name=".Modules.Interview.InterviewDetailActivity"
+            android:theme="@style/Theme.Animation.Transparent" />
         <activity android:name=".Modules.Discover.List.DiscoverListActivity" />
-        <activity android:name=".Modules.Discover.Detail.DiscoverDetailActivity" />
+        <activity
+            android:name=".Modules.Discover.Detail.DiscoverDetailActivity"
+            android:theme="@style/Theme.Animation.Transparent" />
         <activity android:name=".Modules.Profile.ProfileActivity" />
         <activity android:name=".Modules.Settings.Account.AccountSettingsActivity" />
         <activity android:name=".Modules.Settings.General.SettingsActivity" />
@@ -45,7 +51,6 @@
             android:theme="@style/Theme.Search"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity android:name=".Modules.Discover.Banner.BannerActivity" />
-        <activity android:name=".Modules.Discover.Topic.DiscoverTopicActivity"></activity>
     </application>
 
 </manifest>

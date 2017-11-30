@@ -10,13 +10,12 @@
         android:padding="@dimen/default_margin">
 
         <TextView
-            android:id="@+id/upadte_time"
+            android:id="@+id/date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:maxLines="1"
             android:paddingBottom="@dimen/default_margin"
-            android:text="文 / 别人的佩佩"
             android:textColor="@color/grey"
             android:textSize="12sp" />
 
@@ -25,7 +24,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:lineSpacingExtra="10sp"
-            android:text="@string/test_long_content"
             android:textColor="@color/black"
             android:textSize="14sp" />
 

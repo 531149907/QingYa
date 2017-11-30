@@ -53,6 +53,7 @@
         android:focusable="true"
         app:borderWidth="0dp"
         app:fabSize="mini"
+        app:pressedTranslationZ="12dp"
         app:srcCompat="@drawable/ic_history_white_24dp" />
 
     <android.support.design.widget.FloatingActionButton
@@ -70,6 +71,7 @@
         android:transformPivotY="40dp"
         app:borderWidth="0dp"
         app:fabSize="mini"
+        app:pressedTranslationZ="12dp"
         app:layout_anchorGravity="bottom|center_horizontal"
         app:srcCompat="@drawable/ic_music_white_24dp" />
 
@@ -83,6 +85,7 @@
         android:layout_marginEnd="@dimen/default_margin"
         android:clickable="true"
         android:focusable="true"
+        app:pressedTranslationZ="12dp"
         app:borderWidth="0dp"
         app:fabSize="normal"
         app:srcCompat="@drawable/ic_add_24dp" />

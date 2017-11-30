@@ -5,7 +5,7 @@
     android:orientation="vertical">
 
     <android.support.v7.widget.CardView
-        android:id="@+id/change_avatar"
+        android:id="@+id/changeAvatar"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:clickable="true"
@@ -23,7 +23,7 @@
             android:textSize="16dp" />
 
         <ImageView
-            android:id="@+id/avatar_image"
+            android:id="@+id/avatar"
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:layout_gravity="center_vertical|right"
@@ -36,10 +36,11 @@
             android:layout_height="1dp"
             android:layout_gravity="bottom"
             android:background="@color/divider" />
+
     </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView
-        android:id="@+id/change_username"
+        android:id="@+id/changeUsername"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:clickable="true"
@@ -75,7 +76,7 @@
     </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView
-        android:id="@+id/change_signature"
+        android:id="@+id/changeSignature"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:clickable="true"
@@ -100,7 +101,7 @@
     </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView
-        android:id="@+id/change_password"
+        android:id="@+id/changePassword"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:clickable="true"

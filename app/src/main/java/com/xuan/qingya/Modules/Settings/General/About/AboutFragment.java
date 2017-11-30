@@ -8,28 +8,39 @@ import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.xuan.qingya.Common.Constant;
-import com.xuan.qingya.Core.Base.BaseFragment;
+import com.xuan.qingya.Core.base.BaseFragment;
 import com.xuan.qingya.Modules.Settings.General.SettingsActivity;
 import com.xuan.qingya.R;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AboutFragment extends BaseFragment {
-
-    private CardView updateEntry, feedbackEntry, contactEntry;
+public class AboutFragment extends BaseFragment<ViewContract, AboutPresenter> implements ViewContract {
+    @BindView(R.id.update)
+    CardView updateEntry;
+    @BindView(R.id.feedback)
+    CardView feedbackEntry;
+    @BindView(R.id.contact)
+    CardView contactEntry;
+    @BindView(R.id.buildVersion)
+    TextView buildVersion;
 
     public AboutFragment() {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
         mRootView = inflater.inflate(R.layout.fragment_about, container, false);
+        ButterKnife.bind(this, mRootView);
 
         init();
         initListeners(updateEntry, feedbackEntry, contactEntry);
@@ -38,9 +49,7 @@ public class AboutFragment extends BaseFragment {
     }
 
     public void init() {
-        updateEntry = $(R.id.update);
-        feedbackEntry = $(R.id.feedback);
-        contactEntry = $(R.id.contact);
+        presenter.checkUpdateRequest();
     }
 
     @Override
@@ -57,6 +66,16 @@ public class AboutFragment extends BaseFragment {
                 break;
         }
         startActivity(intent);
+    }
+
+    @Override
+    public AboutPresenter initPresenter() {
+        return new AboutPresenter();
+    }
+
+    @Override
+    public void setCheckState(String content) {
+        buildVersion.setText(content);
     }
 }
 

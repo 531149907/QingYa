@@ -8,9 +8,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.xuan.qingya.Models.Entity.MusicBean;
+import com.xuan.qingya.Models.entity.Music;
 import com.xuan.qingya.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,16 +22,17 @@ public class PlayHistoryRecyclerViewAdapter extends RecyclerView.Adapter<Recycle
     private final int FOOTER_VIEW = -1;
     private final int ITEM_VIEW = 0;
     private Context context;
-    private List<MusicBean> data;
-    private PlayHistoryRecyclerViewAdapter.OnItemClickListener onItemClickListener;
+    private List<Music> data;
+    private OnItemClickListener onItemClickListener;
 
-    public PlayHistoryRecyclerViewAdapter(Context context, List<MusicBean> data) {
+    public PlayHistoryRecyclerViewAdapter(Context context) {
         this.context = context;
-        this.data = data;
+        this.data = new ArrayList<>();
     }
 
-    public void setData(List<MusicBean> data) {
+    public void setData(List<Music> data) {
         this.data = data;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -54,12 +56,12 @@ public class PlayHistoryRecyclerViewAdapter extends RecyclerView.Adapter<Recycle
             return;
         }
 
-        final MusicBean bean = data.get(position);
+        final Music bean = data.get(position);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (onItemClickListener != null) {
-                    onItemClickListener.onClick(view, bean, position);
+                    onItemClickListener.onClick(bean, position);
                 }
             }
         });
@@ -70,9 +72,9 @@ public class PlayHistoryRecyclerViewAdapter extends RecyclerView.Adapter<Recycle
             viewHolder.divider.setVisibility(View.INVISIBLE);
         }
 
-        viewHolder.author.setText(bean.getAuthor());
+        /*viewHolder.author.setText(bean.getAuthor());
         viewHolder.time.setText(bean.getTime());
-        viewHolder.title.setText(bean.getTitle());
+        viewHolder.title.setText(bean.getTitle());*/
 
     }
 
@@ -113,11 +115,11 @@ public class PlayHistoryRecyclerViewAdapter extends RecyclerView.Adapter<Recycle
         }
     }
 
-    public void addOnClickListener(PlayHistoryRecyclerViewAdapter.OnItemClickListener onItemClickListener) {
+    public void addOnClickListener(OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
     }
 
     interface OnItemClickListener {
-        void onClick(View view, MusicBean bean, int position);
+        void onClick(Music bean, int position);
     }
 }

@@ -7,37 +7,38 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.xuan.qingya.Core.Base.BaseFragment;
+import com.xuan.qingya.Core.base.BaseFragment;
 import com.xuan.qingya.R;
+
+import butterknife.ButterKnife;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AvatarFragment extends BaseFragment implements AvatarContract.AvatarView {
-
-    private AvatarContract.AvatarPresenter presenter;
+public class AvatarFragment extends BaseFragment<ViewContract, AvatarPresenter> implements ViewContract {
 
     public AvatarFragment() {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
         mRootView = inflater.inflate(R.layout.fragment_avatar, container, false);
+        ButterKnife.bind(this, mRootView);
 
         init();
+        initListeners();
 
         return mRootView;
     }
 
     @Override
-    public void setPresenter(AvatarContract.AvatarPresenter presenter) {
-        this.presenter = presenter;
+    public AvatarPresenter initPresenter() {
+        return null;
     }
 
-    @Override
     public void init() {
 
     }

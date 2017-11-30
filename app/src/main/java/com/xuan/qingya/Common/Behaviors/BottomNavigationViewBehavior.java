@@ -3,7 +3,6 @@ package com.xuan.qingya.Common.Behaviors;
 import android.content.Context;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -36,7 +35,7 @@ public class BottomNavigationViewBehavior extends CoordinatorLayout.Behavior<Vie
         //得到依赖View的滑动距离
         int top = ((AppBarLayout.Behavior) ((CoordinatorLayout.LayoutParams) dependency.getLayoutParams()).getBehavior()).getTopAndBottomOffset();
         //因为BottomNavigation的滑动与ToolBar是反向的，所以取-top值
-        ViewCompat.setTranslationY(child, -top);
+        //ViewCompat.setTranslationY(child, -top);
         return false;
     }
 }

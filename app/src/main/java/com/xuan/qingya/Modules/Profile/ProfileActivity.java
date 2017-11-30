@@ -2,78 +2,75 @@ package com.xuan.qingya.Modules.Profile;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 
 import com.xuan.qingya.Common.Constant;
-import com.xuan.qingya.Core.Base.BaseActivity;
+import com.xuan.qingya.Core.base.BaseActivity;
+import com.xuan.qingya.Core.base.BasePresenter;
+import com.xuan.qingya.Models.entity.Base;
+import com.xuan.qingya.Models.entity.Message;
 import com.xuan.qingya.Modules.Profile.Collection.CollectionFragment;
-import com.xuan.qingya.Modules.Profile.Collection.CollectionPresenter;
 import com.xuan.qingya.Modules.Profile.Notification.Detail.NotificationDetailFragment;
-import com.xuan.qingya.Modules.Profile.Notification.Detail.NotificationDetailPresenter;
 import com.xuan.qingya.Modules.Profile.Notification.List.NotificationFragment;
-import com.xuan.qingya.Modules.Profile.Notification.List.NotificationPresenter;
 import com.xuan.qingya.Modules.Profile.PlayHistory.PlayHistoryFragment;
-import com.xuan.qingya.Modules.Profile.PlayHistory.PlayHistoryPresenter;
 import com.xuan.qingya.R;
 import com.xuan.qingya.Utils.FragmentManagement;
 
-public class ProfileActivity extends BaseActivity implements ProfileContract.ProfileView {
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
-    private ProfileContract.ProfilePresenter presenter;
+public class ProfileActivity extends BaseActivity {
 
-    private Toolbar toolbar;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+        ButterKnife.bind(this);
 
         init();
     }
 
-
     @Override
-    public void setPresenter(ProfileContract.ProfilePresenter presenter) {
-        this.presenter = presenter;
+    public BasePresenter initPresenter() {
+        return null;
     }
 
-    @Override
     public void init() {
-        toolbar = $(R.id.toolbar);
-
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        new ProfilePresenter(this);
-
         Intent intent = getIntent();
+        Base bean = intent.getParcelableExtra(Constant.BEAN);
+        Fragment fragment;
         switch (intent.getIntExtra(Constant.ENTRY_TYPE, 0)) {
             case Constant.FRAGMENT_NOTIFICATION_LIST:
-                NotificationFragment fragment0 = new NotificationFragment();
-                FragmentManagement.addFragmentToActivity(getSupportFragmentManager(), fragment0, R.id.fragment_container);
-                new NotificationPresenter(fragment0);
+                fragment = new NotificationFragment();
+                FragmentManagement.addFragmentToActivity(getSupportFragmentManager(), fragment, R.id.fragment_container);
+                setToolbarTitle("消息");
                 break;
             case Constant.FRAGMENT_NOTIFICATION_DETAIL:
-                NotificationDetailFragment fragment3 = new NotificationDetailFragment();
-                FragmentManagement.addFragmentToActivity(getSupportFragmentManager(), fragment3, R.id.fragment_container);
-                new NotificationDetailPresenter(fragment3);
+                fragment = new NotificationDetailFragment();
+                Bundle bundle = new Bundle();
+                bundle.putParcelable(Constant.BEAN, (Message) bean);
+                fragment.setArguments(bundle);
+                FragmentManagement.addFragmentToActivity(getSupportFragmentManager(), fragment, R.id.fragment_container);
+                setToolbarTitle("消息详情");
                 break;
             case Constant.FRAGMENT_COLLECTION:
-                CollectionFragment fragment1 = new CollectionFragment();
-                FragmentManagement.addFragmentToActivity(getSupportFragmentManager(), fragment1, R.id.fragment_container);
-                new CollectionPresenter(fragment1);
+                fragment = new CollectionFragment();
+                FragmentManagement.addFragmentToActivity(getSupportFragmentManager(), fragment, R.id.fragment_container);
+                setToolbarTitle("点赞与收藏");
                 break;
             case Constant.FRAGMENT_PLAYHISTORY:
-                PlayHistoryFragment fragment2 = new PlayHistoryFragment();
-                FragmentManagement.addFragmentToActivity(getSupportFragmentManager(), fragment2, R.id.fragment_container);
-                new PlayHistoryPresenter(fragment2);
+                fragment = new PlayHistoryFragment();
+                FragmentManagement.addFragmentToActivity(getSupportFragmentManager(), fragment, R.id.fragment_container);
+                setToolbarTitle("播放记录");
                 break;
         }
-    }
-
-    @Override
-    public void ShowDeleteToolbar() {
-
     }
 
     public void setToolbarTitle(String title) {

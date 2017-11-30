@@ -12,10 +12,11 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.xuan.qingya.Common.RecyclerConfig.ItemFadeAndDropAnimation;
-import com.xuan.qingya.Models.Entity.SearchHistoryBean;
+import com.xuan.qingya.Models.entity.SearchHistory;
 import com.xuan.qingya.R;
 import com.xuan.qingya.Utils.DensityUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,8 +24,7 @@ import java.util.List;
  */
 
 public class SearchHistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements ItemFadeAndDropAnimation {
-    private SearchContract.SearchPresenter presenter;
-    private List<SearchHistoryBean> data;
+    private List<SearchHistory> data;
     private SearchHistoryAdapter.OnItemClickListener onItemClickListener;
     private Context context;
     private boolean enableAnimation;
@@ -56,18 +56,24 @@ public class SearchHistoryAdapter extends RecyclerView.Adapter<RecyclerView.View
     }
 
     interface OnItemClickListener {
-        void onClick(View view, SearchHistoryBean bean, int position);
+        void onItemClick(SearchHistory bean);
+
+        void onFillContentClick(String content);
     }
 
     public void addOnClickListener(SearchHistoryAdapter.OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
     }
 
-    public SearchHistoryAdapter(Context context, List<SearchHistoryBean> data, SearchContract.SearchPresenter presenter) {
+    public SearchHistoryAdapter(Context context) {
         this.context = context;
-        this.data = data;
-        this.presenter = presenter;
+        this.data = new ArrayList<>();
         enableAnimation = true;
+    }
+
+    public void setData(List<SearchHistory> data) {
+        this.data = data;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -79,19 +85,23 @@ public class SearchHistoryAdapter extends RecyclerView.Adapter<RecyclerView.View
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         final MainViewHolder viewHolder = (MainViewHolder) holder;
-        final SearchHistoryBean bean = data.get(position);
+        final SearchHistory bean = data.get(position);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presenter.onSearchHistoryItemClick(view, bean, viewHolder.content.getText().toString());
+                if (onItemClickListener != null) {
+                    onItemClickListener.onItemClick(bean);
+                }
             }
         });
 
         viewHolder.fillTopButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presenter.fillEditTextWithHistoryContent(viewHolder.content.getText().toString());
+                if (onItemClickListener != null) {
+                    onItemClickListener.onFillContentClick(bean.getContent());
+                }
             }
         });
 

@@ -22,7 +22,7 @@
                 android:textSize="14sp" />
 
             <android.support.v7.widget.CardView
-                android:id="@+id/skin_mode_switch"
+                android:id="@+id/nightMode"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:clickable="true"
@@ -59,7 +59,7 @@
                 android:textSize="14sp" />
 
             <android.support.v7.widget.CardView
-                android:id="@+id/clear_cache"
+                android:id="@+id/clearCache"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:clickable="true"
@@ -78,7 +78,7 @@
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/cache_size"
+                    android:id="@+id/cacheSize"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical|right"
@@ -96,7 +96,7 @@
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
-                android:id="@+id/clear_search_history"
+                android:id="@+id/clearSearchHistory"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:clickable="true"
@@ -144,7 +144,7 @@
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/build_version"
+                    android:id="@+id/buildVersion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical|right"

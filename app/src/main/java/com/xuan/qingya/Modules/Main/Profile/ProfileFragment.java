@@ -3,32 +3,43 @@ package com.xuan.qingya.Modules.Main.Profile;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
+import android.widget.ImageView;
 
-import com.xuan.qingya.Core.Base.BaseFragment;
-import com.xuan.qingya.Core.Base.BasePresenter;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.xuan.qingya.Common.Constant;
+import com.xuan.qingya.Core.base.BaseFragment;
 import com.xuan.qingya.Modules.Main.MainActivity;
-import com.xuan.qingya.Modules.Main.MainContract;
 import com.xuan.qingya.Modules.Profile.ProfileActivity;
 import com.xuan.qingya.Modules.Settings.Account.AccountSettingsActivity;
 import com.xuan.qingya.Modules.Settings.General.SettingsActivity;
+import com.xuan.qingya.Modules.Splash.SplashActivity;
 import com.xuan.qingya.R;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ProfileFragment extends BaseFragment implements MainContract.ProfileView {
-
-    private CardView notificationItem, settingsItem, loveItem, playHistoryItem, logoutItem;
-    private RelativeLayout accountSettingsItem;
-
-    private MainContract.ProfilePresenter presenter;
+public class ProfileFragment extends BaseFragment<ViewContract, ProfilePresenter> implements ViewContract {
+    @BindView(R.id.notificationItem)
+    CardView notificationItem;
+    @BindView(R.id.settingsItem)
+    CardView settingsItem;
+    @BindView(R.id.loveItem)
+    CardView loveItem;
+    @BindView(R.id.playHistoryItem)
+    CardView playHistoryItem;
+    @BindView(R.id.logoutItem)
+    CardView logoutItem;
+    @BindView(R.id.profileSection)
+    CardView accountSettingsItem;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -37,7 +48,9 @@ public class ProfileFragment extends BaseFragment implements MainContract.Profil
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
         mRootView = inflater.inflate(R.layout.fragment_profile, container, false);
+        ButterKnife.bind(this, mRootView);
 
         init();
         initListeners(notificationItem, settingsItem, loveItem, playHistoryItem, logoutItem, accountSettingsItem);
@@ -45,20 +58,9 @@ public class ProfileFragment extends BaseFragment implements MainContract.Profil
         return mRootView;
     }
 
-    @Override
-    public void setPresenter(MainContract.ProfilePresenter presenter) {
-        this.presenter = presenter;
-    }
-
-    @Override
     public void init() {
-        notificationItem = $(R.id.profile_notification_item);
-        settingsItem = $(R.id.profile_settings_item);
-        loveItem = $(R.id.profile_love_item);
-        playHistoryItem = $(R.id.profile_play_history_item);
-        logoutItem = $(R.id.profile_love_item);
-        accountSettingsItem = ((MainActivity) getActivity()).findViewById(R.id.profile_section);
-
+        RequestOptions options = RequestOptions.circleCropTransform();
+        Glide.with(this).load(R.drawable.a23).apply(options).into((ImageView) accountSettingsItem.findViewById(R.id.avatar));
         ((MainActivity) getActivity()).getViewPager().setObjectForPosition(mRootView, 3);
     }
 
@@ -66,44 +68,44 @@ public class ProfileFragment extends BaseFragment implements MainContract.Profil
     public void onClick(View view) {
         Intent intent;
         switch (view.getId()) {
-            case R.id.profile_section:
-                presenter.onListItemClicked(Constant.PROFILE_ACCOUNT_SETTINGS, null);
+            case R.id.profileSection:
                 intent = new Intent(getActivity(), AccountSettingsActivity.class);
-                intent.putExtra(com.xuan.qingya.Common.Constant.ENTRY_TYPE, com.xuan.qingya.Common.Constant.FRAGMENT_ACCOUNT_SETTINGS_MAIN_ENTRY);
+                intent.putExtra(Constant.ENTRY_TYPE, Constant.FRAGMENT_ACCOUNT_SETTINGS_MAIN_ENTRY);
                 startActivity(intent);
                 break;
-            case R.id.profile_notification_item:
-                presenter.onListItemClicked(Constant.PROFILE_NOTIFICATION, null);
+            case R.id.notificationItem:
                 intent = new Intent(getActivity(), ProfileActivity.class);
-                intent.putExtra(com.xuan.qingya.Common.Constant.ENTRY_TYPE, com.xuan.qingya.Common.Constant.FRAGMENT_NOTIFICATION_LIST);
+                intent.putExtra(Constant.ENTRY_TYPE, Constant.FRAGMENT_NOTIFICATION_LIST);
                 startActivity(intent);
                 break;
-            case R.id.profile_settings_item:
-                presenter.onListItemClicked(Constant.PROFILE_SETTINGS, null);
+            case R.id.settingsItem:
                 intent = new Intent(getActivity(), SettingsActivity.class);
-                intent.putExtra(com.xuan.qingya.Common.Constant.ENTRY_TYPE, com.xuan.qingya.Common.Constant.FRAGMENT_SETTINGS_MAIN_ENTRY);
+                intent.putExtra(Constant.ENTRY_TYPE, Constant.FRAGMENT_SETTINGS_MAIN_ENTRY);
                 startActivity(intent);
                 break;
-            case R.id.profile_love_item:
-                presenter.onListItemClicked(Constant.PROFILE_LOVE, null);
+            case R.id.loveItem:
                 intent = new Intent(getActivity(), ProfileActivity.class);
-                intent.putExtra(com.xuan.qingya.Common.Constant.ENTRY_TYPE, com.xuan.qingya.Common.Constant.FRAGMENT_COLLECTION);
+                intent.putExtra(Constant.ENTRY_TYPE, Constant.FRAGMENT_COLLECTION);
                 startActivity(intent);
                 break;
-            case R.id.profile_play_history_item:
-                presenter.onListItemClicked(Constant.PROFILE_PLAY_HISTORY, null);
+            case R.id.playHistoryItem:
                 intent = new Intent(getActivity(), ProfileActivity.class);
-                intent.putExtra(com.xuan.qingya.Common.Constant.ENTRY_TYPE, com.xuan.qingya.Common.Constant.FRAGMENT_PLAYHISTORY);
+                intent.putExtra(Constant.ENTRY_TYPE, Constant.FRAGMENT_PLAYHISTORY);
                 startActivity(intent);
                 break;
-            case R.id.profile_logout_item:
-                presenter.onLogout(null);
+            case R.id.logoutItem:
+                presenter.onLogout();
+                intent = new Intent(getActivity(), SplashActivity.class);
+                intent.putExtra(Constant.ENTRY_TYPE, Constant.FRAGMENT_OPTION);
+                startActivity(intent);
+                getActivity().finish();
                 break;
         }
     }
 
     @Override
-    public void startActivity(Class<?> target, BasePresenter presenter, @Nullable Bundle bundle, @Nullable String extra) {
-
+    public ProfilePresenter initPresenter() {
+        return new ProfilePresenter();
     }
+
 }

@@ -1,210 +1,254 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@null"
     android:orientation="vertical">
 
-    <com.xuan.qingya.Common.View.BannerViewPager
-        android:id="@+id/discover_banner_viewpager"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:focusableInTouchMode="true" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:focusableInTouchMode="false"
-        app:cardCornerRadius="0dp">
-
-        <LinearLayout
+        <com.xuan.qingya.Common.View.BannerView
+            android:id="@+id/banner"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:baselineAligned="false"
-            android:orientation="horizontal">
+            android:layout_height="180dp" />
 
-            <RelativeLayout
-                android:id="@+id/discover_book"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="?attr/selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/default_margin"
+            android:text="分类"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:clickable="false"
-                    android:focusable="false"
-                    android:paddingTop="23dp"
-                    android:scaleType="center"
-                    android:src="@drawable/ic_book_24dp" />
+        <android.support.v7.widget.CardView
+            android:id="@+id/articleEntry"
+            android:layout_width="match_parent"
+            android:layout_height="72dp"
+            app:cardCornerRadius="0dp"
+            android:foreground="?selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:clickable="false"
-                    android:focusable="false"
-                    android:paddingBottom="20dp"
-                    android:text="阅读"
-                    android:textAlignment="center"
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
+            <ImageView
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:layout_gravity="center_vertical|left"
+                android:scaleType="center"
+                android:src="@drawable/ic_book_24dp" />
 
-            </RelativeLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|left|top"
+                android:layout_marginLeft="72dp"
+                android:paddingTop="12dp"
+                android:text="阅读"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
 
-            <RelativeLayout
-                android:id="@+id/discover_photo"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="?attr/selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|left|bottom"
+                android:layout_marginLeft="72dp"
+                android:paddingBottom="14dp"
+                android:text="文章、诗词、图文欣赏"
+                android:textColor="@color/grey"
+                android:textSize="14sp" />
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:clickable="false"
-                    android:focusable="false"
-                    android:paddingTop="23dp"
-                    android:scaleType="center"
-                    android:src="@drawable/ic_photo_24dp" />
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_gravity="bottom"
+                android:background="@color/divider" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:clickable="false"
-                    android:focusable="false"
-                    android:paddingBottom="20dp"
-                    android:text="摄影"
-                    android:textAlignment="center"
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
-            </RelativeLayout>
+        </android.support.v7.widget.CardView>
 
-            <RelativeLayout
-                android:id="@+id/discover_music"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="?attr/selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true">
+        <android.support.v7.widget.CardView
+            android:id="@+id/photoEntry"
+            android:layout_width="match_parent"
+            android:layout_height="72dp"
+            app:cardCornerRadius="0dp"
+            android:foreground="?selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true">
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:clickable="false"
-                    android:focusable="false"
-                    android:paddingTop="23dp"
-                    android:scaleType="center"
-                    android:src="@drawable/ic_music_24dp" />
+            <ImageView
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:layout_gravity="center_vertical|left"
+                android:scaleType="center"
+                android:src="@drawable/ic_photo_24dp" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:clickable="false"
-                    android:focusable="false"
-                    android:paddingBottom="20dp"
-                    android:text="音乐"
-                    android:textAlignment="center"
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
-            </RelativeLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|left|top"
+                android:layout_marginLeft="72dp"
+                android:paddingTop="12dp"
+                android:text="摄影作品"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
 
-            <RelativeLayout
-                android:id="@+id/discover_movie"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="?attr/selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|left|bottom"
+                android:layout_marginLeft="72dp"
+                android:paddingBottom="14dp"
+                android:text="优选清新风格的摄影作品"
+                android:textColor="@color/grey"
+                android:textSize="14sp" />
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:clickable="false"
-                    android:focusable="false"
-                    android:paddingTop="23dp"
-                    android:scaleType="center"
-                    android:src="@drawable/ic_movie_24dp" />
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_gravity="bottom"
+                android:background="@color/divider" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:clickable="false"
-                    android:focusable="false"
-                    android:paddingBottom="20dp"
-                    android:text="影视"
-                    android:textAlignment="center"
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
-            </RelativeLayout>
+        </android.support.v7.widget.CardView>
 
-            <RelativeLayout
-                android:id="@+id/discover_question"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="?attr/selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true">
+        <android.support.v7.widget.CardView
+            android:id="@+id/musicEntry"
+            android:layout_width="match_parent"
+            android:layout_height="72dp"
+            app:cardCornerRadius="0dp"
+            android:foreground="?selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true">
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:clickable="false"
-                    android:focusable="false"
-                    android:paddingTop="23dp"
-                    android:scaleType="center"
-                    android:src="@drawable/ic_question_24dp" />
+            <ImageView
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:layout_gravity="center_vertical|left"
+                android:scaleType="center"
+                android:src="@drawable/ic_music_24dp" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:clickable="false"
-                    android:focusable="false"
-                    android:paddingBottom="20dp"
-                    android:text="问答"
-                    android:textAlignment="center"
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
-            </RelativeLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|left|top"
+                android:layout_marginLeft="72dp"
+                android:paddingTop="12dp"
+                android:text="情感音乐"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
 
-        </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|left|bottom"
+                android:layout_marginLeft="72dp"
+                android:paddingBottom="14dp"
+                android:text="品味情感人生"
+                android:textColor="@color/grey"
+                android:textSize="14sp" />
 
-    </android.support.v7.widget.CardView>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_gravity="bottom"
+                android:background="@color/divider" />
 
-    <TextView
-        android:id="@+id/discover_section_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:focusableInTouchMode="false"
-        android:paddingLeft="@dimen/default_margin"
-        android:paddingRight="@dimen/default_margin"
-        android:paddingTop="@dimen/default_margin"
-        android:text="专题"
-        android:textColor="@color/grey"
-        android:textSize="14sp" />
+        </android.support.v7.widget.CardView>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/discover_topic_recyclerview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:focusable="false"
-        android:focusableInTouchMode="false" />
+        <android.support.v7.widget.CardView
+            android:id="@+id/movieEntry"
+            android:layout_width="match_parent"
+            android:layout_height="72dp"
+            app:cardCornerRadius="0dp"
+            android:foreground="?selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true">
 
-</LinearLayout>
+            <ImageView
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:layout_gravity="center_vertical|left"
+                android:scaleType="center"
+                android:src="@drawable/ic_movie_24dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|left|top"
+                android:layout_marginLeft="72dp"
+                android:paddingTop="12dp"
+                android:text="影视鉴赏"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|left|bottom"
+                android:layout_marginLeft="72dp"
+                android:paddingBottom="14dp"
+                android:text="抓住每一个细节"
+                android:textColor="@color/grey"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_gravity="bottom"
+                android:background="@color/divider" />
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/questionEntry"
+            android:layout_width="match_parent"
+            android:layout_height="72dp"
+            app:cardCornerRadius="0dp"
+            android:foreground="?selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:layout_gravity="center_vertical|left"
+                android:scaleType="center"
+                android:src="@drawable/ic_question_24dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|left|top"
+                android:layout_marginLeft="72dp"
+                android:paddingTop="12dp"
+                android:text="问答"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|left|bottom"
+                android:layout_marginLeft="72dp"
+                android:paddingBottom="14dp"
+                android:text="情感、工作、生活的疑难杂症"
+                android:textColor="@color/grey"
+                android:textSize="14sp" />
+
+        </android.support.v7.widget.CardView>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/bottom_navigation_height" />
+
+    </LinearLayout>
+
+</ScrollView>

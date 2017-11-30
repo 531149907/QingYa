@@ -4,6 +4,7 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,14 +14,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.robinhood.ticker.TickerUtils;
+import com.robinhood.ticker.TickerView;
 import com.xuan.qingya.Common.Constant;
 import com.xuan.qingya.Common.RecyclerConfig.ItemFadeAndUpAnimation;
-import com.xuan.qingya.Models.Entity.ArticleBean;
-import com.xuan.qingya.Models.Entity.BaseBean;
-import com.xuan.qingya.Models.Entity.InterviewBean;
+import com.xuan.qingya.Models.entity.Article;
+import com.xuan.qingya.Models.entity.Base;
+import com.xuan.qingya.Models.entity.Interview;
 import com.xuan.qingya.R;
 import com.xuan.qingya.Utils.DensityUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,11 +32,10 @@ import java.util.List;
  */
 
 public class SearchResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements ItemFadeAndUpAnimation {
-
     private final int FOOTER_VIEW = -1;
-    private SearchContract.SearchPresenter presenter;
+    private SearchPresenter presenter;
     private Context context;
-    private List<BaseBean> data;
+    private List<Base> data;
     private SearchResultAdapter.OnItemClickListener onItemClickListener;
     private boolean enableAnimation;
 
@@ -62,18 +65,25 @@ public class SearchResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     interface OnItemClickListener {
-        void onClick(View view, BaseBean bean, int position);
+        void onItemClick(Base bean);
+
+        void onLoveClick(Base bean);
     }
 
     public void addOnClickListener(SearchResultAdapter.OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
     }
 
-    public SearchResultAdapter(Context context, List<BaseBean> data, SearchContract.SearchPresenter presenter) {
+    public SearchResultAdapter(Context context, SearchPresenter presenter) {
         this.context = context;
-        this.data = data;
         this.presenter = presenter;
+        this.data = new ArrayList<>();
         enableAnimation = true;
+    }
+
+    public void setData(List<Base> data) {
+        this.data = data;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -81,23 +91,22 @@ public class SearchResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         View view = null;
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         switch (viewType) {
-            case Constant.CONTENT_DISCOVER_ARTICLE_READ:
+            case Constant.CONTENT_SUB_TYPE_ARTICLE_READ:
                 view = layoutInflater.inflate(R.layout.layout_item_article_pure, parent, false);
                 break;
-            case Constant.CONTENT_DISCOVER_ARTICLE_IMAGE:
+            case Constant.CONTENT_SUB_TYPE_ARTICLE_IMAGE:
                 view = layoutInflater.inflate(R.layout.layout_item_article_withpic, parent, false);
                 break;
-            case Constant.CONTENT_DISCOVER_ARTICLE_POEM:
+            case Constant.CONTENT_SUB_TYPE_ARTICLE_POEM:
                 view = layoutInflater.inflate(R.layout.layout_item_poem, parent, false);
                 break;
-            case Constant.CONTENT_DISCOVER_MUSIC:
+            case Constant.CONTENT_SUB_TYPE_MUSIC:
                 view = layoutInflater.inflate(R.layout.layout_item_music, parent, false);
                 break;
-            case Constant.CONTENT_DISCOVER_QUESTION:
+            case Constant.CONTENT_SUB_TYPE_QUESTION:
                 view = layoutInflater.inflate(R.layout.layout_item_ask, parent, false);
                 break;
-            case Constant.CONTENT_INTERVIEW_IMAGE:
-            case Constant.CONTENT_INTERVIEW_VIDEO:
+            case Constant.CONTENT_SUB_TYPE_INTERVIEW:
                 view = layoutInflater.inflate(R.layout.layout_item_interview, parent, false);
                 return new InterviewViewHolder(view);
             case FOOTER_VIEW:
@@ -116,44 +125,44 @@ public class SearchResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         if (holder instanceof DiscoverViewHolder) {
             final DiscoverViewHolder viewHolder = (DiscoverViewHolder) holder;
-            final ArticleBean bean = (ArticleBean) data.get(position);
+            final Article bean = (Article) data.get(position);
 
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if (onItemClickListener != null) {
-                        onItemClickListener.onClick(view, bean, position);
+                        onItemClickListener.onItemClick(bean);
                     }
                 }
             });
 
             switch (getItemViewType(position)) {
-                case Constant.CONTENT_DISCOVER_ARTICLE_POEM:
-                case Constant.CONTENT_DISCOVER_MOVIE:
+                case Constant.CONTENT_SUB_TYPE_ARTICLE_POEM:
+                case Constant.CONTENT_SUB_TYPE_MOVIE:
                     viewHolder.title.setText(bean.getTitle());
                     viewHolder.author.setText(bean.getAuthor());
-                    Glide.with(context).load(R.drawable.a26).into(viewHolder.cover);
+                    Glide.with(context).load(bean.getCoverImg()).into(viewHolder.cover);
                     viewHolder.content.setText(bean.getContent());
                     break;
-                case Constant.CONTENT_DISCOVER_ARTICLE_IMAGE:
-                    Glide.with(context).load(R.drawable.a8).into(viewHolder.cover);
+                case Constant.CONTENT_SUB_TYPE_ARTICLE_IMAGE:
+                    Glide.with(context).load(bean.getCoverImg()).into(viewHolder.cover);
                     viewHolder.author.setText(bean.getAuthor());
                     viewHolder.content.setText(bean.getContent());
                     break;
-                case Constant.CONTENT_DISCOVER_ARTICLE_READ:
+                case Constant.CONTENT_SUB_TYPE_ARTICLE_READ:
                     viewHolder.author.setText(bean.getAuthor());
                     viewHolder.content.setText(bean.getContent());
                     break;
-                case Constant.CONTENT_DISCOVER_QUESTION:
+                case Constant.CONTENT_SUB_TYPE_QUESTION:
                     viewHolder.title.setText(bean.getTitle());
-                    viewHolder.author.setText(bean.getAnswer_author());
+                    viewHolder.author.setText(bean.getAnswerAuthor());
                     viewHolder.content.setText(bean.getContent());
                     break;
-                case Constant.CONTENT_DISCOVER_MUSIC:
+                case Constant.CONTENT_SUB_TYPE_MUSIC:
                     viewHolder.title.setText(bean.getTitle());
                     viewHolder.author.setText(bean.getAuthor());
                     viewHolder.content.setText(bean.getContent());
-                    Glide.with(context).load(R.drawable.a24).into(viewHolder.cover);
+                    Glide.with(context).load(bean.getCoverImg()).into(viewHolder.cover);
                     break;
             }
 
@@ -177,7 +186,7 @@ public class SearchResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                         viewHolder.love_btn.setImageDrawable(context
                                 .getResources().getDrawable(R.drawable.ic_favorite_24dp));
                     }
-                    presenter.onLoveButtonClick(bean, !bean.isLoved());
+                    presenter.onLoveButtonClick(bean);
                     notifyItemChanged(position);
                 }
             });
@@ -187,20 +196,20 @@ public class SearchResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         if (holder instanceof InterviewViewHolder) {
 
             final InterviewViewHolder contentViewHolder = (InterviewViewHolder) holder;
-            final InterviewBean bean = (InterviewBean) data.get(position);
+            final Interview bean = (Interview) data.get(position);
 
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if (onItemClickListener != null) {
-                        onItemClickListener.onClick(view, bean, position);
+                        onItemClickListener.onItemClick(bean);
                     }
                 }
             });
 
             contentViewHolder.title.setText(bean.getTitle());
             contentViewHolder.author.setText(bean.getAuthor());
-            Glide.with(context).load(bean.getCover()).into(contentViewHolder.cover);
+            Glide.with(context).load(bean.getCoverContent()).into(contentViewHolder.cover);
 
             if (bean.isLoved()) {
                 contentViewHolder.love_btn.setImageDrawable(context
@@ -222,7 +231,16 @@ public class SearchResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                         contentViewHolder.love_btn.setImageDrawable(context
                                 .getResources().getDrawable(R.drawable.ic_favorite_24dp));
                     }
-                    presenter.onLoveButtonClick(bean, !bean.isLoved());
+                    if (onItemClickListener != null) {
+                        onItemClickListener.onLoveClick(bean);
+                    }
+                    contentViewHolder.love_counter.setText(bean.getLove());
+                    contentViewHolder.love_counter.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            notifyItemChanged(position);
+                        }
+                    }, 200);
                     notifyItemChanged(position);
                 }
             });
@@ -239,7 +257,7 @@ public class SearchResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         if (position == getItemCount() - 1) {
             return FOOTER_VIEW;
         }
-        return data.get(position).getType();
+        return data.get(position).getSubType();
     }
 
     @Override
@@ -254,7 +272,7 @@ public class SearchResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         ImageView cover;
         TextView content;
         TextView type;
-        TextView love_counter;
+        TickerView love_counter;
         ImageButton love_btn;
 
         public DiscoverViewHolder(View itemView) {
@@ -275,6 +293,10 @@ public class SearchResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             type = itemView.findViewById(R.id.item_type);
             love_btn = itemView.findViewById(R.id.item_love_btn);
             love_counter = itemView.findViewById(R.id.item_love_counter);
+            love_counter.setCharacterList(TickerUtils.getDefaultNumberList());
+            love_counter.setAnimationDuration(200);
+            love_counter.setAnimationInterpolator(new DecelerateInterpolator());
+            love_counter.setGravity(Gravity.RIGHT);
         }
     }
 

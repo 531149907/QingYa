@@ -1,11 +1,10 @@
 package com.xuan.qingya.Modules.Startup.Login;
 
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
-import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -14,52 +13,50 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.xuan.qingya.Core.Base.BaseFragment;
-import com.xuan.qingya.Core.Base.BasePresenter;
+import com.xuan.qingya.Core.base.BaseFragment;
 import com.xuan.qingya.Modules.Main.MainActivity;
 import com.xuan.qingya.Modules.Startup.Constant;
 import com.xuan.qingya.Modules.Startup.StartupActivity;
-import com.xuan.qingya.Modules.Startup.StartupContract;
 import com.xuan.qingya.R;
-import com.xuan.qingya.Utils.FragmentManagement;
+
+import java.util.HashMap;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 
-public class LoginFragment extends BaseFragment implements StartupContract.LoginView {
-    private TextInputLayout input_email;
-    private TextInputLayout input_password;
-    private Button reg_btn;
-    private Button login_btn;
-    private TextView forgot_password_btn;
+public class LoginFragment extends BaseFragment<ViewContract, LoginPresenter> implements ViewContract {
 
-    private StartupContract.LoginPresenter presenter;
+    @BindView(R.id.email_input)
+    TextInputLayout input_email;
+    @BindView(R.id.password_input)
+    TextInputLayout input_password;
+    @BindView(R.id.regButton)
+    Button regButton;
+    @BindView(R.id.loginButton)
+    Button loginButton;
+    @BindView(R.id.forgotPasswordButton)
+    TextView forgotPasswordButton;
 
     public LoginFragment() {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
         mRootView = inflater.inflate(R.layout.fragment_login, container, false);
+        ButterKnife.bind(this, mRootView);
 
         init();
-        initListeners(reg_btn, login_btn, forgot_password_btn);
+        initListeners(regButton, loginButton, forgotPasswordButton);
 
         return mRootView;
     }
 
-    @Override
     public void init() {
         ((StartupActivity) getActivity()).setToolbarTitle("登录");
-
-        input_email = $(R.id.login_email_input);
-        input_password = $(R.id.login_password_input);
-        reg_btn = $(R.id.login_reg_btn);
-        login_btn = $(R.id.login_login_btn);
-        forgot_password_btn = $(R.id.login_forgot_password);
-
-        initListeners(reg_btn, login_btn, forgot_password_btn);
 
         input_email.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
@@ -74,7 +71,7 @@ public class LoginFragment extends BaseFragment implements StartupContract.Login
 
             @Override
             public void afterTextChanged(Editable editable) {
-                presenter.checkIfCorrect(Constant.INPUT_EMAIL, editable.toString());
+                //presenter.checkIfCorrect(Constant.INPUT_EMAIL, editable.toString());
             }
         });
 
@@ -91,40 +88,44 @@ public class LoginFragment extends BaseFragment implements StartupContract.Login
 
             @Override
             public void afterTextChanged(Editable editable) {
-                presenter.checkIfCorrect(Constant.INPUT_PASSWORD, editable.toString(),
-                        input_email.getEditText().getText().toString());
+                //presenter.checkIfCorrect(Constant.INPUT_PASSWORD, editable.toString(),input_email.getEditText().getText().toString());
             }
         });
     }
 
     @Override
     public void onClick(View view) {
+        Intent intent;
         switch (view.getId()) {
-            case R.id.login_reg_btn:
-                presenter.onRegister();
-                break;
-            case R.id.login_login_btn:
-
-                Intent intent = new Intent(getActivity(), MainActivity.class);
+            case R.id.regButton:
+                intent = new Intent(getActivity(), StartupActivity.class);
+                intent.putExtra(com.xuan.qingya.Common.Constant.ENTRY_TYPE, com.xuan.qingya.Common.Constant.FRAGMENT_REGISTER);
                 startActivity(intent);
-                getActivity().finish();
-                /*@SuppressLint("UseSparseArrays")
+                break;
+            case R.id.loginButton:
+                @SuppressLint("UseSparseArrays")
                 HashMap<Integer, String> values = new HashMap<>();
                 values.put(Constant.INPUT_EMAIL, input_email.getEditText().getText().toString());
                 values.put(Constant.INPUT_PASSWORD, input_password.getEditText().getText().toString());
-                presenter.onLogin(values);*/
+                if (presenter.onLogin(values)) {
+                    intent = new Intent();
+                    intent.setClass(getActivity(), MainActivity.class);
+                    startActivity(intent);
+                    getActivity().finish();
+                }
                 break;
-            case R.id.login_forgot_password:
-                presenter.onForgotPassword();
+            case R.id.forgotPasswordButton:
+                intent = new Intent(getActivity(), StartupActivity.class);
+                intent.putExtra(com.xuan.qingya.Common.Constant.ENTRY_TYPE, com.xuan.qingya.Common.Constant.FRAGMENT_FORGOT_PASSWORD);
+                startActivity(intent);
                 break;
         }
     }
 
     @Override
-    public void setPresenter(StartupContract.LoginPresenter presenter) {
-        this.presenter = presenter;
+    public LoginPresenter initPresenter() {
+        return new LoginPresenter();
     }
-
 
     @Override
     public void setErrorMessage(int type, String errorMessage) {
@@ -138,16 +139,5 @@ public class LoginFragment extends BaseFragment implements StartupContract.Login
                 input_password.setErrorEnabled(true);
                 break;
         }
-    }
-
-    @Override
-    public void startActivity(Class<?> target, BasePresenter presenter, @Nullable Bundle bundle, @Nullable String extra) {
-        Intent intent = new Intent(getActivity(), target.getClass());
-        startActivity(intent);
-    }
-
-    @Override
-    public void startFragment(Fragment fragment, BasePresenter presenter, @Nullable String extra) {
-        FragmentManagement.switchFragment(getActivity().getSupportFragmentManager(), fragment, R.id.startup_container, true);
     }
 }

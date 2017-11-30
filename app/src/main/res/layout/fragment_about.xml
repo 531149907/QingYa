@@ -14,8 +14,8 @@
             android:layout_height="38dp" />
 
         <ImageView
-            android:layout_width="72dp"
-            android:layout_height="59.6dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_gravity="center_horizontal"
             android:src="@drawable/logo" />
 
@@ -24,7 +24,7 @@
             android:layout_height="16dp" />
 
         <TextView
-            android:id="@+id/app_name"
+            android:id="@+id/appName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -37,7 +37,7 @@
             android:layout_height="12dp" />
 
         <TextView
-            android:id="@+id/app_description"
+            android:id="@+id/appDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -69,7 +69,7 @@
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/build_version"
+                android:id="@+id/buildVersion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|right"

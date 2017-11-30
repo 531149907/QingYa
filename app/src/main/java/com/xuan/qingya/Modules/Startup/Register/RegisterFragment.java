@@ -4,9 +4,7 @@ package com.xuan.qingya.Modules.Startup.Register;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
-import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -15,66 +13,56 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.xuan.qingya.Core.Base.BaseFragment;
-import com.xuan.qingya.Core.Base.BasePresenter;
+import com.xuan.qingya.Core.base.BaseFragment;
+import com.xuan.qingya.Modules.Main.MainActivity;
+import com.xuan.qingya.Modules.Settings.General.SettingsActivity;
 import com.xuan.qingya.Modules.Startup.Constant;
 import com.xuan.qingya.Modules.Startup.StartupActivity;
-import com.xuan.qingya.Modules.Startup.StartupContract;
 import com.xuan.qingya.R;
-import com.xuan.qingya.Utils.FragmentManagement;
 
 import java.util.HashMap;
 
-public class RegisterFragment extends BaseFragment implements StartupContract.RegisterView {
-    private TextInputLayout input_email;
-    private TextInputLayout input_username;
-    private TextInputLayout input_password;
-    private TextInputLayout input_confirmpassword;
-    private TextInputLayout input_signature;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
-    private Button reg_btn;
-    private Button login_btn;
-    private TextView agreement_btn;
+public class RegisterFragment extends BaseFragment<ViewContract, RegisterPresenter> implements ViewContract {
 
-    StartupContract.RegisterPresenter presenter;
-
+    @BindView(R.id.email_input)
+    TextInputLayout input_email;
+    @BindView(R.id.username_input)
+    TextInputLayout input_username;
+    @BindView(R.id.password_input)
+    TextInputLayout input_password;
+    @BindView(R.id.confirm_password_input)
+    TextInputLayout input_confirm_password;
+    @BindView(R.id.signature_input)
+    TextInputLayout input_signature;
+    @BindView(R.id.regButton)
+    Button regButton;
+    @BindView(R.id.loginButton)
+    Button loginButton;
+    @BindView(R.id.agreementButton)
+    TextView agreementButton;
 
     public RegisterFragment() {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
         mRootView = inflater.inflate(R.layout.fragment_register, container, false);
+        ButterKnife.bind(this, mRootView);
 
         init();
+        initListeners(regButton, loginButton, agreementButton);
 
         return mRootView;
     }
 
-    @Override
-    public void setPresenter(StartupContract.RegisterPresenter presenter) {
-        this.presenter = presenter;
-    }
-
-    @Override
     public void init() {
-
         ((StartupActivity) getActivity()).setToolbarTitle("注册");
-
-        input_email = $(R.id.register_email_input);
-        input_username = $(R.id.register_username_input);
-        input_password = $(R.id.register_password_input);
-        input_confirmpassword = $(R.id.register_confirm_password_input);
-        input_signature = $(R.id.register_signature_input);
-
-        reg_btn = $(R.id.register_reg_btn);
-        login_btn = $(R.id.register_login_btn);
-        agreement_btn = $(R.id.register_agreement);
-
-        initListeners(reg_btn, login_btn, agreement_btn);
 
         input_email.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
@@ -89,7 +77,7 @@ public class RegisterFragment extends BaseFragment implements StartupContract.Re
 
             @Override
             public void afterTextChanged(Editable editable) {
-                presenter.checkIfCorrect(Constant.INPUT_EMAIL, editable.toString());
+                //presenter.checkIfCorrect(Constant.INPUT_EMAIL, editable.toString());
             }
         });
 
@@ -106,11 +94,11 @@ public class RegisterFragment extends BaseFragment implements StartupContract.Re
 
             @Override
             public void afterTextChanged(Editable editable) {
-                presenter.checkIfCorrect(Constant.INPUT_USERNAME, editable.toString());
+                //presenter.checkIfCorrect(Constant.INPUT_USERNAME, editable.toString());
             }
         });
 
-        input_confirmpassword.getEditText().addTextChangedListener(new TextWatcher() {
+        input_confirm_password.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -123,7 +111,7 @@ public class RegisterFragment extends BaseFragment implements StartupContract.Re
 
             @Override
             public void afterTextChanged(Editable editable) {
-                presenter.checkIfCorrect(Constant.INPUT_PASSWORD_CONFIRMED, editable.toString(), input_password.getEditText().getText().toString());
+                //presenter.checkIfCorrect(Constant.INPUT_PASSWORD_CONFIRMED, editable.toString(), input_password.getEditText().getText().toString());
             }
         });
 
@@ -140,23 +128,11 @@ public class RegisterFragment extends BaseFragment implements StartupContract.Re
 
             @Override
             public void afterTextChanged(Editable editable) {
-                presenter.checkIfCorrect(Constant.INPUT_SIGNATURE, editable.toString());
+                //presenter.checkIfCorrect(Constant.INPUT_SIGNATURE, editable.toString());
             }
         });
     }
 
-    @Override
-    public void startActivity(Class<?> target, BasePresenter presenter, @Nullable Bundle bundle, @Nullable String extra) {
-        Intent intent = new Intent(getActivity(), target.getClass());
-        startActivity(intent);
-    }
-
-    @Override
-    public void startFragment(Fragment fragment, BasePresenter presenter, @Nullable String extra) {
-        FragmentManagement.switchFragment(getActivity().getSupportFragmentManager(), fragment, R.id.startup_container, true);
-    }
-
-    @Override
     public void setErrorMessage(int type, String errorMessage) {
         switch (type) {
             case Constant.INPUT_EMAIL:
@@ -172,8 +148,8 @@ public class RegisterFragment extends BaseFragment implements StartupContract.Re
                 input_password.setErrorEnabled(true);
                 break;
             case Constant.INPUT_PASSWORD_CONFIRMED:
-                input_confirmpassword.setError(errorMessage);
-                input_confirmpassword.setErrorEnabled(true);
+                input_confirm_password.setError(errorMessage);
+                input_confirm_password.setErrorEnabled(true);
                 break;
             case Constant.INPUT_SIGNATURE:
                 input_signature.setError(errorMessage);
@@ -184,23 +160,40 @@ public class RegisterFragment extends BaseFragment implements StartupContract.Re
 
     @Override
     public void onClick(View view) {
+        Intent intent;
         switch (view.getId()) {
-            case R.id.register_reg_btn:
+            case R.id.regButton:
                 @SuppressLint("UseSparseArrays")
                 HashMap<Integer, String> values = new HashMap<>();
                 values.put(Constant.INPUT_EMAIL, input_email.getEditText().getText().toString());
                 values.put(Constant.INPUT_USERNAME, input_username.getEditText().getText().toString());
                 values.put(Constant.INPUT_PASSWORD, input_password.getEditText().getText().toString());
-                values.put(Constant.INPUT_PASSWORD_CONFIRMED, input_confirmpassword.getEditText().getText().toString());
+                values.put(Constant.INPUT_PASSWORD_CONFIRMED, input_confirm_password.getEditText().getText().toString());
                 values.put(Constant.INPUT_SIGNATURE, input_signature.getEditText().getText().toString());
-                presenter.onRegister(values);
+                if (presenter.onRegister(values)) {
+                    intent = new Intent();
+                    intent.setClass(getActivity(), MainActivity.class);
+                    startActivity(intent);
+                    getActivity().finish();
+                }
                 break;
-            case R.id.register_agreement:
-                presenter.startAgreement();
+            case R.id.agreementButton:
+                intent = new Intent();
+                intent.setClass(getActivity(), SettingsActivity.class);
+                intent.putExtra(com.xuan.qingya.Common.Constant.ENTRY_TYPE, com.xuan.qingya.Common.Constant.FRAGMENT_SETTINGS_AGREEMENT);
+                startActivity(intent);
                 break;
-            case R.id.register_login_btn:
-                presenter.onLogin();
+            case R.id.loginButton:
+                intent = new Intent(getActivity(), StartupActivity.class);
+                intent.putExtra(com.xuan.qingya.Common.Constant.ENTRY_TYPE, com.xuan.qingya.Common.Constant.FRAGMENT_LOGIN);
+                startActivity(intent);
                 break;
         }
     }
+
+    @Override
+    public RegisterPresenter initPresenter() {
+        return new RegisterPresenter();
+    }
+
 }

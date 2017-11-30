@@ -34,8 +34,8 @@
                 android:textSize="12sp" />
 
             <TextView
-                android:padding="@dimen/default_margin"
                 android:id="@+id/content"
+                android:padding="@dimen/default_margin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:lineSpacingExtra="10sp"
@@ -59,7 +59,7 @@
         android:padding="@dimen/default_margin">
 
         <Button
-            android:id="@+id/delete_btn"
+            android:id="@+id/deleteButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:letterSpacing="0.2"

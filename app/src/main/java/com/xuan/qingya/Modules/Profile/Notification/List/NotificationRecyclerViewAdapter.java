@@ -8,9 +8,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.xuan.qingya.Models.Entity.NotificationBean;
+import com.xuan.qingya.Models.entity.Message;
 import com.xuan.qingya.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,16 +22,17 @@ public class NotificationRecyclerViewAdapter extends RecyclerView.Adapter<Recycl
     private final int FOOTER_VIEW = -1;
     private final int ITEM_VIEW = 0;
     private Context context;
-    private List<NotificationBean> data;
-    private NotificationRecyclerViewAdapter.OnItemClickListener onItemClickListener;
+    private List<Message> data;
+    private OnItemClickListener onItemClickListener;
 
-    public NotificationRecyclerViewAdapter(Context context, List<NotificationBean> data) {
+    public NotificationRecyclerViewAdapter(Context context) {
         this.context = context;
-        this.data = data;
+        this.data = new ArrayList<>();
     }
 
-    public void setData(List<NotificationBean> data) {
+    public void setData(List<Message> data) {
         this.data = data;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -54,12 +56,12 @@ public class NotificationRecyclerViewAdapter extends RecyclerView.Adapter<Recycl
             return;
         }
 
-        final NotificationBean bean = data.get(position);
+        final Message bean = data.get(position);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (onItemClickListener != null) {
-                    onItemClickListener.onClick(view, bean, position);
+                    onItemClickListener.onClick(bean, position);
                 }
             }
         });
@@ -111,11 +113,11 @@ public class NotificationRecyclerViewAdapter extends RecyclerView.Adapter<Recycl
         }
     }
 
-    public void addOnClickListener(NotificationRecyclerViewAdapter.OnItemClickListener onItemClickListener) {
+    public void addOnClickListener(OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
     }
 
     interface OnItemClickListener {
-        void onClick(View view, NotificationBean bean, int position);
+        void onClick(Message bean, int position);
     }
 }

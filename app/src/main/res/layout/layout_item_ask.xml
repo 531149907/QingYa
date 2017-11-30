@@ -58,18 +58,16 @@
                 android:textColor="@color/grey"
                 android:textSize="12sp" />
 
-            <TextView
+            <com.robinhood.ticker.TickerView
                 android:id="@+id/item_love_counter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_gravity="right"
-                android:paddingBottom="@dimen/default_margin"
-                android:paddingRight="@dimen/default_margin"
-                android:paddingTop="@dimen/default_margin"
-                android:text="657"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:textColor="@color/grey"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:layout_marginTop="@dimen/default_margin"
+                android:paddingRight="@dimen/default_margin" />
 
             <ImageButton
                 android:id="@+id/item_love_btn"

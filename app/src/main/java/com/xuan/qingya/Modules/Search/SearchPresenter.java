@@ -1,350 +1,123 @@
 package com.xuan.qingya.Modules.Search;
 
-import android.view.View;
-
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.xuan.qingya.Common.CacheKeys;
 import com.xuan.qingya.Common.Constant;
-import com.xuan.qingya.Models.Entity.ArticleBean;
-import com.xuan.qingya.Models.Entity.BaseBean;
-import com.xuan.qingya.Models.Entity.InterviewBean;
-import com.xuan.qingya.Models.Entity.SearchHistoryBean;
-import com.xuan.qingya.R;
+import com.xuan.qingya.Core.base.BasePresenter;
+import com.xuan.qingya.Core.net.APIService;
+import com.xuan.qingya.Models.entity.Article;
+import com.xuan.qingya.Models.entity.Base;
+import com.xuan.qingya.Models.entity.SearchHistory;
+import com.xuan.qingya.Models.entity.User;
+import com.xuan.qingya.Models.entity.UserLove;
+import com.xuan.qingya.Utils.CacheUtil;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static com.xuan.qingya.Common.Constant.CONTENT_SUB_TYPE_MOVIE;
+import static com.xuan.qingya.Common.Constant.CONTENT_SUB_TYPE_PHOTOGRAPHY;
 
 /**
  * Created by zhouzhixuan on 2017/9/13.
  */
 
-public class SearchPresenter implements SearchContract.SearchPresenter {
+public class SearchPresenter extends BasePresenter<ViewContract> {
+    public void getHistoryDataList() {
+        /*todo: 从本地搜索记录的数据库中获取数据*/
+        List<SearchHistory> list = new ArrayList<>();
 
-    private SearchContract.SearchView view;
+        SearchHistory bean = new SearchHistory("history 1");
+        bean.setType(Constant.SEARCH_HISTORY);
+        list.add(bean);
 
-    public SearchPresenter(SearchContract.SearchView view) {
-        this.view = view;
-        view.setPresenter(this);
+        bean = new SearchHistory("history 2");
+        bean.setType(Constant.SEARCH_HISTORY);
+        list.add(bean);
+
+        bean = new SearchHistory("history 3");
+        bean.setType(Constant.SEARCH_HISTORY);
+        list.add(bean);
+
+        getMvpView().showHistoryList(list);
     }
 
-    @Override
-    public void init() {
+    public void getResultDataList(final String keyword) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("keyword", keyword);
 
+        APIService.getService().getArticles(params).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, final Response<ResponseBody> response) {
+                if (response.body() != null) {
+                    List<Article> list = null;
+                    try {
+                        list = new Gson().fromJson(response.body().string(), new TypeToken<List<Article>>() {
+                        }.getType());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    List<Base> data = new ArrayList<>();
+                    if (list != null && isActivityAlive()) {
+                        data.addAll(list);
+                        for (int i = 0; i < data.size(); i++) {
+                            if (data.get(i).getSubType() == CONTENT_SUB_TYPE_MOVIE
+                                    || data.get(i).getSubType() == CONTENT_SUB_TYPE_PHOTOGRAPHY) {
+                                data.remove(i);
+                            }
+                        }
+                        getMvpView().showResultList(data);
+                        getMvpView().listSwitchAnimation();
+                    }
+                } else {
+                    /*todo:显示无搜索结果*/
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
     }
 
-    @Override
-    public void fillEditTextWithHistoryContent(String content) {
-        view.replaceSearchContent(content);
-    }
-
-    @Override
-    public void onSearchHistoryItemClick(final View itemView, SearchHistoryBean bean, final String content) {
-        view.replaceSearchContent(content);
-        view.switchToResultList();
-    }
-
-    @Override
-    public void onSearchResultItemClick() {
-
-    }
-
-    @Override
-    public List<SearchHistoryBean> getHistoryDataList() {
-        List<SearchHistoryBean> list = new ArrayList<>();
-
-        SearchHistoryBean bean = new SearchHistoryBean();
-        bean.setContent("Search item test");
-        bean.setHistoryItem(true);
-        bean.setType(Constant.SEARCH_HISTORY);
-        list.add(bean);
-
-        bean = new SearchHistoryBean();
-        bean.setContent("Search item test");
-        bean.setHistoryItem(true);
-        bean.setType(Constant.SEARCH_HISTORY);
-        list.add(bean);
-
-        bean = new SearchHistoryBean();
-        bean.setContent("Search item test");
-        bean.setHistoryItem(true);
-        bean.setType(Constant.SEARCH_HISTORY);
-        list.add(bean);
-
-        bean = new SearchHistoryBean();
-        bean.setContent("Search item test");
-        bean.setHistoryItem(true);
-        bean.setType(Constant.SEARCH_HISTORY);
-        list.add(bean);
-
-        bean = new SearchHistoryBean();
-        bean.setContent("Search item test");
-        bean.setHistoryItem(true);
-        bean.setType(Constant.SEARCH_HISTORY);
-        list.add(bean);
-
-        bean = new SearchHistoryBean();
-        bean.setContent("Search item test");
-        bean.setHistoryItem(true);
-        bean.setType(Constant.SEARCH_HISTORY);
-        list.add(bean);
-
-        bean = new SearchHistoryBean();
-        bean.setContent("Search item test");
-        bean.setHistoryItem(true);
-        bean.setType(Constant.SEARCH_HISTORY);
-        list.add(bean);
-
-        bean = new SearchHistoryBean();
-        bean.setContent("Search item test");
-        bean.setHistoryItem(true);
-        bean.setType(Constant.SEARCH_HISTORY);
-        list.add(bean);
-
-        bean = new SearchHistoryBean();
-        bean.setContent("Search item test");
-        bean.setHistoryItem(true);
-        bean.setType(Constant.SEARCH_HISTORY);
-        list.add(bean);
-
-        bean = new SearchHistoryBean();
-        bean.setContent("Search item test");
-        bean.setHistoryItem(true);
-        bean.setType(Constant.SEARCH_HISTORY);
-        list.add(bean);
-
-        bean = new SearchHistoryBean();
-        bean.setContent("Search item test");
-        bean.setHistoryItem(true);
-        bean.setType(Constant.SEARCH_HISTORY);
-        list.add(bean);
-
-        bean = new SearchHistoryBean();
-        bean.setContent("Search item test");
-        bean.setHistoryItem(true);
-        bean.setType(Constant.SEARCH_HISTORY);
-        list.add(bean);
-
-        bean = new SearchHistoryBean();
-        bean.setContent("Search item test");
-        bean.setHistoryItem(true);
-        bean.setType(Constant.SEARCH_HISTORY);
-        list.add(bean);
-
-        bean = new SearchHistoryBean();
-        bean.setContent("Search item test");
-        bean.setHistoryItem(true);
-        bean.setType(Constant.SEARCH_HISTORY);
-        list.add(bean);
-
-        bean = new SearchHistoryBean();
-        bean.setContent("Search item test");
-        bean.setHistoryItem(true);
-        bean.setType(Constant.SEARCH_HISTORY);
-        list.add(bean);
-
-        bean = new SearchHistoryBean();
-        bean.setContent("Search item test");
-        bean.setHistoryItem(true);
-        bean.setType(Constant.SEARCH_HISTORY);
-        list.add(bean);
-        bean = new SearchHistoryBean();
-        bean.setContent("Search item test");
-        bean.setHistoryItem(true);
-        bean.setType(Constant.SEARCH_HISTORY);
-        list.add(bean);
-
-        bean = new SearchHistoryBean();
-        bean.setContent("Search item test");
-        bean.setHistoryItem(true);
-        bean.setType(Constant.SEARCH_HISTORY);
-        list.add(bean);
-
-        bean = new SearchHistoryBean();
-        bean.setContent("Search item test");
-        bean.setHistoryItem(true);
-        bean.setType(Constant.SEARCH_HISTORY);
-        list.add(bean);
-        bean = new SearchHistoryBean();
-        bean.setContent("Search item test");
-        bean.setHistoryItem(true);
-        bean.setType(Constant.SEARCH_HISTORY);
-        list.add(bean);
-
-        bean = new SearchHistoryBean();
-        bean.setContent("Search item test");
-        bean.setHistoryItem(true);
-        bean.setType(Constant.SEARCH_HISTORY);
-        list.add(bean);
-
-        bean = new SearchHistoryBean();
-        bean.setContent("Search item test");
-        bean.setHistoryItem(true);
-        bean.setType(Constant.SEARCH_HISTORY);
-        list.add(bean);
-
-        bean = new SearchHistoryBean();
-        bean.setContent("Search item test");
-        bean.setHistoryItem(true);
-        bean.setType(Constant.SEARCH_HISTORY);
-        list.add(bean);
-
-        bean = new SearchHistoryBean();
-        bean.setContent("Search item test");
-        bean.setHistoryItem(true);
-        bean.setType(Constant.SEARCH_HISTORY);
-        list.add(bean);
-
-        bean = new SearchHistoryBean();
-        bean.setContent("Search item test");
-        bean.setHistoryItem(true);
-        bean.setType(Constant.SEARCH_HISTORY);
-        list.add(bean);
-        bean = new SearchHistoryBean();
-        bean.setContent("Search item test");
-        bean.setHistoryItem(true);
-        bean.setType(Constant.SEARCH_HISTORY);
-        list.add(bean);
-
-        bean = new SearchHistoryBean();
-        bean.setContent("Search item test");
-        bean.setHistoryItem(true);
-        bean.setType(Constant.SEARCH_HISTORY);
-        list.add(bean);
-
-        bean = new SearchHistoryBean();
-        bean.setContent("Search item test");
-        bean.setHistoryItem(true);
-        bean.setType(Constant.SEARCH_HISTORY);
-        list.add(bean);
-
-        bean = new SearchHistoryBean();
-        bean.setContent("Search item test");
-        bean.setHistoryItem(true);
-        bean.setType(Constant.SEARCH_HISTORY);
-        list.add(bean);
-
-        bean = new SearchHistoryBean();
-        bean.setContent("Search item test");
-        bean.setHistoryItem(true);
-        bean.setType(Constant.SEARCH_HISTORY);
-        list.add(bean);
-
-        bean = new SearchHistoryBean();
-        bean.setContent("Search item test");
-        bean.setHistoryItem(true);
-        bean.setType(Constant.SEARCH_HISTORY);
-        list.add(bean);
-
-
-
-
-
-
-        return list;
-    }
-
-    @Override
-    public List<BaseBean> getResultDataList(String keyword) {
-        List<BaseBean> list = new ArrayList<>();
-
-        ArticleBean bean1 = new ArticleBean();
-        bean1.setId(1);
-        bean1.setType(Constant.CONTENT_DISCOVER_ARTICLE_READ);
-        bean1.setTitle("向着二十亿光年的孤独，我情不自禁打了个喷嚏");
-        bean1.setAuthor("文 / 别人的佩佩");
-        bean1.setCover_img(R.drawable.a1);
-        bean1.setContent("于是我们看完了一部又一部烂剧，就这样过完了前半生。在拥挤的人群中，我不想失去她。");
-        bean1.setLove(126);
-
-        ArticleBean bean2 = new ArticleBean();
-        bean2.setId(2);
-        bean2.setType(Constant.CONTENT_DISCOVER_ARTICLE_IMAGE);
-        bean2.setCover_img(R.drawable.a2);
-        bean2.setAuthor("文 / 别人的佩佩");
-        bean2.setContent("生命里无疑还有许多夏天，但肯定没有一个夏天，会如今夏。");
-        bean2.setLove(34);
-
-        ArticleBean bean3 = new ArticleBean();
-        bean3.setId(3);
-        bean3.setType(Constant.CONTENT_DISCOVER_ARTICLE_POEM);
-        bean3.setAuthor("文 / 别人的佩佩");
-        bean3.setContent("撕去日历，\n" + "为的是不让时间停止，\n" + "即使她人生里的可能都已失去了，\n" + "但倘若时间不存在，\n" + "那么她的爱情尸骨无存。");
-        bean3.setLove(27);
-
-        ArticleBean bean4 = new ArticleBean();
-        bean4.setId(4);
-        bean4.setType(Constant.CONTENT_DISCOVER_QUESTION);
-        bean4.setTitle("为什么人的一生如此短暂？");
-        bean4.setAnswer_author("文 / 别人的佩佩");
-        bean4.setContent("于是我们看完了一部又一部烂剧，就这样过完了前半生。在拥挤的人群中，我不想失去她。");
-        bean4.setLove(71);
-
-        ArticleBean bean5 = new ArticleBean();
-        bean5.setId(5);
-        bean5.setType(Constant.CONTENT_DISCOVER_MUSIC);
-        bean5.setTitle("我的少年时代时过去了，但我一点也不怀念它");
-        bean5.setAuthor("文 / 别人的佩佩");
-        bean5.setCover_img(R.drawable.a18);
-        bean5.setContent("生命里无疑还有许多夏天，但肯定没有一个夏天，会如今夏。");
-        bean5.setLove(196);
-
-        list.add(bean1);
-        list.add(bean2);
-        list.add(bean3);
-        list.add(bean4);
-        list.add(bean5);
-
-        InterviewBean bean = new InterviewBean();
-
-        bean.setId(0);
-        bean.setType(Constant.CONTENT_INTERVIEW_IMAGE);
-        bean.setTitle("通过观察别人的眼神来判断其精神状态靠谱吗？");
-        bean.setAuthor("文 / 别人的佩佩");
-        bean.setCover(R.drawable.a2);
-        bean.setContent("CONTENT FOR INTERVIEW ID: " + bean.getId() + " TYPE: " + bean.getType());
-        bean.setLoved(false);
-        bean.setLove(657);
-        list.add(bean);
-
-        bean = new InterviewBean();
-        bean.setId(1);
-        bean.setType(Constant.CONTENT_INTERVIEW_IMAGE);
-        bean.setTitle("能否通过阅读找到一个合适的灵魂伴侣？");
-        bean.setAuthor("文 / 丹丹宁");
-        bean.setCover(R.drawable.a7);
-        bean.setContent("CONTENT FOR INTERVIEW ID: " + bean.getId() + " TYPE: " + bean.getType());
-        bean.setLove(24);
-        list.add(bean);
-
-        bean = new InterviewBean();
-        bean.setId(2);
-        bean.setType(Constant.CONTENT_INTERVIEW_VIDEO);
-        bean.setTitle("走进思维深处的感应？");
-        bean.setAuthor("文 / 金一");
-        bean.setCover(R.drawable.a14);
-        bean.setContent("CONTENT FOR INTERVIEW ID: " + bean.getId() + " TYPE: " + bean.getType());
-        bean.setLove(125);
-        list.add(bean);
-
-        bean = new InterviewBean();
-        bean.setId(2);
-        bean.setType(Constant.CONTENT_INTERVIEW_VIDEO);
-        bean.setTitle("来自末代皇帝的清华事迹");
-        bean.setAuthor("文 / 我爱哈士奇");
-        bean.setCover(R.drawable.a19);
-        bean.setContent("CONTENT FOR INTERVIEW ID: " + bean.getId() + " TYPE: " + bean.getType());
-        bean.setLove(39);
-        list.add(bean);
-
-        return list;
-    }
-
-    @Override
-    public void onLoveButtonClick(BaseBean bean, boolean setLove) {
-        if (setLove) {
+    public void onLoveButtonClick(Base bean) {
+        /*todo: 更新点赞*/
+        if (!bean.isLoved()) {
             bean.setLove(bean.getLove() + 1);
 
         } else {
             bean.setLove(bean.getLove() - 1);
         }
-        bean.setLoved(setLove);
+        bean.setLoved(!bean.isLoved());
+        User user = (User) CacheUtil.get(getContext()).getAsObject(CacheKeys.USER_ENTITY);
+        UserLove userLove = new UserLove(user.getId(), bean.getSubType(), bean.getId(), new Date().toString());
+        APIService.getService().addNewCollectionItem(userLove).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+    }
+
+    @Override
+    protected void detach() {
+        super.detach();
+
     }
 }

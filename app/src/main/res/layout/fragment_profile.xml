@@ -5,7 +5,58 @@
     android:orientation="vertical">
 
     <android.support.v7.widget.CardView
-        android:id="@+id/profile_notification_item"
+        android:id="@+id/profileSection"
+        android:layout_width="match_parent"
+        android:layout_height="88dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?attr/selectableItemBackground"
+        app:cardCornerRadius="0dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="88dp"
+            android:background="?android:selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:id="@+id/avatar"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="@dimen/default_margin" />
+
+            <TextView
+                android:id="@+id/username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="19dp"
+                android:layout_toRightOf="@id/avatar"
+                android:maxLines="1"
+                android:text="小明同学"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/signature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/username"
+                android:layout_marginTop="8dp"
+                android:layout_toRightOf="@id/avatar"
+                android:maxLines="1"
+                android:text="悠然喝着咖啡，享受这个世界"
+                android:textColor="@color/grey"
+                android:textSize="14sp" />
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/notificationItem"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_marginTop="@dimen/default_margin"
@@ -19,7 +70,6 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/profile_icon_notification"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -45,11 +95,13 @@
                 android:layout_alignParentLeft="true"
                 android:layout_marginLeft="72dp"
                 android:background="@color/divider" />
+
         </RelativeLayout>
+
     </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView
-        android:id="@+id/profile_settings_item"
+        android:id="@+id/settingsItem"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:clickable="true"
@@ -62,16 +114,14 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/profile_icon_settings"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/textView"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="15dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/default_margin"
                 android:src="@drawable/ic_settings_24dp" />
 
             <TextView
-                android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -89,11 +139,13 @@
                 android:layout_alignParentLeft="true"
                 android:layout_marginLeft="72dp"
                 android:background="@color/divider" />
+
         </RelativeLayout>
+
     </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView
-        android:id="@+id/profile_love_item"
+        android:id="@+id/loveItem"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:clickable="true"
@@ -106,7 +158,6 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/profile_icon_love"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -132,11 +183,13 @@
                 android:layout_alignParentLeft="true"
                 android:layout_marginLeft="72dp"
                 android:background="@color/divider" />
+
         </RelativeLayout>
+
     </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView
-        android:id="@+id/profile_play_history_item"
+        android:id="@+id/playHistoryItem"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:clickable="true"
@@ -149,7 +202,6 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/profile_icon_play_history"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -169,10 +221,11 @@
                 android:textSize="16sp" />
 
         </RelativeLayout>
+
     </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView
-        android:id="@+id/profile_logout_item"
+        android:id="@+id/logoutItem"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_marginBottom="@dimen/default_margin"
@@ -196,8 +249,9 @@
                 android:text="退出登录"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
+
         </RelativeLayout>
+
     </android.support.v7.widget.CardView>
 
-    <include layout="@layout/layout_item_footer" />
 </LinearLayout>

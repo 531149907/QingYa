@@ -11,10 +11,10 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.xuan.qingya.Common.Constant;
-import com.xuan.qingya.Models.Entity.ArticleBean;
-import com.xuan.qingya.Modules.Profile.ProfileContract;
+import com.xuan.qingya.Models.entity.Article;
 import com.xuan.qingya.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,25 +22,30 @@ import java.util.List;
  */
 
 public class CollectionRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private static final int FOOTER_VIEW = -1;
 
-    private final int FOOTER_VIEW = -1;
-    private ProfileContract.CollectionPresenter presenter;
     private Context context;
-    private List<ArticleBean> data;
-    private CollectionRecyclerViewAdapter.OnItemClickListener onItemClickListener;
+    private List<Article> data;
+    private OnItemClickListener onItemClickListener;
 
     interface OnItemClickListener {
-        void onClick(View view, ArticleBean bean, int position);
+        void onClick(Article bean, int position);
+
+        void onLoveCancelClick(Article bean, int position);
     }
 
-    public void addOnClickListener(CollectionRecyclerViewAdapter.OnItemClickListener onItemClickListener) {
+    public void addOnClickListener(OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
     }
 
-    public CollectionRecyclerViewAdapter(Context context, List<ArticleBean> data, ProfileContract.CollectionPresenter presenter) {
+    public CollectionRecyclerViewAdapter(Context context) {
         this.context = context;
+        data = new ArrayList<>();
+    }
+
+    public void setData(List<Article> data) {
         this.data = data;
-        this.presenter = presenter;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -48,19 +53,17 @@ public class CollectionRecyclerViewAdapter extends RecyclerView.Adapter<Recycler
         View view;
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         switch (viewType) {
-            case Constant.CONTENT_DISCOVER_MOVIE:
-            case Constant.CONTENT_DISCOVER_ARTICLE_READ:
-            case Constant.CONTENT_DISCOVER_ARTICLE_IMAGE:
-            case Constant.CONTENT_DISCOVER_ARTICLE_POEM:
-            case Constant.CONTENT_DISCOVER_MUSIC:
-            case Constant.CONTENT_DISCOVER_QUESTION:
+            case Constant.CONTENT_SUB_TYPE_MOVIE:
+            case Constant.CONTENT_SUB_TYPE_ARTICLE_READ:
+            case Constant.CONTENT_SUB_TYPE_ARTICLE_POEM:
+            case Constant.CONTENT_SUB_TYPE_MUSIC:
+            case Constant.CONTENT_SUB_TYPE_QUESTION:
                 view = layoutInflater.inflate(R.layout.layout_item_collection_others, parent, false);
                 return new OthersItemViewHolder(view);
-            case Constant.CONTENT_DISCOVER_PHOTOGRAPHY:
+            case Constant.CONTENT_SUB_TYPE_ARTICLE_IMAGE:
                 view = layoutInflater.inflate(R.layout.layout_item_collection_photo, parent, false);
                 return new PhotoItemViewHolder(view);
-            case Constant.CONTENT_INTERVIEW_IMAGE:
-            case Constant.CONTENT_INTERVIEW_VIDEO:
+            case Constant.CONTENT_SUB_TYPE_INTERVIEW:
                 view = layoutInflater.inflate(R.layout.layout_item_collection_interview, parent, false);
                 return new InterviewItemViewHolder(view);
             case FOOTER_VIEW:
@@ -77,12 +80,12 @@ public class CollectionRecyclerViewAdapter extends RecyclerView.Adapter<Recycler
             return;
         }
 
-        final ArticleBean bean = data.get(position);
+        final Article bean = data.get(position);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (onItemClickListener != null) {
-                    onItemClickListener.onClick(view, bean, position);
+                    onItemClickListener.onClick(bean, position);
                 }
             }
         });
@@ -91,12 +94,12 @@ public class CollectionRecyclerViewAdapter extends RecyclerView.Adapter<Recycler
             final OthersItemViewHolder viewHolder = (OthersItemViewHolder) holder;
 
             viewHolder.title.setText(bean.getTitle());
-            if (bean.getType() == Constant.CONTENT_DISCOVER_QUESTION) {
-                viewHolder.author.setText(bean.getAnswer_author());
+            if (bean.getSubType() == Constant.CONTENT_SUB_TYPE_QUESTION) {
+                viewHolder.author.setText(bean.getAnswerAuthor());
             } else {
                 viewHolder.author.setText(bean.getAuthor());
             }
-            Glide.with(context).load(bean.getCover_img()).into(viewHolder.cover);
+            Glide.with(context).load(bean.getCoverImg()).into(viewHolder.cover);
 
             if (position == data.size() - 1) {
                 viewHolder.divider.setVisibility(View.INVISIBLE);
@@ -123,7 +126,9 @@ public class CollectionRecyclerViewAdapter extends RecyclerView.Adapter<Recycler
                         viewHolder.love.setImageDrawable(context
                                 .getResources().getDrawable(R.drawable.ic_favorite_24dp));
                     }
-                    presenter.onLoveCancel(bean);
+                    if (onItemClickListener != null) {
+                        onItemClickListener.onLoveCancelClick(bean, position);
+                    }
                     notifyItemChanged(position);
                 }
             });
@@ -132,7 +137,7 @@ public class CollectionRecyclerViewAdapter extends RecyclerView.Adapter<Recycler
         if (holder instanceof PhotoItemViewHolder) {
             final PhotoItemViewHolder viewHolder = (PhotoItemViewHolder) holder;
             viewHolder.author.setText(bean.getAuthor());
-            Glide.with(context).load(bean.getCover_img()).into(viewHolder.cover);
+            Glide.with(context).load(bean.getCoverImg()).into(viewHolder.cover);
 
             if (bean.isLoved()) {
                 viewHolder.love.setImageDrawable(context
@@ -155,7 +160,10 @@ public class CollectionRecyclerViewAdapter extends RecyclerView.Adapter<Recycler
                         viewHolder.love.setImageDrawable(context
                                 .getResources().getDrawable(R.drawable.ic_favorite_24dp));
                     }
-                    presenter.onLoveCancel(bean);
+                    if (onItemClickListener != null) {
+                        onItemClickListener.onLoveCancelClick(bean, position);
+                    }
+
                     notifyItemChanged(position);
                 }
             });
@@ -166,7 +174,7 @@ public class CollectionRecyclerViewAdapter extends RecyclerView.Adapter<Recycler
 
             viewHolder.title.setText(bean.getTitle());
             viewHolder.author.setText(bean.getAuthor());
-            Glide.with(context).load(bean.getCover_img()).into(viewHolder.cover);
+            Glide.with(context).load(bean.getCoverImg()).into(viewHolder.cover);
 
             if (bean.isLoved()) {
                 viewHolder.love.setImageDrawable(context
@@ -189,7 +197,10 @@ public class CollectionRecyclerViewAdapter extends RecyclerView.Adapter<Recycler
                         viewHolder.love.setImageDrawable(context
                                 .getResources().getDrawable(R.drawable.ic_favorite_24dp));
                     }
-                    presenter.onLoveCancel(bean);
+                    if (onItemClickListener != null) {
+                        onItemClickListener.onLoveCancelClick(bean, position);
+                        //notifyItemRemoved(position);
+                    }
                     notifyItemChanged(position);
                 }
             });
@@ -201,7 +212,7 @@ public class CollectionRecyclerViewAdapter extends RecyclerView.Adapter<Recycler
         if (position == getItemCount() - 1) {
             return FOOTER_VIEW;
         }
-        return data.get(position).getType();
+        return data.get(position).getSubType();
     }
 
     @Override

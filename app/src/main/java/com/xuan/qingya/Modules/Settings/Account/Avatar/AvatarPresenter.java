@@ -1,20 +1,11 @@
 package com.xuan.qingya.Modules.Settings.Account.Avatar;
 
+import com.xuan.qingya.Core.base.BasePresenter;
+
 /**
  * Created by zhouzhixuan on 2017/9/8.
  */
 
-public class AvatarPresenter implements AvatarContract.AvatarPresenter {
+public class AvatarPresenter extends BasePresenter<ViewContract> {
 
-    private AvatarContract.AvatarView view;
-
-    public AvatarPresenter(AvatarContract.AvatarView view) {
-        this.view = view;
-        view.setPresenter(this);
-    }
-
-    @Override
-    public void init() {
-
-    }
 }

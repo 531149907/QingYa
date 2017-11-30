@@ -4,158 +4,274 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
+import android.view.animation.Transformation;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.xuan.qingya.Common.Listeners.AppBarStateChangeListener;
-import com.xuan.qingya.Core.Base.BaseActivity;
-import com.xuan.qingya.Models.Entity.InterviewBean;
+import com.xuan.qingya.Core.Observer.AnimationObserver.AnimationController;
+import com.xuan.qingya.Core.Observer.AnimationObserver.AnimationObserverContract;
+import com.xuan.qingya.Core.base.BaseActivity;
+import com.xuan.qingya.Models.entity.Interview;
+import com.xuan.qingya.Models.entity.ItemViewInfo;
 import com.xuan.qingya.R;
+import com.xuan.qingya.Utils.DensityUtil;
 
-public class InterviewDetailActivity extends BaseActivity implements InterviewDetailContract.InterviewDetailView {
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
-    private InterviewDetailContract.InterviewDetailPresenter presenter;
-    private Toolbar toolbar;
-    private AppBarLayout appBarLayout;
-    private ImageButton loveButton;
-    private TextView toolbarTitle;
-    TextView title, author, content;
+public class InterviewDetailActivity extends BaseActivity<ViewContract, InterviewDetailPresenter> implements ViewContract, AnimationObserverContract.AnimationObserver {
+    @BindView(R.id.coordinatorLayout)
+    CoordinatorLayout coordinatorLayout;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.appBarLayout)
+    AppBarLayout appBarLayout;
+    @BindView(R.id.fakeAppBar)
+    AppBarLayout fakeAppbarLayout;
+    @BindView(R.id.cover)
+    ImageView cover;
+    @BindView(R.id.toolbarCloseButton)
+    ImageButton closeButton;
+    @BindView(R.id.toolbarMoreButton)
+    ImageButton moreButton;
+    @BindView(R.id.toolbarLoveButton)
+    ImageButton loveButton;
+    @BindView(R.id.scrollView)
+    NestedScrollView scrollView;
+    @BindView(R.id.contentTitle)
+    TextView title;
+    @BindView(R.id.contentAuthor)
+    TextView author;
+    @BindView(R.id.contentText)
+    TextView content;
+    @BindView(R.id.backgroundLayout)
+    FrameLayout backgroundLayout;
+
+    private ItemViewInfo viewInfo;
+    private Interview bean;
+    private boolean isAppbarOverlay;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_interview_detail);
+        ButterKnife.bind(this);
         isTransparentStatusBar();
+
         init();
-        initListeners();
-        initAnimation();
+        initListeners(closeButton, moreButton, loveButton);
     }
 
     @Override
-    public void setPresenter(InterviewDetailContract.InterviewDetailPresenter presenter) {
-        this.presenter = presenter;
+    public void onBackPressed() {
+        AnimationController.getInstance().doAnimation("EXIT");
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                finish();
+                overridePendingTransition(0, 0);
+            }
+        }, 450);
     }
 
-    @Override
     public void init() {
-
         Intent intent = getIntent();
-        Bundle bundle = intent.getBundleExtra("bean_bundle");
-        InterviewBean bean = bundle.getParcelable("bean");
+        bean = intent.getParcelableExtra("bean");
+        viewInfo = intent.getParcelableExtra("viewInfo");
+        isAppbarOverlay = intent.getBooleanExtra("isAppbarOverlay", false);
 
-        title = $(R.id.interview_detail_title);
-        author = $(R.id.interview_detail_author);
-        content = $(R.id.interview_detail_content);
-        loveButton = $(R.id.love);
-        toolbar = $(R.id.interview_detail_toolbar);
-        appBarLayout = $(R.id.interview_detail_appbar_layout);
-        toolbarTitle = $(R.id.title);
+        AnimationController.getInstance().addObserver(this);
 
-        title.setText(bean.getTitle());
-        author.setText(bean.getAuthor());
-        content.setText(bean.getContent());
-
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbar.getNavigationIcon().setTint(getResources().getColor(R.color.white));
-        toolbar.setTitleTextColor(getResources().getColor(R.color.white));
+        closeButton.getDrawable().setTint(getResources().getColor(R.color.white));
         loveButton.getDrawable().setTint(getResources().getColor(R.color.white));
-        toolbarTitle.setTextColor(getResources().getColor(R.color.white));
+        moreButton.getDrawable().setTint(getResources().getColor(R.color.white));
 
-        ImageView cover = $(R.id.interview_detail_cover);
-        Glide.with(this).load(bean.getCover())
-                .transition(new DrawableTransitionOptions()
-                        .crossFade(200)).into(cover);
+        Glide.with(this).load(bean.getCoverContent()).into(cover);
+
+        backgroundLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                backgroundLayout.setAlpha(0);
+                backgroundLayout.setY(viewInfo.getY());
+                final FrameLayout.LayoutParams backgroundLayoutParams = (FrameLayout.LayoutParams) backgroundLayout.getLayoutParams();
+                backgroundLayoutParams.height = viewInfo.getHeight();
+                backgroundLayout.setLayoutParams(backgroundLayoutParams);
+            }
+        });
     }
 
     @Override
     protected void initListeners(@Nullable View... views) {
-        toolbar.setNavigationOnClickListener(this);
+        super.initListeners(views);
         appBarLayout.addOnOffsetChangedListener(new AppBarStateChangeListener() {
             @Override
             public void onStateChanged(AppBarLayout appBarLayout, State state) {
                 if (state == State.COLLAPSED) {
-                    toolbar.getNavigationIcon().setTint(getResources().getColor(R.color.defaultIconTint));
-                    toolbarTitle.setTextColor(getResources().getColor(R.color.black));
                     loveButton.getDrawable().setTint(getResources().getColor(R.color.defaultIconTint));
+                    moreButton.getDrawable().setTint(getResources().getColor(R.color.defaultIconTint));
+                    closeButton.getDrawable().setTint(getResources().getColor(R.color.defaultIconTint));
                 } else {
-                    toolbar.getNavigationIcon().setTint(getResources().getColor(R.color.white));
                     loveButton.getDrawable().setTint(getResources().getColor(R.color.white));
-                    toolbarTitle.setTextColor(getResources().getColor(R.color.white));
+                    moreButton.getDrawable().setTint(getResources().getColor(R.color.white));
+                    closeButton.getDrawable().setTint(getResources().getColor(R.color.white));
                 }
 
             }
         });
     }
 
-    private void initAnimation() {
-        toolbar.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                ObjectAnimator animator = ObjectAnimator.ofFloat(toolbar, "translationY", -240, 0);
-                ObjectAnimator animator1 = ObjectAnimator.ofFloat(toolbar, "alpha", 0, 1);
-                AnimatorSet set = new AnimatorSet();
-                set.playTogether(animator, animator1);
-                set.setDuration(400);
-                set.setInterpolator(new DecelerateInterpolator());
-                set.start();
-            }
-        }, 600);
-
-        title.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                ObjectAnimator animator = ObjectAnimator.ofFloat(title, "translationY", 100, 0);
-                ObjectAnimator animator1 = ObjectAnimator.ofFloat(title, "alpha", 0, 1);
-                AnimatorSet set = new AnimatorSet();
-                set.playTogether(animator, animator1);
-                set.setDuration(400);
-                set.setInterpolator(new DecelerateInterpolator());
-                set.start();
-            }
-        }, 600);
-
-        author.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                ObjectAnimator animator = ObjectAnimator.ofFloat(author, "translationY", 100, 0);
-                ObjectAnimator animator1 = ObjectAnimator.ofFloat(author, "alpha", 0, 1);
-                AnimatorSet set = new AnimatorSet();
-                set.playTogether(animator, animator1);
-                set.setDuration(300);
-                set.setInterpolator(new DecelerateInterpolator());
-                set.start();
-            }
-        }, 700);
-
-        content.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                ObjectAnimator animator = ObjectAnimator.ofFloat(content, "translationY", 100, 0);
-                ObjectAnimator animator1 = ObjectAnimator.ofFloat(content, "alpha", 0, 1);
-                AnimatorSet set = new AnimatorSet();
-                set.playTogether(animator, animator1);
-                set.setDuration(200);
-                set.setInterpolator(new DecelerateInterpolator());
-                set.start();
-            }
-        }, 800);
-
-
-    }
-
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.interview_detail_toolbar:
-                onBackPressed();
+            case R.id.toolbarCloseButton:
+                closeButton.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        onBackPressed();
+                    }
+                }, 100);
+                break;
+            case R.id.toolbarLoveButton:
+                presenter.onLoveClick(bean);
+                break;
         }
+    }
+
+    @Override
+    public InterviewDetailPresenter initPresenter() {
+        return new InterviewDetailPresenter();
+    }
+
+    @Override
+    public void doExitAnimation() {
+        final int ANIMATION_DURATION = 350;
+        final float screenHeight = DensityUtil.getScreenHeight();
+        final int appBarHeight = DensityUtil.dip2px(80);
+
+        final ObjectAnimator alphaAnimation = ObjectAnimator.ofFloat(backgroundLayout, "alpha", 1, 0);
+        alphaAnimation.setDuration((long) (ANIMATION_DURATION * 0.5));
+
+        final FrameLayout.LayoutParams backgroundLayoutParams = (FrameLayout.LayoutParams) backgroundLayout.getLayoutParams();
+        final Animation backgroundLayoutAnimation = new Animation() {
+            @Override
+            protected void applyTransformation(float interpolatedTime, Transformation t) {
+                backgroundLayoutParams.height = (int) (screenHeight - (screenHeight - viewInfo.getHeight()) * interpolatedTime);
+                backgroundLayout.setLayoutParams(backgroundLayoutParams);
+                backgroundLayout.setY(viewInfo.getY() * interpolatedTime);
+                fakeAppbarLayout.setY(-appBarHeight * (1 - interpolatedTime));
+            }
+        };
+        backgroundLayoutAnimation.setDuration(ANIMATION_DURATION);
+        backgroundLayoutAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
+        backgroundLayoutAnimation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                alphaAnimation.start();
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        backgroundLayout.startAnimation(backgroundLayoutAnimation);
+    }
+
+    @Override
+    public void doEnterAnimation() {
+        final int ANIMATION_DURATION = 350;
+        final float screenHeight = DensityUtil.getScreenHeight();
+        final int appBarHeight = DensityUtil.dip2px(80);
+
+        scrollView.setVisibility(View.VISIBLE);
+
+        final ObjectAnimator alphaAnimation = ObjectAnimator.ofFloat(backgroundLayout, "alpha", 0, 1);
+        alphaAnimation.setDuration((long) (ANIMATION_DURATION * 0.8));
+        alphaAnimation.setStartDelay((long) (ANIMATION_DURATION * 0.5));
+
+        final FrameLayout.LayoutParams backgroundLayoutParams = (FrameLayout.LayoutParams) backgroundLayout.getLayoutParams();
+        final Animation backgroundLayoutAnimation = new Animation() {
+            @Override
+            protected void applyTransformation(float interpolatedTime, Transformation t) {
+                backgroundLayoutParams.height = (int) (viewInfo.getHeight() + (screenHeight - viewInfo.getHeight()) * interpolatedTime);
+                backgroundLayout.setLayoutParams(backgroundLayoutParams);
+                backgroundLayout.setY(viewInfo.getY() * (1 - interpolatedTime));
+                if (isAppbarOverlay) {
+                    fakeAppbarLayout.setY(-appBarHeight * interpolatedTime);
+                } else {
+                    if (backgroundLayout.getY() <= appBarHeight) {
+                        fakeAppbarLayout.setY(-(appBarHeight - backgroundLayout.getY()));
+                    }
+                }
+            }
+        };
+        backgroundLayoutAnimation.setDuration(ANIMATION_DURATION);
+        backgroundLayoutAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
+        backgroundLayoutAnimation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                alphaAnimation.start();
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                title.setText(bean.getTitle());
+                author.setText(bean.getAuthor());
+                content.setText(bean.getContent());
+
+                toolbar.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        ObjectAnimator animator = ObjectAnimator.ofFloat(toolbar, "translationY", -240, 0);
+                        ObjectAnimator animator1 = ObjectAnimator.ofFloat(toolbar, "alpha", 0, 1);
+                        AnimatorSet set = new AnimatorSet();
+                        set.playTogether(animator, animator1);
+                        set.setDuration(350);
+                        set.setInterpolator(new DecelerateInterpolator());
+                        set.start();
+                    }
+                }, 50);
+
+                scrollView.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        ObjectAnimator animator = ObjectAnimator.ofFloat(scrollView, "translationY", 100, 0);
+                        ObjectAnimator animator1 = ObjectAnimator.ofFloat(scrollView, "alpha", 0, 1);
+                        AnimatorSet set = new AnimatorSet();
+                        set.playTogether(animator, animator1);
+                        set.setDuration(350);
+                        set.setInterpolator(new DecelerateInterpolator());
+                        set.start();
+                    }
+                }, 50);
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        backgroundLayout.startAnimation(backgroundLayoutAnimation);
     }
 }

@@ -10,31 +10,39 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.xuan.qingya.Common.Constant;
-import com.xuan.qingya.Core.Base.BaseFragment;
+import com.xuan.qingya.Core.base.BaseFragment;
 import com.xuan.qingya.Modules.Settings.Account.AccountSettingsActivity;
 import com.xuan.qingya.R;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MainEntryFragment extends BaseFragment implements MainEntryContract.MainEntryView {
-
-    private ImageView avatarImage;
-    private MainEntryContract.MainEntryPresenter presenter;
-    private CardView avatarEntry, usernameEntry, signatureEntry, passwordEntry;
+public class MainEntryFragment extends BaseFragment<ViewContract, MainEntryPresenter> implements ViewContract {
+    @BindView(R.id.avatar)
+    ImageView avatarImage;
+    @BindView(R.id.changeAvatar)
+    CardView avatarEntry;
+    @BindView(R.id.changeUsername)
+    CardView usernameEntry;
+    @BindView(R.id.changeSignature)
+    CardView signatureEntry;
+    @BindView(R.id.changePassword)
+    CardView passwordEntry;
 
     public MainEntryFragment() {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
         mRootView = inflater.inflate(R.layout.fragment_account_settings_entry, container, false);
+        ButterKnife.bind(this, mRootView);
 
         init();
         initListeners(avatarEntry, usernameEntry, signatureEntry, passwordEntry);
@@ -42,40 +50,37 @@ public class MainEntryFragment extends BaseFragment implements MainEntryContract
         return mRootView;
     }
 
-    @Override
-    public void setPresenter(MainEntryContract.MainEntryPresenter presenter) {
-        this.presenter = presenter;
-    }
-
-    @Override
     public void init() {
-        avatarImage = $(R.id.avatar_image);
-        avatarEntry = $(R.id.change_avatar);
-        usernameEntry = $(R.id.change_username);
-        signatureEntry = $(R.id.change_signature);
-        passwordEntry = $(R.id.change_password);
-
-        RequestOptions options = RequestOptions.circleCropTransform();
-        Glide.with(this).load(R.drawable.a25).apply(options).into(avatarImage);
+        presenter.getAvatarImage();
     }
 
     @Override
     public void onClick(View view) {
         Intent intent = new Intent(getActivity(), AccountSettingsActivity.class);
         switch (view.getId()) {
-            case R.id.change_avatar:
+            case R.id.changeAvatar:
                 intent.putExtra(Constant.ENTRY_TYPE, Constant.FRAGMENT_ACCOUNT_SETTINGS_AVATAR);
                 break;
-            case R.id.change_password:
+            case R.id.changePassword:
                 intent.putExtra(Constant.ENTRY_TYPE, Constant.FRAGMENT_ACCOUNT_SETTINGS_PASSWORD);
                 break;
-            case R.id.change_signature:
+            case R.id.changeSignature:
                 intent.putExtra(Constant.ENTRY_TYPE, Constant.FRAGMENT_ACCOUNT_SETTINGS_SIGNATURE);
                 break;
-            case R.id.change_username:
+            case R.id.changeUsername:
                 intent.putExtra(Constant.ENTRY_TYPE, Constant.FRAGMENT_ACCOUNT_SETTINGS_USERNAME);
                 break;
         }
         startActivity(intent);
+    }
+
+    @Override
+    public MainEntryPresenter initPresenter() {
+        return new MainEntryPresenter();
+    }
+
+    @Override
+    public ImageView getAvatarContainer() {
+        return avatarImage;
     }
 }

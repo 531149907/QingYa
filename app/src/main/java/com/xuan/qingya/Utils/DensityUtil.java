@@ -16,10 +16,14 @@ public class DensityUtil {
     private static DisplayMetrics dm;
     private static float scale = 0.0f;
     private static float screenHeight = 0.0f;
+    private static float screenWidth = 0.0f;
 
     public static float getScreenHeight() {
-        screenHeight = dm.heightPixels;
         return screenHeight;
+    }
+
+    public static float getScreenWidth() {
+        return screenWidth;
     }
 
     /**
@@ -33,6 +37,9 @@ public class DensityUtil {
         setDmDensityDpi(dm.densityDpi);
         // 密度因子
         scale = getDmDensityDpi() / 160;
+        screenHeight = dm.heightPixels;
+        screenWidth = dm.widthPixels;
+
     }
 
     /**

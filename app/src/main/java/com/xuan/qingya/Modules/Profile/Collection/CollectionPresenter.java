@@ -1,105 +1,76 @@
 package com.xuan.qingya.Modules.Profile.Collection;
 
-import com.xuan.qingya.Common.Constant;
-import com.xuan.qingya.Models.Entity.ArticleBean;
-import com.xuan.qingya.Modules.Profile.ProfileContract;
-import com.xuan.qingya.R;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.xuan.qingya.Common.CacheKeys;
+import com.xuan.qingya.Core.base.BasePresenter;
+import com.xuan.qingya.Core.net.APIService;
+import com.xuan.qingya.Models.entity.Article;
+import com.xuan.qingya.Models.entity.User;
+import com.xuan.qingya.Models.entity.UserLove;
+import com.xuan.qingya.Utils.CacheUtil;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by zhouzhixuan on 2017/9/5.
  */
 
-public class CollectionPresenter implements ProfileContract.CollectionPresenter {
-    private ProfileContract.CollectionView view;
-
-    public CollectionPresenter(ProfileContract.CollectionView view) {
-        this.view = view;
-        view.setPresenter(this);
+public class CollectionPresenter extends BasePresenter<ViewContract> {
+    public void onLoveCancelClick(Article bean) {
+        /*todo: 取消收藏，更新后台数据库*/
+        bean.setLoved(!bean.isLoved());
     }
 
-    @Override
-    public void init() {
+    public void getListData() {
+        User user = (User) CacheUtil.get(getContext()).getAsObject(CacheKeys.USER_ENTITY);
+        APIService.getService().getCollections(user.getId()).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (isActivityAlive()) {
+                    List<UserLove> list = null;
+                    try {
+                        list = new Gson().fromJson(response.body().string(), new TypeToken<List<UserLove>>() {
+                        }.getType());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    final List<Article> data = new ArrayList<>();
+                    if (list != null) {
+                        for (UserLove userLove : list) {
+                            APIService.getService().getArticle(userLove.getContentId()).enqueue(new Callback<ResponseBody>() {
+                                @Override
+                                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                    try {
+                                        data.add(new Gson().fromJson(response.body().string(), Article.class));
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
 
-    }
+                                @Override
+                                public void onFailure(Call<ResponseBody> call, Throwable t) {
 
-    @Override
-    public void onLoveCancel(ArticleBean bean) {
-        boolean oldValue = bean.isLoved();
-        bean.setLoved(!oldValue);
-    }
+                                }
+                            });
+                        }
+                    }
+                    getMvpView().showList(data);
+                }
+            }
 
-    @Override
-    public List<ArticleBean> getData() {
-        List<ArticleBean> list = new ArrayList<>();
-        ArticleBean bean;
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
 
-        bean = new ArticleBean();
-        bean.setTitle("dsfsdfdsff");
-        bean.setAuthor("ssfsddf");
-        bean.setType(Constant.CONTENT_DISCOVER_ARTICLE_IMAGE);
-        bean.setCover_img(R.drawable.a3);
-        list.add(bean);
-
-        bean = new ArticleBean();
-        bean.setTitle("dsfsdfdsff");
-        bean.setAuthor("ssfsddf");
-        bean.setType(Constant.CONTENT_DISCOVER_ARTICLE_POEM);
-        bean.setCover_img(R.drawable.a4);
-        list.add(bean);
-
-        bean = new ArticleBean();
-        bean.setTitle("dsfsdfdsff");
-        bean.setAuthor("ssfsddf");
-        bean.setType(Constant.CONTENT_DISCOVER_ARTICLE_READ);
-        bean.setCover_img(R.drawable.a5);
-        list.add(bean);
-
-        bean = new ArticleBean();
-        bean.setTitle("dsfsdfdsff");
-        bean.setAuthor("ssfsddf");
-        bean.setType(Constant.CONTENT_DISCOVER_MOVIE);
-        bean.setCover_img(R.drawable.a6);
-        list.add(bean);
-
-        bean = new ArticleBean();
-        bean.setTitle("dsfsdfdsff");
-        bean.setAuthor("ssfsddf");
-        bean.setType(Constant.CONTENT_DISCOVER_MUSIC);
-        bean.setCover_img(R.drawable.a7);
-        list.add(bean);
-
-        bean = new ArticleBean();
-        bean.setTitle("dsfsdfdsff");
-        bean.setAuthor("ssfsddf");
-        bean.setType(Constant.CONTENT_DISCOVER_PHOTOGRAPHY);
-        bean.setCover_img(R.drawable.a8);
-        list.add(bean);
-
-        bean = new ArticleBean();
-        bean.setTitle("dsfsdfdsff");
-        bean.setAuthor("ssfsddf");
-        bean.setType(Constant.CONTENT_DISCOVER_QUESTION);
-        bean.setCover_img(R.drawable.a9);
-        list.add(bean);
-
-        bean = new ArticleBean();
-        bean.setTitle("dsfsdfdsff");
-        bean.setAuthor("ssfsddf");
-        bean.setType(Constant.CONTENT_INTERVIEW_IMAGE);
-        bean.setCover_img(R.drawable.a10);
-        list.add(bean);
-
-        bean = new ArticleBean();
-        bean.setTitle("dsfsdfdsff");
-        bean.setAuthor("ssfsddf");
-        bean.setType(Constant.CONTENT_INTERVIEW_VIDEO);
-        bean.setCover_img(R.drawable.a11);
-        list.add(bean);
-
-        return list;
+            }
+        });
     }
 
 

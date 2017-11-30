@@ -8,11 +8,17 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.xuan.qingya.Core.Base.BaseActivity;
+import com.xuan.qingya.Core.base.BaseActivity;
+import com.xuan.qingya.Core.base.BasePresenter;
 import com.xuan.qingya.R;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class BannerActivity extends BaseActivity {
+    @BindView(R.id.webview)
     WebView webView;
+    @BindView(R.id.toolbar)
     Toolbar toolbar;
 
     @Override
@@ -20,16 +26,19 @@ public class BannerActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_banner);
         isNotTransparentStatusBar();
+        ButterKnife.bind(this);
 
         init();
+    }
+
+    @Override
+    public BasePresenter initPresenter() {
+        return null;
     }
 
     private void init() {
         Intent intent = getIntent();
         int selectedBannerID = intent.getIntExtra("currentBannerID", 0);
-
-        webView = $(R.id.webview);
-        toolbar = $(R.id.toolbar);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -39,7 +48,7 @@ public class BannerActivity extends BaseActivity {
         webView.getSettings().setSupportMultipleWindows(true);
         webView.setWebViewClient(new WebViewClient());
         webView.setWebChromeClient(new WebChromeClient());
-        webView.loadUrl("http://www.taobao.com/");
+        webView.loadUrl("http://www.baidu.com/");
 
         toolbar.setTitle("WebView");
     }

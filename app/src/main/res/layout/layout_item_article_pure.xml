@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rootLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:foreground="?android:attr/selectableItemBackground"
     app:cardCornerRadius="0dp">
 
     <LinearLayout
+        android:id="@+id/backgroundLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -49,18 +51,16 @@
                 android:textColor="@color/grey"
                 android:textSize="12sp" />
 
-            <TextView
+            <com.robinhood.ticker.TickerView
                 android:id="@+id/item_love_counter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_gravity="right"
-                android:paddingBottom="@dimen/default_margin"
-                android:paddingEnd="@dimen/default_margin"
-                android:paddingTop="@dimen/default_margin"
-                android:text="657"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:textColor="@color/grey"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:layout_marginTop="@dimen/default_margin"
+                android:paddingRight="@dimen/default_margin" />
 
             <ImageButton
                 android:id="@+id/item_love_btn"

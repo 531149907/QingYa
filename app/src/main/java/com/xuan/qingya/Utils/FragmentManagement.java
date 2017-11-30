@@ -31,7 +31,7 @@ public class FragmentManagement {
 
         transaction.addToBackStack(null);
         transaction.replace(frameId, fragment);
-        transaction.commit();
+        transaction.commitAllowingStateLoss();
     }
 
     public static void switchFragment(FragmentManager fragmentManager, Fragment fragment, int frameId, boolean isAddToBackStack) {

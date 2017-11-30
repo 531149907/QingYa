@@ -10,24 +10,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.xuan.qingya.Core.Base.BaseFragment;
-import com.xuan.qingya.Core.Base.BasePresenter;
-import com.xuan.qingya.Models.Entity.InterviewBean;
+import com.xuan.qingya.Common.RecyclerConfig.ItemOffsetDecoration;
+import com.xuan.qingya.Core.base.BaseFragment;
+import com.xuan.qingya.Models.entity.Interview;
 import com.xuan.qingya.Modules.Main.MainActivity;
-import com.xuan.qingya.Modules.Main.MainContract;
 import com.xuan.qingya.R;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * A simple {@link Fragment} subclass.
  */
-public class InterviewFragment extends BaseFragment implements MainContract.InterviewView {
-
-    private MainContract.InterviewPresenter presenter;
-
-    private List<InterviewBean> data;
-    private RecyclerView recyclerView;
+public class InterviewFragment extends BaseFragment<ViewContract, InterviewPresenter> implements ViewContract {
+    @BindView(R.id.recyclerView)
+    RecyclerView recyclerView;
     private InterviewRecyclerViewAdapter adapter;
 
     public InterviewFragment() {
@@ -38,8 +37,9 @@ public class InterviewFragment extends BaseFragment implements MainContract.Inte
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        super.onCreateView(inflater, container, savedInstanceState);
         mRootView = inflater.inflate(R.layout.fragment_interview, container, false);
+        ButterKnife.bind(this, mRootView);
 
         init();
         initListeners();
@@ -51,31 +51,32 @@ public class InterviewFragment extends BaseFragment implements MainContract.Inte
     protected void initListeners(@Nullable View... views) {
         adapter.addOnClickListener(new InterviewRecyclerViewAdapter.OnItemClickListener() {
             @Override
-            public void onClick(View view, InterviewBean bean, int position) {
+            public void onClick(View view, Interview bean, int position) {
+
             }
         });
     }
 
     @Override
-    public void setPresenter(MainContract.InterviewPresenter presenter) {
-        this.presenter = presenter;
+    public InterviewPresenter initPresenter() {
+        return new InterviewPresenter();
     }
 
-    @Override
-    public void init() {
-        data = presenter.getListData();
-        adapter = new InterviewRecyclerViewAdapter(getActivity(), data, presenter);
 
-        recyclerView = $(R.id.interview_recyclerview);
+    public void init() {
+        adapter = new InterviewRecyclerViewAdapter(getContext(), recyclerView, presenter);
+
         recyclerView.setAdapter(adapter);
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.addItemDecoration(new ItemOffsetDecoration(16));
         recyclerView.getItemAnimator().setChangeDuration(0);
         ((MainActivity) getActivity()).getViewPager().setObjectForPosition(mRootView, 1);
+        presenter.getListData();
     }
 
     @Override
-    public void startActivity(Class<?> target, BasePresenter presenter, @Nullable Bundle bundle, @Nullable String extra) {
-
+    public void showList(List<Interview> list) {
+        adapter.setData(list);
     }
 }

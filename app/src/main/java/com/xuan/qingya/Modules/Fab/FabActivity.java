@@ -4,6 +4,7 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.graphics.Path;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.PopupMenu;
@@ -11,82 +12,52 @@ import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageButton;
 
-import com.xuan.qingya.Core.Base.BaseActivity;
+import com.xuan.qingya.Core.base.BaseActivity;
 import com.xuan.qingya.Modules.Fab.FabAnimation.FabAnimation;
 import com.xuan.qingya.R;
 import com.xuan.qingya.Utils.DensityUtil;
 
-public class FabActivity extends BaseActivity {
-    private FloatingActionButton mainFab, playFab, historyFab;
-    private CardView playCard, historyCard, historyPanel, playPanel;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+public class FabActivity extends BaseActivity<ViewContract, FabPresenter> implements ViewContract {
+
+    @BindView(R.id.main_fab)
+    FloatingActionButton mainFab;
+    @BindView(R.id.fab_playing)
+    FloatingActionButton playFab;
+    @BindView(R.id.fab_history)
+    FloatingActionButton historyFab;
+    @BindView(R.id.card_playing)
+    CardView playCard;
+    @BindView(R.id.card_history)
+    CardView historyCard;
+    @BindView(R.id.history_panel)
+    CardView historyPanel;
+    @BindView(R.id.play_panel)
+    CardView playPanel;
+    @BindView(R.id.select_year)
+    ImageButton select_year;
+    @BindView(R.id.select_month)
+    ImageButton select_month;
+
     private FabAnimation fabAnimation, fabAnimation2;
-    private ImageButton select_year, select_month;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fab);
-
+        ButterKnife.bind(this);
         isTransparentStatusBar();
 
         overridePendingTransition(R.anim.activity_alpha_in, R.anim.activity_alpha_out);
         init();
         initListeners(mainFab, historyFab, playFab, select_year, select_month);
-
-        fabAnimation = new FabAnimation(historyFab, historyPanel);
-        fabAnimation2 = new FabAnimation(playFab, playPanel);
-
-        fabAnimation.setOnAnimateListener(new FabAnimation.OnAnimateListener() {
-            @Override
-            public void onAnimationEnd() {
-
-            }
-
-            @Override
-            public void onAnimationStart() {
-                ObjectAnimator animator1 = ObjectAnimator.ofFloat(historyCard, "alpha", 1, 0);
-                ObjectAnimator animator2 = ObjectAnimator.ofFloat(playCard, "alpha", 1, 0);
-                ObjectAnimator animator3 = ObjectAnimator.ofFloat(playFab, "alpha", 1, 0);
-
-                AnimatorSet animatorSet = new AnimatorSet();
-                animatorSet.playTogether(animator1, animator2, animator3);
-                animatorSet.setDuration(200);
-                animatorSet.start();
-
-            }
-        });
-
-        fabAnimation2.setOnAnimateListener(new FabAnimation.OnAnimateListener() {
-            @Override
-            public void onAnimationEnd() {
-
-            }
-
-            @Override
-            public void onAnimationStart() {
-                ObjectAnimator animator1 = ObjectAnimator.ofFloat(historyCard, "alpha", 1, 0);
-                ObjectAnimator animator2 = ObjectAnimator.ofFloat(playCard, "alpha", 1, 0);
-                ObjectAnimator animator3 = ObjectAnimator.ofFloat(historyFab, "alpha", 1, 0);
-
-                AnimatorSet animatorSet = new AnimatorSet();
-                animatorSet.playTogether(animator1, animator2, animator3);
-                animatorSet.setDuration(200);
-                animatorSet.start();
-            }
-        });
-
     }
 
     private void init() {
-        mainFab = $(R.id.main_fab);
-        playFab = $(R.id.fab_playing);
-        historyFab = $(R.id.fab_history);
-        playCard = $(R.id.card_playing);
-        historyCard = $(R.id.card_history);
-        playPanel = $(R.id.play_panel);
-        historyPanel = $(R.id.history_panel);
-        select_year = $(R.id.select_year);
-        select_month = $(R.id.select_month);
+        fabAnimation = new FabAnimation(historyFab, historyPanel);
+        fabAnimation2 = new FabAnimation(playFab, playPanel);
 
         mainFab.postDelayed(new Runnable() {
             @Override
@@ -97,7 +68,6 @@ public class FabActivity extends BaseActivity {
     }
 
     private void startFabAnimation() {
-
         playFab.setPivotX(60);
         playFab.setPivotY(120);
 
@@ -117,7 +87,7 @@ public class FabActivity extends BaseActivity {
         cardTranslationPath.moveTo(0, cardTranslationY);
         cardTranslationPath.lineTo(0, 0);
 
-        ObjectAnimator animator = ObjectAnimator.ofFloat(mainFab, "rotation", 0, 45);
+        ObjectAnimator animator = ObjectAnimator.ofFloat(mainFab, "rotation", 0, 135);
 
         ObjectAnimator animator1 = ObjectAnimator.ofFloat(playFab, "alpha", 0, 1);
         ObjectAnimator animator2 = ObjectAnimator.ofFloat(playFab, "scaleY", 0, 1);
@@ -154,10 +124,10 @@ public class FabActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.fab_history:
-                fabAnimation.start();
+                fabAnimation.startAnimation();
                 break;
             case R.id.fab_playing:
-                fabAnimation2.start();
+                fabAnimation2.startAnimation();
                 break;
             case R.id.select_year:
                 PopupMenu popupMenu = new PopupMenu(this, view);
@@ -175,6 +145,11 @@ public class FabActivity extends BaseActivity {
     }
 
     @Override
+    public FabPresenter initPresenter() {
+        return new FabPresenter();
+    }
+
+    @Override
     public void onBackPressed() {
         finish();
     }
@@ -185,4 +160,57 @@ public class FabActivity extends BaseActivity {
         overridePendingTransition(R.anim.activity_alpha_in, R.anim.activity_alpha_out);
     }
 
+    @Override
+    public void updateMusicTitle(String musicTitle) {
+
+    }
+
+    @Override
+    protected void initListeners(@Nullable View... views) {
+        super.initListeners(views);
+        fabAnimation.setOnAnimateListener(new FabAnimation.OnAnimateListener() {
+            @Override
+            public void onAnimationEnd() {
+                playFab.setVisibility(View.GONE);
+                historyFab.setVisibility(View.GONE);
+                playCard.setVisibility(View.GONE);
+                historyCard.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onAnimationStart() {
+                ObjectAnimator animator1 = ObjectAnimator.ofFloat(historyCard, "alpha", 1, 0);
+                ObjectAnimator animator2 = ObjectAnimator.ofFloat(playCard, "alpha", 1, 0);
+                ObjectAnimator animator3 = ObjectAnimator.ofFloat(playFab, "alpha", 1, 0);
+
+                AnimatorSet animatorSet = new AnimatorSet();
+                animatorSet.playTogether(animator1, animator2, animator3);
+                animatorSet.setDuration(200);
+                animatorSet.start();
+
+            }
+        });
+
+        fabAnimation2.setOnAnimateListener(new FabAnimation.OnAnimateListener() {
+            @Override
+            public void onAnimationEnd() {
+                playFab.setVisibility(View.GONE);
+                historyFab.setVisibility(View.GONE);
+                playCard.setVisibility(View.GONE);
+                historyCard.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onAnimationStart() {
+                ObjectAnimator animator1 = ObjectAnimator.ofFloat(historyCard, "alpha", 1, 0);
+                ObjectAnimator animator2 = ObjectAnimator.ofFloat(playCard, "alpha", 1, 0);
+                ObjectAnimator animator3 = ObjectAnimator.ofFloat(historyFab, "alpha", 1, 0);
+
+                AnimatorSet animatorSet = new AnimatorSet();
+                animatorSet.playTogether(animator1, animator2, animator3);
+                animatorSet.setDuration(200);
+                animatorSet.start();
+            }
+        });
+    }
 }

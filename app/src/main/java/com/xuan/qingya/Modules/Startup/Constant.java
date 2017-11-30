@@ -11,6 +11,6 @@ public final class Constant {
     public static final int INPUT_PASSWORD_CONFIRMED = 3;
     public static final int INPUT_SIGNATURE = 4;
     public static final int INPUT_VERIFICATION = 5;
-
-
+    public static final int INPUT_PASSWORD_OLD = 6;
+    public static final int INPUT_FEEDBACK = 7;
 }

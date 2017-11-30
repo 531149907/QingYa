@@ -1,8 +1,8 @@
 package com.xuan.qingya.Modules.Startup.ForgotPassword;
 
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -12,22 +12,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.xuan.qingya.Core.Base.BaseFragment;
-import com.xuan.qingya.Core.Base.BasePresenter;
+import com.xuan.qingya.Core.base.BaseFragment;
 import com.xuan.qingya.Modules.Startup.Constant;
 import com.xuan.qingya.Modules.Startup.StartupActivity;
-import com.xuan.qingya.Modules.Startup.StartupContract;
 import com.xuan.qingya.R;
-import com.xuan.qingya.Utils.FragmentManagement;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ForgotPasswordFragment extends BaseFragment implements StartupContract.ForgotPasswordView {
-    private TextInputLayout input_email;
-    private Button next_btn;
-
-    private StartupContract.ForgotPasswordPresenter presenter;
+public class ForgotPasswordFragment extends BaseFragment<ViewContract, ForgotPasswordPresenter> implements ViewContract {
+    @BindView(R.id.email_input)
+    TextInputLayout input_email;
+    @BindView(R.id.nextButton)
+    Button nextButton;
 
     public ForgotPasswordFragment() {
         // Required empty public constructor
@@ -36,27 +36,18 @@ public class ForgotPasswordFragment extends BaseFragment implements StartupContr
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
         mRootView = inflater.inflate(R.layout.fragment_forgot_password, container, false);
+        ButterKnife.bind(this, mRootView);
 
         init();
+        initListeners(nextButton);
 
         return mRootView;
     }
 
-    @Override
-    public void setPresenter(StartupContract.ForgotPasswordPresenter presenter) {
-        this.presenter = presenter;
-    }
-
-    @Override
     public void init() {
-
         ((StartupActivity) getActivity()).setToolbarTitle("忘记密码");
-
-        input_email = $(R.id.forgot_password_email_input);
-        next_btn = $(R.id.forgot_password_next_btn);
-
-        initListeners(next_btn);
 
         input_email.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
@@ -79,14 +70,20 @@ public class ForgotPasswordFragment extends BaseFragment implements StartupContr
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.forgot_password_next_btn:
-                presenter.onNext(input_email.getEditText().getText().toString());
+            case R.id.nextButton:
+                if (presenter.onNext(input_email.getEditText().getText().toString())) {
+                    Intent intent = new Intent(getActivity(), StartupActivity.class);
+                    intent.putExtra(com.xuan.qingya.Common.Constant.ENTRY_TYPE, com.xuan.qingya.Common.Constant.FRAGMENT_FORGOT_PASSWORD_NEXT);
+                    startActivity(intent);
+                    getActivity().finish();
+                }
+                break;
         }
     }
 
     @Override
-    public void startFragment(Fragment fragment, BasePresenter presenter, @Nullable String extra) {
-        FragmentManagement.switchFragment(getActivity().getSupportFragmentManager(), fragment, R.id.startup_container, true);
+    public ForgotPasswordPresenter initPresenter() {
+        return new ForgotPasswordPresenter();
     }
 
     @Override
